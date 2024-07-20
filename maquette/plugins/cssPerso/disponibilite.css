@@ -1,0 +1,19 @@
+.radioCheckbox-container {
+    display: flex;
+    justify-content: start; /* Allignement a gauche */
+    gap: 5%; /* Espace entre les radios */
+}
+
+.filtreJour{
+    margin-top: 1%;
+}
+
+.filtrer-bouton{
+    float: right;
+}
+
+.carte-jour {
+    display: flex;
+    justify-content: start; /* Aligne les cartes à gauche */
+    gap: 20px; /* Ajoute un espace entre chaque carte */
+}
