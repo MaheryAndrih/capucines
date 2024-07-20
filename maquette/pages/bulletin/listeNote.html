@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Selection note</title>
+        <title>Liste note</title>
         <!-- Google Font: Source Sans Pro -->
         <link
             rel="stylesheet"
@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="../../dist/css/adminlte.min.css" />
 
         <!-- Style perso -->
-        <link rel="stylesheet" href="../../plugins/cssPerso/disponibilite.css" />
+        <link rel="stylesheet" href="../../plugins/cssPerso/listeNote.css" />
     </head>
     <body class="hold-transition sidebar-mini">
         <!-- warpper -->
@@ -107,13 +107,14 @@
                   <div class="container-fluid">
                     <div class="row mb-2">
                       <div class="col-sm-6">
-                        <h1>Selection Note</h1>
+                        <h1>Liste Note</h1>
                       </div>
                       <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                           <li class="breadcrumb-item"><a href="#"><small>Acceuil</small></a></li>
                           <li class="breadcrumb-item"><small>Bulletin</small></li>
                           <li class="breadcrumb-item active"><small>Selection note</small></li>
+                          <li class="breadcrumb-item"><small>Liste</small></li>
                         </ol>
                       </div>
                     </div>
@@ -126,66 +127,83 @@
                 <section class="content">
                   <div class="container-fluid">
                     <div class="row">
-                      <div class="col-md-6 mx-auto">
-                        <div class="card card-primary">
+                      <div class="col-md-12 mx-auto">
+                        <div class="card">
                           <div class="card-header">
-                            <h3 class="card-title">Selection Note</h3>
+                            <h5 class="m-0">Liste des notes</h5>
                           </div>
-                          <!-- /.card-header -->
-                          <!-- form start -->
-                          <form>
-                            <div class="card-body">
-                              <div class="form-group">
-                                <label for="inputAnneeScolaire">Annee Scolaire</label>
-                                <input type="text" class="form-control" id="inputAnneeScolaire" placeholder="2024-2025" disabled>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-8">
+                                <button type="button" class="btn btn-block btn-secondary btn-xs bouton-export">Exporter pdf</button>
+                                <button type="button" class="btn btn-block btn-success btn-xs bouton-export" style="margin-top: 9%;">Ajouter</button>
+                                <button type="button" class="btn btn-block bg-gradient-warning btn-xs bouton-export">Tout supprimer</button>
                               </div>
-                              <div class="form-group">
-                                <label>Libelle</label>
-                                <select class="form-control">
-                                  <option>DS 1</option>
-                                  <option>DS 2</option>
-                                  <option>DS 3</option>
-                                  <option>DS 4</option>
-                                  <option>DS 5</option>
-                                  <option>DS 6</option>
-                                  <option>Examen 1er Trimestre</option>
-                                  <option>Examen 2eme Trimestre</option>
-                                  <option>Examen 3eme Trimestre</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label>Classe</label>
-                                <select class="form-control">
-                                  <option>Tle</option>
-                                  <option>1ere</option>
-                                  <option>2nd</option>
-                                  <option>3eme</option>
-                                  <option>4eme</option>
-                                  <option>5eme</option>
-                                  <option>6eme</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label>Matiere</label>
-                                <select class="form-control">
-                                  <option></option>
-                                  <option>Mathematique</option>
-                                  <option>Physique-Chimie</option>
-                                  <option>Francais</option>
-                                  <option>Malagasy</option>
-                                  <option>Histo-geo</option>
-                                  <option>Anglais</option>
-                                </select>
+                              <div class="col-4 petite-interligne">
+                                <p>Annee scolaire : 2024-2025</p>
+                                <p>Libelle : DS 1</p>
+                                <p>Classe : Terminale S</p>
+                                <p>Matiere : Philosophie</p>
+                                <p>Nombre : 35 eleves</p>
+                                <p>Moyenne : 16,32/20</p>
                               </div>
                             </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                              <a href="listeNote.html" class="btn btn-primary">Ajouter</a>
+                            <div class="row" style="margin-top: 2%;">
+                              <div class="col-12">
+                                <div class="card">
+                                  <div class="card-header">
+                                    <div class="card-tools">
+                                      <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    
+                                        <div class="input-group-append">
+                                          <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- /.card-header -->
+                                  <div class="card-body table-responsive p-0">
+                                    <table class="table table-hover text-nowrap">
+                                      <thead>
+                                        <tr>
+                                          <th>Matricule</th>
+                                          <th>Nom</th>
+                                          <th>Prenom</th>
+                                          <th>Note</th>
+                                          <th>Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <td>183</td>
+                                          <td>John</td>
+                                          <td>Doe</td>
+                                          <td>17/20</td>
+                                          <td><button type="button" class="btn btn-block bg-gradient-info btn-xs">Modifier</button></td>
+                                        </tr>
+                                        <tr>
+                                          <td>278</td>
+                                          <td>Miles</td>
+                                          <td>Davies</td>
+                                          <td>17.25/20</td>
+                                          <td><button type="button" class="btn btn-block bg-gradient-info btn-xs">Modifier</button></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                              </div>
                             </div>
-                          </form>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    
                     <!-- /.row -->
                   </div>
                   <!-- /.container-fluid -->
