@@ -54,22 +54,28 @@
                with font-awesome or any other icon font library -->
           <li class="nav-header">NOTES</li>
           <li class="nav-item">
-            <a href="../bulletin/ajoutNote.html" class="nav-link">
+            <a href="../note/ajoutNote.html" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>Ajout note</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="../bulletin/selectionNote.html" class="nav-link">
+            <a href="../note/selectionNote.html" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>Liste note</p>
             </a>
           </li>
           <li class="nav-header">BULLETINS</li>
           <li class="nav-item">
-            <a href="../bulletin/ajoutNote.html" class="nav-link">
+            <a href="../bulletin/genererBulletin.html" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>Generer bulletin</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../bulletin/selectionBulletin.html" class="nav-link">
+              <i class="nav-icon fas fa-tasks"></i>
+              <p>Liste bulletin</p>
             </a>
           </li>
           <li class="nav-header">ADMINISTRATION</li>
@@ -80,7 +86,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../administration/ajout_etudiant.html" class="nav-link">
+            <a href="../administration/ajout_etudiant.html" class="nav-link active">
               <i class="nav-icon fas fa-user"></i>
               <p>Ajout étudiant</p>
             </a>
@@ -106,8 +112,8 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Administration</a></li>
-              <li class="breadcrumb-item active">Ajout étudiant</li>
+              <li class="breadcrumb-item"><a href="#"><small>Eleve</small></a></li>
+              <li class="breadcrumb-item active"><small>Ajout étudiant</small></li>
             </ol>
           </div>
         </div>
@@ -140,20 +146,6 @@
                   <div class="form-group">
                     <label for="exampleInputPassword1">Prénom</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
-                  </div>
-                  <div class="form-group">
-                    <label>Libelle</label>
-                    <select class="form-control">
-                      <option>DS 1</option>
-                      <option>DS 2</option>
-                      <option>DS 3</option>
-                      <option>DS 4</option>
-                      <option>DS 5</option>
-                      <option>DS 6</option>
-                      <option>Examen 1er Trimestre</option>
-                      <option>Examen 2eme Trimestre</option>
-                      <option>Examen 3eme Trimestre</option>
-                    </select>
                   </div>
                 </div>
                 <!-- /.card-body -->

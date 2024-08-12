@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Liste note</title>
+        <title>Selection bulletin</title>
         <!-- Google Font: Source Sans Pro -->
         <link
             rel="stylesheet"
@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="../../dist/css/adminlte.min.css" />
 
         <!-- Style perso -->
-        <link rel="stylesheet" href="../../plugins/cssPerso/listeNote.css" />
+        <link rel="stylesheet" href="../../plugins/cssPerso/disponibilite.css" />
     </head>
     <body class="hold-transition sidebar-mini">
         <!-- warpper -->
@@ -61,26 +61,32 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-header">NOTES</li>
-          <li class="nav-item">
-            <a href="../bulletin/ajoutNote.html" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>Ajout note</p>
+        <li class="nav-header">NOTES</li>
+        <li class="nav-item">
+            <a href="../note/ajoutNote.html" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>Ajout note</p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="../bulletin/selectionNote.html" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>Liste note</p>
+        </li>
+        <li class="nav-item">
+            <a href="../note/selectionNote.html" class="nav-link">
+            <i class="nav-icon fas fa-book"></i>
+            <p>Liste note</p>
             </a>
-          </li>
-          <li class="nav-header">BULLETINS</li>
-          <li class="nav-item">
-            <a href="../bulletin/ajoutNote.html" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
-              <p>Generer bulletin</p>
+        </li>
+        <li class="nav-header">BULLETINS</li>
+        <li class="nav-item">
+            <a href="../bulletin/genererBulletin.html" class="nav-link">
+            <i class="nav-icon fas fa-file"></i>
+            <p>Generer bulletin</p>
             </a>
-          </li>
+        </li>
+        <li class="nav-item">
+            <a href="../bulletin/selectionBulletin.html" class="nav-link active">
+            <i class="nav-icon fas fa-tasks"></i>
+            <p>Liste bulletin</p>
+            </a>
+        </li>
           <li class="nav-header">ADMINISTRATION</li>
           <li class="nav-item">
             <a href="../utilisateur/liste_utilisateur.html" class="nav-link">
@@ -115,9 +121,8 @@
                     <div class="row mb-2">
                       <div class="col-sm-12">
                         <ol class="breadcrumb float-sm-right">
-                          <li class="breadcrumb-item"><a href="#"><small>Note</small></a></li>
-                          <li class="breadcrumb-item active"><a href="selectionNote.html"><small>Selection note</small></a></li>
-                          <li class="breadcrumb-item"><small>Liste</small></li>
+                          <li class="breadcrumb-item"><a href="#"><small>Bulletin</small></a></li>
+                          <li class="breadcrumb-item active"><small>Selection bulletin</small></li>
                         </ol>
                       </div>
                     </div>
@@ -130,83 +135,48 @@
                 <section class="content">
                   <div class="container-fluid">
                     <div class="row">
-                      <div class="col-md-12 mx-auto">
-                        <div class="card">
+                      <div class="col-md-6 mx-auto">
+                        <div class="card card-primary">
                           <div class="card-header">
-                            <h5 class="m-0">Liste des notes</h5>
+                            <h3 class="card-title">Selection Bulletin</h3>
                           </div>
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-8">
-                                <button type="button" class="btn btn-block btn-secondary btn-xs bouton-export">Exporter pdf</button>
-                                <button type="button" class="btn btn-block btn-success btn-xs bouton-export" style="margin-top: 9%;">Ajouter</button>
-                                <button type="button" class="btn btn-block bg-gradient-warning btn-xs bouton-export">Tout supprimer</button>
+                          <!-- /.card-header -->
+                          <!-- form start -->
+                          <form>
+                            <div class="card-body">
+                              <div class="form-group">
+                                <label for="inputAnneeScolaire">Annee Scolaire</label>
+                                <input type="text" class="form-control" id="inputAnneeScolaire" placeholder="2024-2025" disabled>
                               </div>
-                              <div class="col-4 petite-interligne">
-                                <p>Annee scolaire : 2024-2025</p>
-                                <p>Libelle : DS 1</p>
-                                <p>Classe : Terminale S</p>
-                                <p>Matiere : Philosophie</p>
-                                <p>Nombre : 35 eleves</p>
-                                <p>Moyenne : 16,32/20</p>
+                              <div class="form-group">
+                                <label>Libelle</label>
+                                <select class="form-control">
+                                  <option>Examen 1er Trimestre</option>
+                                  <option>Examen 2eme Trimestre</option>
+                                  <option>Examen 3eme Trimestre</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label>Classe</label>
+                                <select class="form-control">
+                                  <option>Tle</option>
+                                  <option>1ere</option>
+                                  <option>2nd</option>
+                                  <option>3eme</option>
+                                  <option>4eme</option>
+                                  <option>5eme</option>
+                                  <option>6eme</option>
+                                </select>
                               </div>
                             </div>
-                            <div class="row" style="margin-top: 2%;">
-                              <div class="col-12">
-                                <div class="card">
-                                  <div class="card-header">
-                                    <div class="card-tools">
-                                      <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                    
-                                        <div class="input-group-append">
-                                          <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- /.card-header -->
-                                  <div class="card-body table-responsive p-0">
-                                    <table class="table table-hover text-nowrap">
-                                      <thead>
-                                        <tr>
-                                          <th>Matricule</th>
-                                          <th>Nom</th>
-                                          <th>Prenom</th>
-                                          <th>Note</th>
-                                          <th>Action</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <td>183</td>
-                                          <td>John</td>
-                                          <td>Doe</td>
-                                          <td>17/20</td>
-                                          <td><button type="button" class="btn btn-block bg-gradient-info btn-xs">Modifier</button></td>
-                                        </tr>
-                                        <tr>
-                                          <td>278</td>
-                                          <td>Miles</td>
-                                          <td>Davies</td>
-                                          <td>17.25/20</td>
-                                          <td><button type="button" class="btn btn-block bg-gradient-info btn-xs">Modifier</button></td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                  <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-                              </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                              <a href="listeBulletin.html" class="btn btn-primary">Valider</a>
                             </div>
-                          </div>
+                          </form>
                         </div>
                       </div>
                     </div>
-                    
                     <!-- /.row -->
                   </div>
                   <!-- /.container-fluid -->

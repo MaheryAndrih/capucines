@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Ajout note</title>
+        <title>Selection note</title>
         <!-- Google Font: Source Sans Pro -->
         <link
             rel="stylesheet"
@@ -63,22 +63,28 @@
                with font-awesome or any other icon font library -->
           <li class="nav-header">NOTES</li>
           <li class="nav-item">
-            <a href="../bulletin/ajoutNote.html" class="nav-link">
+            <a href="../note/ajoutNote.html" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>Ajout note</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="../bulletin/selectionNote.html" class="nav-link">
+            <a href="../note/selectionNote.html" class="nav-link active">
               <i class="nav-icon fas fa-book"></i>
               <p>Liste note</p>
             </a>
           </li>
           <li class="nav-header">BULLETINS</li>
           <li class="nav-item">
-            <a href="../bulletin/ajoutNote.html" class="nav-link">
+            <a href="../bulletin/genererBulletin.html" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>Generer bulletin</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../bulletin/selectionBulletin.html" class="nav-link">
+              <i class="nav-icon fas fa-tasks"></i>
+              <p>Liste bulletin</p>
             </a>
           </li>
           <li class="nav-header">ADMINISTRATION</li>
@@ -116,7 +122,7 @@
                       <div class="col-sm-12">
                         <ol class="breadcrumb float-sm-right">
                           <li class="breadcrumb-item"><a href="#"><small>Note</small></a></li>
-                          <li class="breadcrumb-item active"><small>Ajout note</small></li>
+                          <li class="breadcrumb-item active"><small>Selection note</small></li>
                         </ol>
                       </div>
                     </div>
@@ -132,7 +138,7 @@
                       <div class="col-md-6 mx-auto">
                         <div class="card card-primary">
                           <div class="card-header">
-                            <h3 class="card-title">Ajouter Note</h3>
+                            <h3 class="card-title">Selection Note</h3>
                           </div>
                           <!-- /.card-header -->
                           <!-- form start -->
@@ -180,20 +186,10 @@
                                   <option>Anglais</option>
                                 </select>
                               </div>
-                              <div class="form-group">
-                                <label for="exampleInputFile">Importer</label>
-                                <div class="input-group">
-                                  <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choisir le fichier</label>
-                                  </div>
-                                </div>
-                              </div>
                             </div>
                             <!-- /.card-body -->
-            
                             <div class="card-footer">
-                              <button type="submit" class="btn btn-primary">Ajouter</button>
+                              <a href="listeNote.html" class="btn btn-primary">Valider</a>
                             </div>
                           </form>
                         </div>
