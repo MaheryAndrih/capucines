@@ -185,6 +185,7 @@ create table classe_matiere_coefficient(
     id_classe char(9) references classe(id) not null,
     id_matiere char(9) references matiere(id) not null,
     coefficient int not null check(coefficient >= 1),
+    point int check(point == 10 or point == 20)
     unique(id_classe,id_matiere)
 );
 
@@ -325,6 +326,28 @@ INSERT INTO classe_epreuve (id_classe, id_epreuve) VALUES
 ('CLS000006', 'EPR000008'),
 ('CLS000006', 'EPR000009');
 
+create table appreciation(
+    id char(9) primary key,
+    debut int not null,
+    fin int not null,
+    appreciation varchar(40) not null,
+    unique(debut,fin)
+);
+
+//select * from appreciation where debut <= 14 and fin > 14;
+
+create sequence appreciation_seq
+    start with 1
+    increment by 1
+    minvalue 1;
+
+INSERT INTO appreciation (id, debut, fin, appreciation) VALUES
+('APR' || RIGHT('000000' || nextval('appreciation_seq'), 6),0,10,'Passable'),
+('APR' || RIGHT('000000' || nextval('appreciation_seq'), 6),10,12,'Passable'),
+('APR' || RIGHT('000000' || nextval('appreciation_seq'), 6),12,14,'Assez bien'),
+('APR' || RIGHT('000000' || nextval('appreciation_seq'), 6),14,16,'Bien'),
+('APR' || RIGHT('000000' || nextval('appreciation_seq'), 6),16,20,'Trés bien');
+
 create table note(
     id char(9) primary key,
     id_classe char(9) references classe(id) not null,
@@ -379,7 +402,18 @@ INSERT INTO note (id, id_classe, id_eleve, id_epreuve, id_matiere, note) VALUES
 ('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000005', 'ELV000023', 'EPR000007', 'MAT000012', 19.0),
 ('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000006', 'ELV000030', 'EPR000009', 'MAT000003', 13.0);
 
+CREATE or REPLACE View v_note_classe as
+    select classe_matiere_coefficient.id_classe, classe_matiere_coefficient.id_matiere,classe_matiere_coefficient.coefficient,
+    classe_epreuve.id_epreuve,
+    eleve.id, eleve.nom, eleve.prenom,
+    COALESCE(note.note,0) as note
+    from classe_matiere_coefficient
+    left join classe_epreuve on classe_epreuve.id_classe=classe_matiere_coefficient.id_classe
+    left join classe_eleve on classe_eleve.id_classe=classe_matiere_coefficient.id_classe
+    left join eleve on eleve.id=classe_eleve.id_eleve
+    left join note on note.id_classe=classe_matiere_coefficient.id_classe 
+        and note.id_matiere=classe_matiere_coefficient.id_matiere 
+        and note.id_eleve=eleve.id
+        and note.id_epreuve=classe_epreuve.id_epreuve;
 
-
-
-
+DELETE FROM classe_matiere_coefficient WHERE id_matiere='MAT000012';
