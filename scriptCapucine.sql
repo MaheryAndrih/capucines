@@ -63,14 +63,14 @@ insert into classe values
 ('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'4e','4e'),
 ('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'3e','3e'),
 ('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'2nd','2nd'),
-('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'1ere_S','1ere_S'),
-('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'1ere_L','1ere_L'),
+('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'1ère_S','1ère_S'),
+('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'1ère_L','1ère_L'),
 ('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'Terminale_A','Tle_A'),
 ('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'Terminale_C','Tle_C'),
 ('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'Terminale_D','Tle_D'),
-('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'Iere_annee_G2','G2_I'),
-('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'IIeme_annee_G2','G2_II'),
-('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'IIIeme_annee_G2','G2_III');
+('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'Ière_année_G2','G2_I'),
+('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'IIème_année_G2','G2_II'),
+('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'IIIème_année_G2','G2_III');
 
 create table matiere(
     id char(9) primary key,
@@ -85,11 +85,11 @@ create sequence matiere_seq
     minvalue 1;
 
 insert into matiere values
-('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Mathematique','MATH'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Mathématique','MATH'),
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Physique-Chimie','PC'),
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Francais','FRS'),
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Science de la vie et de la terre','SVT'),
-('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Histoire-Geographie','HG'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Histoire-Géographie','HG'),
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Education Civique','EC'),
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Education Physique et Sportive','EPS'),
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Anglais','ANG'),
