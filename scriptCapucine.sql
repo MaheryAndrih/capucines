@@ -1,3 +1,18 @@
+drop table utilisateur;
+drop sequence utilisateur_seq;
+drop table epreuve cascade;
+drop sequence epreuve_seq;
+drop table classe cascade;
+drop sequence classe_seq;
+drop table matiere cascade;
+drop sequence matiere_seq;
+drop table eleve cascade;
+drop sequence eleve_seq;
+drop table note;
+drop sequence note_seq;
+delete from classe_matiere_coefficient cascade;
+
+
 create table utilisateur(
     id char(9) primary key,
     username varchar(40) not null,
@@ -185,7 +200,6 @@ create table classe_matiere_coefficient(
     id_classe char(9) references classe(id) not null,
     id_matiere char(9) references matiere(id) not null,
     coefficient int not null check(coefficient >= 1),
-    point int check(point == 10 or point == 20)
     unique(id_classe,id_matiere)
 );
 
@@ -334,7 +348,7 @@ create table appreciation(
     unique(debut,fin)
 );
 
-//select * from appreciation where debut <= 14 and fin > 14;
+
 
 create sequence appreciation_seq
     start with 1
