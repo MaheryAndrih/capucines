@@ -14,7 +14,7 @@ delete from classe_matiere_coefficient cascade;
 
 
 create table utilisateur(
-    id char(9) primary key,
+    id_utilisateur char(9) primary key,
     username varchar(40) not null,
     password varchar(40) unique not null
 );
@@ -30,7 +30,7 @@ insert into utilisateur values
 ('USR' || RIGHT('000000' || nextval('utilisateur_seq'), 6),'rija','rija');
 
 create table epreuve(
-    id char(9) primary key,
+    id_epreuve char(9) primary key,
     nom_epreuve varchar(50) not null,
     code_epreuve varchar(5) not null,
     unique(nom_epreuve,code_epreuve)
@@ -53,7 +53,7 @@ insert into epreuve values
 ('EPR' || RIGHT('000000' || nextval('epreuve_seq'), 6),'Examen Trimestriel III','ExIII');
 
 create table classe(
-    id char(9) primary key,
+    id_classe char(9) primary key,
     nom_classe varchar(30) not null,
     code_classe varchar(10) not null,
     unique(nom_classe,code_classe)
@@ -88,7 +88,7 @@ insert into classe values
 ('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'IIIème_année_G2','G2_III');
 
 create table matiere(
-    id char(9) primary key,
+    id_matiere char(9) primary key,
     nom_matiere varchar(50) not null,
     code_matiere varchar(5) not null,
     unique(nom_matiere,code_matiere)
@@ -114,7 +114,7 @@ insert into matiere values
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Coloriage','CLR');
 
 create table eleve(
-    id char(9) primary key,
+    id_eleve char(9) primary key,
     nom varchar(30) not null,
     prenom varchar(30) not null,
     dtn date check (dtn <= NOW())
@@ -125,7 +125,7 @@ create sequence eleve_seq
     increment by 1
     minvalue 1;
 
-INSERT INTO eleve( id, nom, prenom, dtn ) VALUES 
+INSERT INTO eleve VALUES 
 ('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMIADANA', 'Joronavalona', '2006-12-01'),
 ('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RATSIMBAZAFY', 'Mialy', '2007-12-01'),
 ('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAKOTOMANANA', 'Nantenaina', '2008-12-01'),
@@ -159,8 +159,8 @@ INSERT INTO eleve( id, nom, prenom, dtn ) VALUES
 
 
 create table classe_eleve(
-    id_classe char(9) references classe(id),
-    id_eleve char(9) references eleve(id),
+    id_classe char(9) references classe(id_classe),
+    id_eleve char(9) references eleve(id_eleve),
     unique(id_eleve,id_classe)
 );
 
@@ -197,8 +197,8 @@ INSERT INTO classe_eleve( id_classe,id_eleve ) VALUES
 ( 'CLS000006', 'ELV000030');
 
 create table classe_matiere_coefficient(
-    id_classe char(9) references classe(id) not null,
-    id_matiere char(9) references matiere(id) not null,
+    id_classe char(9) references classe(id_classe) not null,
+    id_matiere char(9) references matiere(id_matiere) not null,
     coefficient int not null check(coefficient >= 1),
     unique(id_classe,id_matiere)
 );
@@ -279,8 +279,8 @@ INSERT INTO classe_matiere_coefficient(id_classe, id_matiere, coefficient) VALUE
 
 
 CREATE TABLE classe_epreuve (
-    id_classe CHAR(9) REFERENCES classe(id) NOT NULL,
-    id_epreuve CHAR(9) REFERENCES epreuve(id) NOT NULL,
+    id_classe CHAR(9) REFERENCES classe(id_classe) NOT NULL,
+    id_epreuve CHAR(9) REFERENCES epreuve(id_epreuve) NOT NULL,
     UNIQUE(id_classe, id_epreuve)
 );
 
@@ -341,7 +341,7 @@ INSERT INTO classe_epreuve (id_classe, id_epreuve) VALUES
 ('CLS000006', 'EPR000009');
 
 create table appreciation(
-    id char(9) primary key,
+    id_apprectiation char(9) primary key,
     debut int not null,
     fin int not null,
     appreciation varchar(40) not null,
@@ -355,7 +355,7 @@ create sequence appreciation_seq
     increment by 1
     minvalue 1;
 
-INSERT INTO appreciation (id, debut, fin, appreciation) VALUES
+INSERT INTO appreciation VALUES
 ('APR' || RIGHT('000000' || nextval('appreciation_seq'), 6),0,10,'Passable'),
 ('APR' || RIGHT('000000' || nextval('appreciation_seq'), 6),10,12,'Passable'),
 ('APR' || RIGHT('000000' || nextval('appreciation_seq'), 6),12,14,'Assez bien'),
@@ -363,11 +363,11 @@ INSERT INTO appreciation (id, debut, fin, appreciation) VALUES
 ('APR' || RIGHT('000000' || nextval('appreciation_seq'), 6),16,20,'Trés bien');
 
 create table note(
-    id char(9) primary key,
-    id_classe char(9) references classe(id) not null,
-    id_eleve char(9) references eleve(id) not null,
-    id_epreuve char(9) references epreuve(id) not null,
-    id_matiere char(9) references matiere(id) not null,
+    id_note char(9) primary key,
+    id_classe char(9) references classe(id_classe) not null,
+    id_eleve char(9) references eleve(id_eleve) not null,
+    id_epreuve char(9) references epreuve(id_epreuve) not null,
+    id_matiere char(9) references matiere(id_matiere) not null,
     note double precision check (note >=0 and note <= 20),
     unique(id_classe,id_eleve,id_epreuve,id_matiere)
 );
@@ -377,7 +377,7 @@ create sequence note_seq
     increment by 1
     minvalue 1;
 
-INSERT INTO note (id, id_classe, id_eleve, id_epreuve, id_matiere, note) VALUES
+INSERT INTO note VALUES
 ('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000001', 'EPR000001', 'MAT000001', 15.0),
 ('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000001', 'EPR000002', 'MAT000002', 16.0),
 ('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000002', 'EPR000003', 'MAT000003', 12.0),
@@ -419,15 +419,15 @@ INSERT INTO note (id, id_classe, id_eleve, id_epreuve, id_matiere, note) VALUES
 CREATE or REPLACE View v_note_classe as
     select classe_matiere_coefficient.id_classe, classe_matiere_coefficient.id_matiere,classe_matiere_coefficient.coefficient,
     classe_epreuve.id_epreuve,
-    eleve.id, eleve.nom, eleve.prenom,
+    eleve.id_eleve, eleve.nom, eleve.prenom,
     COALESCE(note.note,0) as note
     from classe_matiere_coefficient
     left join classe_epreuve on classe_epreuve.id_classe=classe_matiere_coefficient.id_classe
     left join classe_eleve on classe_eleve.id_classe=classe_matiere_coefficient.id_classe
-    left join eleve on eleve.id=classe_eleve.id_eleve
+    left join eleve on eleve.id_eleve=classe_eleve.id_eleve
     left join note on note.id_classe=classe_matiere_coefficient.id_classe 
         and note.id_matiere=classe_matiere_coefficient.id_matiere 
-        and note.id_eleve=eleve.id
+        and note.id_eleve=eleve.id_eleve
         and note.id_epreuve=classe_epreuve.id_epreuve;
 
 DELETE FROM classe_matiere_coefficient WHERE id_matiere='MAT000012';
