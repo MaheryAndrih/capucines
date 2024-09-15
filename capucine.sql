@@ -72,10 +72,10 @@ CREATE TABLE Matiere_coefficient (
 );
 
 CREATE TABLE Eleve (
-    id serial,
+    id serial PRIMARY KEY,
     nom varchar(50) not null,
     prenom varchar(50) not null,
-    matricule int not null,
+    matricule int not null
 );
 
 CREATE TABLE Eleve_classe (
@@ -87,12 +87,11 @@ CREATE TABLE Eleve_classe (
 );
 
 CREATE TABLE Note (
-    id serial,
+    id serial PRIMARY KEY,
     année_scolaire varchar(11),
     id_eleve int not null references Eleve(id),
     id_evaluation int not null references Evaluation(id),
     id_classe int not null references Classe(id),
     id_matiere int not null references Matiere(id),
-    valeur int not null check(valeur >=0 && valeur<=20)
-    PRIMARY KEY (id)
+    valeur int not null check(valeur >=0 and valeur<=20)
 );
