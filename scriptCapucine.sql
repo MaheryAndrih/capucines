@@ -11,6 +11,8 @@ drop sequence eleve_seq;
 drop table note;
 drop sequence note_seq;
 delete from classe_matiere_coefficient cascade;
+drop table appreciation cascade;
+drop table appreciation_seq;
 
 
 create table utilisateur(
@@ -348,8 +350,6 @@ create table appreciation(
     unique(debut,fin)
 );
 
-
-
 create sequence appreciation_seq
     start with 1
     increment by 1
@@ -417,7 +417,8 @@ INSERT INTO note VALUES
 ('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000006', 'ELV000030', 'EPR000009', 'MAT000003', 13.0);
 
 CREATE or REPLACE View v_note_classe as
-    select classe_matiere_coefficient.id_classe, classe_matiere_coefficient.id_matiere,classe_matiere_coefficient.coefficient,
+    select 
+    classe_matiere_coefficient.id_classe, classe_matiere_coefficient.id_matiere,classe_matiere_coefficient.coefficient,
     classe_epreuve.id_epreuve,
     eleve.id_eleve, eleve.nom, eleve.prenom,
     COALESCE(note.note,0) as note
@@ -431,3 +432,30 @@ CREATE or REPLACE View v_note_classe as
         and note.id_epreuve=classe_epreuve.id_epreuve;
 
 DELETE FROM classe_matiere_coefficient WHERE id_matiere='MAT000012';
+
+CREATE or REPLACE View v_classe_matiere_coefficient as 
+    select  
+        cm.id_classe,
+        cm.id_matiere,
+        m.code_matiere,
+        cm.coefficient
+    from classe_matiere_coefficient as cm
+        join matiere as m on
+            m.id_matiere = cm.id_matiere;
+
+CREATE or REPLACE View v_epreuve as 
+    select  
+        ce.id_classe,
+        c.code_classe,
+        ce.id_epreuve,
+        e.code_epreuve
+    from classe_epreuve as ce
+        join classe as c on
+            ce.id_classe = c.id_classe
+        join epreuve as e on 
+            ce.id_epreuve = e.id_epreuve
+
+            
+
+
+
