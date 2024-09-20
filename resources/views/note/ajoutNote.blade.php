@@ -1,237 +1,146 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Ajout note</title>
-        <!-- Google Font: Source Sans Pro -->
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
-        />
-        <!-- Font Awesome -->
-        <link
-            rel="stylesheet"
-            href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}"
-        />
-        <!-- Theme style -->
-        <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}" />
+@extends('template.template')
 
-        <!-- Style perso -->
-        <link rel="stylesheet" href="{{ asset('assets/plugins/cssPerso/disponibilite.css') }}" />
-    </head>
-    <body class="hold-transition sidebar-mini">
-        <!-- warpper -->
-        <div class="wrapper">
-            <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
+@section('pageTitle', 'Ajout note')
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
-      <img src="{{ asset('assets/dist/img/logo2.jpeg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">CAPUCINES</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-header">NOTES</li>
-          <li class="nav-item">
-            <a href="../note/ajoutNote.html" class="nav-link active">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>Ajout note</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../note/selectionNote.html" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>Liste note</p>
-            </a>
-          </li>
-          <li class="nav-header">BULLETINS</li>
-          <li class="nav-item">
-            <a href="../bulletin/genererBulletin.html" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
-              <p>Generer bulletin</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../bulletin/selectionBulletin.html" class="nav-link">
-              <i class="nav-icon fas fa-tasks"></i>
-              <p>Liste bulletin</p>
-            </a>
-          </li>
-          <li class="nav-header">ADMINISTRATION</li>
-          <li class="nav-item">
-            <a href="../utilisateur/liste_utilisateur.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>Utilisateur</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../administration/ajout_etudiant.html" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>Ajout étudiant</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../administration/coefficient/consulter_coef.html" class="nav-link">
-              <i class="nav-icon far fa-plus-square"></i>
-              <p>Coefficient</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
-
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                  <div class="container-fluid">
-                    <div class="row mb-2">
-                      <div class="col-sm-12">
-                        <ol class="breadcrumb float-sm-right">
-                          <li class="breadcrumb-item"><a href="#"><small>Note</small></a></li>
-                          <li class="breadcrumb-item active"><small>Ajout note</small></li>
-                        </ol>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /.container-fluid -->
-                </section>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <section class="content">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-md-6 mx-auto">
-                        <div class="card card-primary">
-                          <div class="card-header">
-                            <h3 class="card-title">Ajouter Note</h3>
-                          </div>
-                          <!-- /.card-header -->
-                          <!-- form start -->
-                          <form>
-                            <div class="card-body">
-                              <div class="form-group">
-                                <label for="inputAnneeScolaire">Annee Scolaire</label>
-                                <input type="text" class="form-control" id="inputAnneeScolaire" placeholder="2024-2025" disabled>
-                              </div>
-                              <div class="form-group">
-                                <label>Libelle</label>
-                                <select class="form-control">
-                                  <option>DS 1</option>
-                                  <option>DS 2</option>
-                                  <option>DS 3</option>
-                                  <option>DS 4</option>
-                                  <option>DS 5</option>
-                                  <option>DS 6</option>
-                                  <option>Examen 1er Trimestre</option>
-                                  <option>Examen 2eme Trimestre</option>
-                                  <option>Examen 3eme Trimestre</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label>Classe</label>
-                                <select class="form-control">
-                                  <option>Tle</option>
-                                  <option>1ere</option>
-                                  <option>2nd</option>
-                                  <option>3eme</option>
-                                  <option>4eme</option>
-                                  <option>5eme</option>
-                                  <option>6eme</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label>Matiere</label>
-                                <select class="form-control">
-                                  <option></option>
-                                  <option>Mathematique</option>
-                                  <option>Physique-Chimie</option>
-                                  <option>Francais</option>
-                                  <option>Malagasy</option>
-                                  <option>Histo-geo</option>
-                                  <option>Anglais</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputFile">Importer</label>
-                                <div class="input-group">
-                                  <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choisir le fichier</label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- /.card-body -->
-            
-                            <div class="card-footer">
-                              <button type="submit" class="btn btn-primary">Ajouter</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- /.row -->
-                  </div>
-                  <!-- /.container-fluid -->
-                </section>
-            </div>
-            <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <div class="float-right d-none d-sm-block">
-                  <b>Version</b> 1.0
-                </div>
-                <strong>Copyright &copy; 2024 <a href="#">Lycee Les Capucines</a>.</strong>
-            </footer>
-
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
-            </aside>
-            <!-- /.control-sidebar -->
+@section('content-header')
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-12">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#"><small>Note</small></a></li>
+            <li class="breadcrumb-item active"><a href="selectionNote.html"><small>Ajout</small></a></li>
+          </ol>
         </div>
-        <!-- ./wrapper -->
-        <!-- jQuery -->
-        <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
-        <!-- Bootstrap 4 -->
-        <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <!-- AdminLTE App -->
-        <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
-    </body>
-</html>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+@endsection
+
+@section('main-content')
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Ajouter Note</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form action="{{ route('note.import') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="model" value="ImportNote">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="inputAnneeScolaire">Annee Scolaire</label>
+                <input type="text" class="form-control" id="inputAnneeScolaire" placeholder="2024-2025" disabled>
+              </div>
+              <div class="form-group">
+                <label>Classe</label>
+                <select class="form-control" name="id_classe" id="classeSelect">
+                  @foreach($classes as $classe)
+                      <option value="{{ $classe->id_classe }}" >
+                        {{ $classe->code_classe }}
+                      </option>
+                    @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Matiere</label>
+                <select class="form-control" name="id_matiere" id="matiereSelect">
+                  <option value="">-- Sélectionnez une matière --</option>
+                  @foreach($matieres as $matiere)
+                    <option value="{{ $matiere->id_matiere }}">{{ $matiere->code_matiere }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Epreuve</label>
+                <select class="form-control" name="id_epreuve" id="epreuveSelect">
+                  <option value="">-- Sélectionnez une epreuve --</option>
+                  @foreach($epreuves as $epreuve)
+                    <option value="{{ $epreuve->id_epreuve }}">{{ $epreuve->code_epreuve }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputFile">Importer</label>
+                <div class="input-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
+                    <label class="custom-file-label" for="exampleInputFile">Choisir le fichier</label>
+                  </div>
+                </div>
+              </div>
+              @error('error')
+                <div class="alert alert-danger">{{ $message }}</div>
+              @enderror
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+@endsection
+
+@section('jsPerso')
+  
+  <script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+  <script>
+    $(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $('#classeSelect').change(function() {
+        var classeId = $(this).val();
+        
+        // Requête AJAX pour obtenir les matières
+        $.ajax({
+          url: '/login/getMatieres/' + classeId,
+          type: 'GET',
+          success: function(data) {
+            var matiereSelect = $('#matiereSelect');
+            matiereSelect.empty();  // Vider les options actuelles
+            matiereSelect.append('<option value="">-- Sélectionnez une matière --</option>');
+            
+            // Boucle pour ajouter les nouvelles matières
+            $.each(data, function(key, matiere) {
+              matiereSelect.append('<option value="' + matiere.id_matiere + '">' + matiere.code_matiere + '</option>');
+            });
+          }
+        });
+
+        $.ajax({
+          url: '/login/getEpreuves/' + classeId,
+          type: 'GET',
+          success: function(data) {
+            var epreuveSelect = $('#epreuveSelect');
+            epreuveSelect.empty();  // Vider les options actuelles
+            epreuveSelect.append('<option value="">-- Sélectionnez une epreuve --</option>');
+            
+            // Boucle pour ajouter les nouvelles matières
+            $.each(data, function(key, epreuve) {
+              epreuveSelect.append('<option value="' + epreuve.id_epreuve + '">' + epreuve.code_epreuve + '</option>');
+            });
+          }
+        });
+      });
+    });
+  </script>
+   
+@endsection
+

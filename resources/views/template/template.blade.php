@@ -63,7 +63,7 @@
                         with font-awesome or any other icon font library -->
                     <li class="nav-header">NOTES</li>
                     <li class="nav-item">
-                        <a href="../note/ajoutNote.html" class="nav-link">
+                        <a href="{{ route('note.ajout') }}" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>Ajout note</p>
                         </a>

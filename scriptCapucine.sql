@@ -455,7 +455,64 @@ CREATE or REPLACE View v_epreuve as
         join epreuve as e on 
             ce.id_epreuve = e.id_epreuve
 
-            
+CREATE TABLE import_note (
+    id serial primary key,
+    code_classe varchar not null,
+    code_matiere varchar not null,
+    id_eleve varchar not null,
+    nom varchar not null,
+    prenom varchar not null,
+    note varchar not null,
+    unique(,code_classe,code_matiere,id_eleve)
+);
+
+CREATE OR REPLACE FUNCTION delete_import_note()
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE  from import_note;
+END;
+$$;
+
+drop table import_note;
+
+CREATE TABLE import_note (
+    id serial primary key,
+    code_epreuve varchar not null,
+    code_classe varchar not null,
+    code_matiere varchar not null,
+    id_eleve varchar not null,
+    nom varchar not null,
+    prenom varchar not null,
+    note varchar not null,
+    unique(code_epreuve,code_classe,code_matiere,id_eleve)
+);
+
+
+CREATE OR REPLACE FUNCTION insert_unique_note()
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO note (id_note,id_classe,id_eleve,id_epreuve,id_matiere,note)
+    SELECT DISTINCT
+        'NTE' || RIGHT('000000' || nextval('note_seq'), 6),
+        c.id_classe,
+        i.id_eleve,
+        e.id_epreuve,
+        m.id_matiere,
+        CAST(i.note as DOUBLE PRECISION)
+    FROM import_note AS i
+        JOIN classe AS c    
+            ON c.code_classe = i.code_classe
+        JOIN epreuve AS e 
+            ON e.code_epreuve = i.code_epreuve
+        JOIN matiere AS m 
+            ON m.code_matiere = i.code_matiere
+    ON CONFLICT DO NOTHING;
+END
+$$; 
 
 
 

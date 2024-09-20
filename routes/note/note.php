@@ -12,4 +12,6 @@ Route::group([
     Route::post('updateOrInsertNote','updateOrInsertNote')->name('updateOrInsertNote');
     Route::post('delete','delete')->name('delete');
     Route::get('selection', 'selection')->name('selection');
+    Route::get('ajout','ajout')->name('ajout');
+    Route::post('import','import')->name('import');
 });
