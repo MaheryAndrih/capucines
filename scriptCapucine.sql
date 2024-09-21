@@ -416,4 +416,12 @@ CREATE or REPLACE View v_note_classe as
         and note.id_eleve=eleve.id
         and note.id_epreuve=classe_epreuve.id_epreuve;
 
+CREATE or REPLACE v_bulletin as 
+    select v_note_classe.*,
+    note*coefficient as m,
+    sum(note*coefficient)
+    from v_note_classe
+    GROUP BY v_note_classe.id_classe,v_note_classe.id_matiere,v_note_classe.coefficient,v_note_classe.id_epreuve,
+    v_note_classe.id,v_note_classe.nom,v_note_classe.prenom,v_note_classe.note;
+
 DELETE FROM classe_matiere_coefficient WHERE id_matiere='MAT000012';
