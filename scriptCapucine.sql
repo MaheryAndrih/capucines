@@ -442,7 +442,7 @@ CREATE or REPLACE View v_note_classe as
         and note.id_epreuve=classe_epreuve.id_epreuve;
 
 CREATE or REPLACE View v_eleve as
-    select eleve.*,COALESCE(classe_eleve.id_classe,'NULL') as id_classe,COALESCE(classe.nom_classe,'NON CLASSEE') as nom_classe
+    select eleve.*,COALESCE(classe_eleve.id_classe,'NULL') as id_classe,COALESCE(classe.nom_classe,'NON-CLASSEE') as nom_classe
     from classe_eleve full join eleve on classe_eleve.id_eleve=eleve.id_eleve
     left join classe on classe_eleve.id_classe=classe.id_classe;
 
