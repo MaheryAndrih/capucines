@@ -1,0 +1,34 @@
+ id_eleve  |      nom       |    prenom    |    dtn     | genre |  nom_pere   | profession_pere | numero_pere |   nom_mere   | profession_mere | numero_mere | id_classe |   nom_classe    
+-----------+----------------+--------------+------------+-------+-------------+-----------------+-------------+--------------+-----------------+-------------+-----------+-----------------
+ ELV000001 | RANDRIAMIADANA | Joronavalona | 2006-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000001 | Petite Section
+ ELV000002 | RATSIMBAZAFY   | Mialy        | 2007-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000001 | Petite Section
+ ELV000003 | RAKOTOMANANA   | Nantenaina   | 2008-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000001 | Petite Section
+ ELV000004 | RAMANANTSOA    | Solofa       | 2009-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000001 | Petite Section
+ ELV000005 | RANDRIAMAHARO  | Herilala     | 2010-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000001 | Petite Section
+ ELV000006 | RASOLOMANANA   | Fidisoa      | 2011-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000002 | Moyenne Section
+ ELV000007 | RAKOTOSON      | Tiana        | 2012-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000002 | Moyenne Section
+ ELV000008 | RAMANANDRASANA | Nantenaina   | 2013-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000002 | Moyenne Section
+ ELV000009 | RANDRIAMANANA  | Solofa       | 2014-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000002 | Moyenne Section
+ ELV000010 | RASOLOFOZAFY   | Mialy        | 2015-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000002 | Moyenne Section
+ ELV000011 | RAMANANTSOA    | Nantenaina   | 2016-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000003 | Grande Section
+ ELV000012 | RANDRIAMAHARO  | Herilala     | 2017-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000003 | Grande Section
+ ELV000013 | RASOLOMANANA   | Fidisoa      | 2018-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000003 | Grande Section
+ ELV000014 | RAKOTOSON      | Tiana        | 2019-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000003 | Grande Section
+ ELV000015 | RAMANANDRASANA | Nantenaina   | 2020-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000003 | Grande Section
+ ELV000016 | RANDRIAMANANA  | Solofa       | 2021-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000004 | 11e
+ ELV000017 | RASOLOFOZAFY   | Mialy        | 2022-12-01 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000004 | 11e
+ ELV000018 | RAMANANTSOA    | Nantenaina   | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000004 | 11e
+ ELV000019 | RANDRIAMIADANA | Joronavalona | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000004 | 11e
+ ELV000020 | RATSIMBAZAFY   | Mialy        | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000004 | 11e
+ ELV000021 | RAKOTOMANANA   | Nantenaina   | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000005 | 10e
+ ELV000022 | RAMANANTSOA    | Solofa       | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000005 | 10e
+ ELV000023 | RANDRIAMAHARO  | Herilala     | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000005 | 10e
+ ELV000024 | RASOLOMANANA   | Fidisoa      | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000005 | 10e
+ ELV000025 | RAKOTOSON      | Tiana        | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000005 | 10e
+ ELV000026 | RAMANANDRASANA | Nantenaina   | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000006 | 9e
+ ELV000027 | RANDRIAMANANA  | Solofa       | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000006 | 9e
+ ELV000028 | RASOLOFOZAFY   | Mialy        | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000006 | 9e
+ ELV000029 | RAMANANTSOA    | Nantenaina   | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000006 | 9e
+ ELV000030 | RANDRIAMIADANA | Joronavalona | 2023-09-14 | M     | RAKOTO JEAN | Developpeur     | 0312345678  | RASOA JEANNE | COMPTABLE       | 0398765432  | CLS000006 | 9e
+(30 rows)
+

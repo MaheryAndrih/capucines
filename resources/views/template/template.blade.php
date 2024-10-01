@@ -14,6 +14,7 @@
             rel="stylesheet"
             href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}"
         />
+        <link rel="icon" href="{{ asset('assets/dist/img/logo2.jpeg') }}" type="image/x-icon">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}" />
 
@@ -76,7 +77,7 @@
                     </li>
                     <li class="nav-header">BULLETINS</li>
                     <li class="nav-item">
-                        <a href="../bulletin/genererBulletin.html" class="nav-link">
+                        <a href="/to_generer_bulletin" class="nav-link">
                             <i class="nav-icon fas fa-file"></i>
                             <p>Generer bulletin</p>
                         </a>
@@ -89,16 +90,39 @@
                     </li>
                     <li class="nav-header">ADMINISTRATION</li>
                     <li class="nav-item">
-                        <a href="../utilisateur/liste_utilisateur.html" class="nav-link">
+                        <a href="/to_liste_utilisateur" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>Utilisateur</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../administration/ajout_etudiant.html" class="nav-link">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>Ajout étudiant</p>
+                        <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Etudiant
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/to_ajout_eleve" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ajout étudiant</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/to_eleve_classe" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Classe</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/to_eleve" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Eleve</p>
+                            </a>
+                        </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('coefficient.choixClasse') }}" class="nav-link">

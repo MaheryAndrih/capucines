@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classe;
 use App\Models\Epreuve;
 use App\Models\Matiere;
+use App\Models\Utilisateur;
 use App\Models\VClasseMatiereCoefficient;
 use App\Models\VEpreuve;
 use Illuminate\Http\Request;
@@ -44,7 +45,17 @@ class LoginController extends Controller
         return response()->json($epreuves);
     }
 
-
-
+    public function login(Request $request){
+        $user = Utilisateur::where('username', request('username'))
+            ->where('password', request('password'))
+            ->get();
+        
+        if(count($user)>0){
+            return $this->acceuil($request);
+        } else {
+            $error = "Identifiant invalide";
+            return view('login',compact('error'));
+        }
+    }
 
 }
