@@ -2,50 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classe;
-use App\Models\ClasseMatiereCoefficient;
-use App\Models\ImportCoefficient;
-use App\Models\VClasseMatiereCoefficient;
+use App\Models\ImportClasseEleve;
+use App\Models\ImportNote;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Sabberworm\CSS\Property\Import;
 
-class CoefficientController extends Controller
+class ClasseEleveController extends Controller
 {
     //
-    public function choixClasse(){
-        $classes = Classe::all();
-        return view('administration.coefficient.consulter_coef',['classes' => $classes]);
-    }
-
-    public function listeCoefficient(Request $request){
-        $id_classe = $request->input('id_classe');
-        $listeCoefficient = VClasseMatiereCoefficient::where('id_classe',$id_classe)->get();
-        return view('administration.coefficient.liste_coefficient',['listeCoefficient' => $listeCoefficient]);
-    }
-
-    public function update(Request $request){
-        DB::table('classe_matiere_coefficient')
-            ->where('id_classe',$request->input('id_classe'))
-            ->where('id_matiere',$request->input('id_matiere'))
-            ->update(['coefficient' => $request->input('coefficient')]);
-        return redirect()->back();
-    }
-
-    public function delete(Request $request){
-        DB::table('classe_matiere_coefficient')
-            ->where('id_classe',$request->input('id_classe'))
-            ->where('id_matiere',$request->input('id_matiere'))
-            ->delete();
-        return redirect()->back();
-    }
-
-    public function showImport(){
-        $classes = Classe::select('id_classe','code_classe')->get();
-        return view('administration.coefficient.import',['classes' => $classes]);
-    }
-    
-    public function import(Request $request)
+    public function doImport(Request $request)
     {
         //verifier si le request a un fichier
         if ($request->hasFile('file'))
@@ -55,30 +22,33 @@ class CoefficientController extends Controller
                 //verifier si le Model reference a importer present dans le Model
                 self::verifyCsvFile($request->file('file'));
                 self::verifyModel($request->input('model'));
-                $attributes = self::getMassAssignableAttributes($request->input('model')); 
+                
 
                 $file = $request->file('file');
                 $handle = fopen($file->getRealPath(), "r");
                 $header = fgetcsv($handle);
-                // dd($attributes);
-                self::arraysAreIdentical($header,$attributes);
+                if (isset($header[0])) {
+                    $header[0] = preg_replace('/\x{FEFF}/u', '', $header[0]);
+                }
 
                 DB::beginTransaction();
-                DB::select('SELECT delete_import_coefficient()');
+                // DB::select('SELECT delete_import_coefficient()');
                 while (($line = fgetcsv($handle))!== FALSE) 
                 {
                     $data = array_combine($header, $line);
-                    // dd($data);
-                    $importCoefficient = new ImportCoefficient();
-                    $importCoefficient->code_classe = $data['code_classe'];
-                    $importCoefficient->code_matiere = $data['code_matiere'];
-                    $importCoefficient->coefficient = str_replace(",",".",$data['coefficient']);
-                    $importCoefficient->save();
+                    $importClasseEleve = new ImportNote();
+                    // $importClasseEleve->numero = $data['N°'];
+                    // $importClasseEleve->noms = $data['Noms'];
+                    // $importClasseEleve->prenoms = $data['Prénoms'];
+                    // $importClasseEleve->sexe = $data['Sexe'];
+                    // $importClasseEleve->date_de_naiss = $data['Date de naiss'];
+                    // $importClasseEleve->matricule = $data['N°Mat'];
+                    // $importClasseEleve->save();
                 }
-                $id_classe = $request->input('id_classe');
+                // $id_classe = $request->input('id_classe');
                 // dd($id_classe);
-                DB::select('SELECT delete_coefficient_existant(?)',[$id_classe]);
-                DB::select('SELECT insert_unique_coefficient()');
+                // DB::select('SELECT delete_coefficient_existant(?)',[$id_classe]);
+                // DB::select('SELECT insert_unique_coefficient()');
                 DB::commit();
                 fclose($handle);
                 return redirect()->back()->with('success'.$request->input('model'), 'Aucune anomalie touve');
@@ -150,5 +120,4 @@ class CoefficientController extends Controller
         }
         return true;
     }
-
 }

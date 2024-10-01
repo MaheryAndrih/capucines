@@ -107,8 +107,10 @@ class NoteController extends Controller
            
             try
             {
+                $id = $request->only(['id_matiere','id_epreuve','id_classe']);
                 //verifier si le Model reference a importer present dans le Model
                 self::verifyCsvFile($request->file('file'));
+                // self::checkLibelleCompatibility($id,$request->file('file'));
                 self::verifyModel($request->input('model'));
                 $attributes = self::getMassAssignableAttributes($request->input('model')); 
 
@@ -134,6 +136,7 @@ class NoteController extends Controller
                     $importNote->note = str_replace(",",".",$data['note']);
                     $importNote->save();
                 }
+                DB::select('SELECT delete_note_existant(?,?,?)',[$id['id_epreuve'],$id['id_classe'],$id['id_matiere']]);
                 DB::select('SELECT insert_unique_note()');
                 DB::commit();
                 fclose($handle);
@@ -205,5 +208,11 @@ class NoteController extends Controller
             throw new \InvalidArgumentException("La premiere ligne du fichier csv n'est pas identique au model de reference");
         }
         return true;
+    }
+
+    public static function checkLibelleCompatibility($id,UploadedFile $file){
+        $fileName = $file->getClientOriginalName();
+        $fileName = explode('_',$fileName);
+        dd($fileName);
     }
 }

@@ -103,7 +103,6 @@
             });
           }
         });
-
         $.ajax({
           url: '/login/getEpreuves/' + classeId,
           type: 'GET',
@@ -118,8 +117,6 @@
             });
           }
         });
-
-
       });
     });
   </script>

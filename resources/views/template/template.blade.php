@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@yield('pageTitle')</title>
         <!-- Google Font: Source Sans Pro -->
@@ -104,6 +104,18 @@
                         <a href="{{ route('coefficient.choixClasse') }}" class="nav-link">
                             <i class="nav-icon far fa-plus-square"></i>
                             <p>Coefficient</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('coefficient.showImport') }}" class="nav-link">
+                            <i class="nav-icon far fa-square"></i>
+                            <p>Import Coefficient</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('import.showImport') }}" class="nav-link">
+                            <i class="nav-icon far fa-square"></i>
+                            <p>Import</p>
                         </a>
                     </li>
                 </ul>

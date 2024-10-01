@@ -17,3 +17,4 @@
 require __DIR__.'/authentification/login/login.php';
 require __DIR__.'/note/note.php';
 require __DIR__.'/coefficient/coefficient.php';
+require __DIR__.'/import/import.php';

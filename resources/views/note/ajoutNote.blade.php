@@ -33,6 +33,9 @@
           <form action="{{ route('note.import') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="model" value="ImportNote">
+            <input type="hidden" name="id_classe" value="{{ $classes[0]->id_classe }}">
+            <input type="hidden" name="id_matiere" value="{{ $classes[0]->id_matiere }}">
+            <input type="hidden" name="id_epreuve" value="{{ $classes[0]->id_epreuve }}">
             <div class="card-body">
               <div class="form-group">
                 <label for="inputAnneeScolaire">Annee Scolaire</label>

@@ -33,6 +33,7 @@
               <br/>
               <div class="row">
                 <p><button type="submit" class="btn btn-primary">Ajouter</button></p>
+                <p><button type="submit" class="btn btn-primary" style="margin-left: 9%" data-toggle="modal" data-target="#modely">Importer</button></p>
               </div>
             </div>
             <!-- /.card-header -->
@@ -154,9 +155,50 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
+  <div class="modal fade" id="modely">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Import fichier csv</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{ route('coefficient.import') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="modal-body">
+            <div class="card-body">
+              <div class="input-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
+                  <label class="custom-file-label" for="exampleInputFile">Choisir le fichier</label>
+                  <input type="hidden" value="ImportCoefficient" name="model">
+                </div>
+              </div>
+            </div>
+          </div>
+          @error('error')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            <button type="submint" class="btn btn-warning">Confirmer</button>
+          </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 @endsection
 
 @section('jsPerso')
+  <script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+  <script>
+    $(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
   <script>
     $('#modal-sm').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget); // Bouton qui déclenche le modal

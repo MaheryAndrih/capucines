@@ -116,48 +116,34 @@ insert into matiere values
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Coloriage','CLR');
 
 create table eleve(
-    id_eleve char(9) primary key,
+    matricule serial primary key,
     nom varchar(30) not null,
     prenom varchar(30) not null,
+    genre char(1) not null,
     dtn date check (dtn <= NOW())
 );
 
-create sequence eleve_seq 
-    start with 1
-    increment by 1
-    minvalue 1;
+CREATE OR REPLACE FUNCTION insert_unique_eleve()
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO eleve(matricule,nom,prenom,genre,dtn)
+    SELECT
+        i.matricule,
+        i.noms,
+        i.prenoms,
+        i.sexe,
+        i.Date_de_naiss
+    FROM import_coefficient AS i
+        JOIN classe AS c    
+            ON c.code_classe = i.code_classe
+        JOIN matiere AS m 
+            ON m.code_matiere = i.code_matiere
+    ON CONFLICT DO NOTHING;
+END
+$$; 
 
-INSERT INTO eleve VALUES 
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMIADANA', 'Joronavalona', '2006-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RATSIMBAZAFY', 'Mialy', '2007-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAKOTOMANANA', 'Nantenaina', '2008-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAMANANTSOA', 'Solofa', '2009-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMAHARO', 'Herilala', '2010-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RASOLOMANANA', 'Fidisoa', '2011-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAKOTOSON', 'Tiana', '2012-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAMANANDRASANA', 'Nantenaina', '2013-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMANANA', 'Solofa', '2014-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RASOLOFOZAFY', 'Mialy', '2015-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAMANANTSOA', 'Nantenaina', '2016-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMAHARO', 'Herilala', '2017-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RASOLOMANANA', 'Fidisoa', '2018-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAKOTOSON', 'Tiana', '2019-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAMANANDRASANA', 'Nantenaina', '2020-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMANANA', 'Solofa', '2021-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RASOLOFOZAFY', 'Mialy', '2022-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAMANANTSOA', 'Nantenaina', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMIADANA', 'Joronavalona', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RATSIMBAZAFY', 'Mialy', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAKOTOMANANA', 'Nantenaina', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAMANANTSOA', 'Solofa', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMAHARO', 'Herilala', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RASOLOMANANA', 'Fidisoa', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAKOTOSON', 'Tiana', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAMANANDRASANA', 'Nantenaina', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMANANA', 'Solofa', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RASOLOFOZAFY', 'Mialy', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RAMANANTSOA', 'Nantenaina', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6), 'RANDRIAMIADANA', 'Joronavalona', '2023-09-14');
 
 
 create table classe_eleve(
@@ -201,7 +187,7 @@ INSERT INTO classe_eleve( id_classe,id_eleve ) VALUES
 create table classe_matiere_coefficient(
     id_classe char(9) references classe(id_classe) not null,
     id_matiere char(9) references matiere(id_matiere) not null,
-    coefficient int not null check(coefficient >= 1),
+    coefficient double precision not null check(coefficient >= 0.5),
     unique(id_classe,id_matiere)
 );
 
@@ -522,6 +508,68 @@ BEGIN
     ON CONFLICT DO NOTHING;
 END
 $$; 
+
+CREATE OR REPLACE FUNCTION delete_note_existant(id_epreuve_input VARCHAR,id_classe_input VARCHAR,id_matiere_input VARCHAR)
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM note 
+        where id_epreuve = id_epreuve_input 
+        and id_classe = id_classe_input
+        and id_matiere = id_matiere_input;
+END
+$$;
+
+
+CREATE TABLE import_coefficient (
+    id serial primary key,
+    code_classe varchar not null,
+    code_matiere varchar not null unique,
+    coefficient varchar not null
+);
+
+CREATE OR REPLACE FUNCTION delete_import_coefficient()
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE  from import_coefficient;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION insert_unique_coefficient()
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO classe_matiere_coefficient(id_classe,id_matiere,coefficient)
+    SELECT
+        c.id_classe,
+        m.id_matiere,
+        CAST(i.coefficient as DOUBLE PRECISION)
+    FROM import_coefficient AS i
+        JOIN classe AS c    
+            ON c.code_classe = i.code_classe
+        JOIN matiere AS m 
+            ON m.code_matiere = i.code_matiere
+    ON CONFLICT DO NOTHING;
+END
+$$; 
+
+CREATE OR REPLACE FUNCTION delete_coefficient_existant(id_classe_input VARCHAR)
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM classe_matiere_coefficient 
+        where id_classe = id_classe_input;
+END
+$$;
+
+
+
+update classe set nom_classe = '10ème' where nom_classe = '10e';
 
 
 

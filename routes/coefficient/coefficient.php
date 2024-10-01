@@ -12,5 +12,6 @@ Route::group([
     Route::get('listeCoefficient', 'listeCoefficient')->name('listeCoefficient');
     Route::post('update', 'update')->name('update');
     Route::post('delete', 'delete')->name('delete');
-
+    Route::post('import', 'import')->name('import');
+    Route::get('showImport', 'showImport')->name('showImport');
 });
