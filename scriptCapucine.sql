@@ -119,8 +119,14 @@ create table eleve(
     matricule serial primary key,
     nom varchar(30) not null,
     prenom varchar(30) not null,
-    genre char(1) not null,
-    dtn date check (dtn <= NOW())
+    dtn date check (dtn <= NOW()),
+    genre char(1) check(genre = 'M' or genre = 'F'),
+    nom_pere varchar(200),
+    profession_pere varchar(100),
+    numero_pere varchar(14),
+    nom_mere varchar(200),
+    profession_mere varchar(100),
+    numero_mere varchar(14)
 );
 
 CREATE OR REPLACE FUNCTION insert_unique_eleve()
@@ -144,6 +150,40 @@ BEGIN
 END
 $$; 
 
+INSERT INTO eleve(id_eleve,genre,nom_pere,profession_pere,numero_pere,nom_mere,profession_mere,numero_mere,nom,prenom,dtn) VALUES 
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMIADANA', 'Joronavalona', '2006-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RATSIMBAZAFY', 'Mialy', '2007-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOMANANA', 'Nantenaina', '2008-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Solofa', '2009-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMAHARO', 'Herilala', '2010-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOMANANA', 'Fidisoa', '2011-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOSON', 'Tiana', '2012-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANDRASANA', 'Nantenaina', '2013-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMANANA', 'Solofa', '2014-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOFOZAFY', 'Mialy', '2015-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Nantenaina', '2016-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMAHARO', 'Herilala', '2017-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOMANANA', 'Fidisoa', '2018-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOSON', 'Tiana', '2019-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANDRASANA', 'Nantenaina', '2020-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMANANA', 'Solofa', '2021-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOFOZAFY', 'Mialy', '2022-12-01'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Nantenaina', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMIADANA', 'Joronavalona', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RATSIMBAZAFY', 'Mialy', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOMANANA', 'Nantenaina', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Solofa', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMAHARO', 'Herilala', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOMANANA', 'Fidisoa', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOSON', 'Tiana', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANDRASANA', 'Nantenaina', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMANANA', 'Solofa', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOFOZAFY', 'Mialy', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Nantenaina', '2023-09-14'),
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMIADANA', 'Joronavalona', '2023-09-14');
+
+INSERT INTO eleve(id_eleve,genre,nom_pere,profession_pere,numero_pere,nom_mere,profession_mere,numero_mere,nom,prenom,dtn) VALUES 
+('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','MAHERY MAHERY','Developpeur','0312345678','MAHERY MAHERY','COMPTABLE','0398765432', 'MAHERY', 'MAHERY', '2023-09-14');
 
 
 create table classe_eleve(
@@ -417,6 +457,11 @@ CREATE or REPLACE View v_note_classe as
         and note.id_eleve=eleve.id_eleve
         and note.id_epreuve=classe_epreuve.id_epreuve;
 
+CREATE or REPLACE View v_eleve as
+    select eleve.*,COALESCE(classe_eleve.id_classe,'NULL') as id_classe,COALESCE(classe.nom_classe,'NON-CLASSEE') as nom_classe
+    from classe_eleve full join eleve on classe_eleve.id_eleve=eleve.id_eleve
+    left join classe on classe_eleve.id_classe=classe.id_classe;
+
 CREATE or REPLACE v_bulletin as 
     select v_note_classe.*,
     note*coefficient as m,
@@ -448,7 +493,7 @@ CREATE or REPLACE View v_epreuve as
         join classe as c on
             ce.id_classe = c.id_classe
         join epreuve as e on 
-            ce.id_epreuve = e.id_epreuve
+            ce.id_epreuve = e.id_epreuve;
 
 CREATE TABLE import_note (
     id serial primary key,

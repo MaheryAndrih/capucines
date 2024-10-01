@@ -10,6 +10,6 @@ class Classe extends Model
     use HasFactory;
 
     protected $table = 'classe';
-
-    // protected $primaryKey = 'id_classe';
+    protected $keyType = 'string';
+    protected $primaryKey = 'id_classe';
 }
