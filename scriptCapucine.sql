@@ -188,8 +188,9 @@ INSERT INTO eleve(id_eleve,genre,nom_pere,profession_pere,numero_pere,nom_mere,p
 
 create table classe_eleve(
     id_classe char(9) references classe(id_classe),
-    id_eleve char(9) references eleve(id_eleve),
-    unique(id_eleve,id_classe)
+    matricule int references eleve(matricule),
+    numero int,
+    unique(matricule,id_classe,numero)
 );
 
 INSERT INTO classe_eleve( id_classe,id_eleve ) VALUES 
@@ -391,11 +392,11 @@ INSERT INTO appreciation VALUES
 create table note(
     id_note char(9) primary key,
     id_classe char(9) references classe(id_classe) not null,
-    id_eleve char(9) references eleve(id_eleve) not null,
+    matricule int references eleve(matricule) not null,
     id_epreuve char(9) references epreuve(id_epreuve) not null,
     id_matiere char(9) references matiere(id_matiere) not null,
     note double precision check (note >=0 and note <= 20),
-    unique(id_classe,id_eleve,id_epreuve,id_matiere)
+    unique(id_classe,matricule,id_epreuve,id_matiere)
 );
 
 create sequence note_seq
@@ -446,20 +447,20 @@ CREATE or REPLACE View v_note_classe as
     select 
     classe_matiere_coefficient.id_classe, classe_matiere_coefficient.id_matiere,classe_matiere_coefficient.coefficient,
     classe_epreuve.id_epreuve,
-    eleve.id_eleve, eleve.nom, eleve.prenom,
+    eleve.matricule, eleve.nom, eleve.prenom,
     COALESCE(note.note,0) as note
     from classe_matiere_coefficient
     left join classe_epreuve on classe_epreuve.id_classe=classe_matiere_coefficient.id_classe
     left join classe_eleve on classe_eleve.id_classe=classe_matiere_coefficient.id_classe
-    left join eleve on eleve.id_eleve=classe_eleve.id_eleve
+    left join eleve on eleve.matricule=classe_eleve.matricule
     left join note on note.id_classe=classe_matiere_coefficient.id_classe 
         and note.id_matiere=classe_matiere_coefficient.id_matiere 
-        and note.id_eleve=eleve.id_eleve
+        and note.matricule=eleve.matricule
         and note.id_epreuve=classe_epreuve.id_epreuve;
 
 CREATE or REPLACE View v_eleve as
     select eleve.*,COALESCE(classe_eleve.id_classe,'NULL') as id_classe,COALESCE(classe.nom_classe,'NON-CLASSEE') as nom_classe
-    from classe_eleve full join eleve on classe_eleve.id_eleve=eleve.id_eleve
+    from classe_eleve full join eleve on classe_eleve.matricule=eleve.matricule
     left join classe on classe_eleve.id_classe=classe.id_classe;
 
 CREATE or REPLACE v_bulletin as 
@@ -499,7 +500,7 @@ CREATE TABLE import_note (
     id serial primary key,
     code_classe varchar not null,
     code_matiere varchar not null,
-    id_eleve varchar not null,
+    matricule varchar not null,
     nom varchar not null,
     prenom varchar not null,
     note varchar not null,
@@ -611,10 +612,4 @@ BEGIN
         where id_classe = id_classe_input;
 END
 $$;
-
-
-
-update classe set nom_classe = '10ème' where nom_classe = '10e';
-
-
 
