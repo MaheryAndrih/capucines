@@ -143,81 +143,6 @@ create table classe_matiere_coefficient(
     unique(id_classe,id_matiere)
 );
 
-INSERT INTO classe_matiere_coefficient(id_classe, id_matiere, coefficient) VALUES
-('CLS000001', 'MAT000001', 3),
-('CLS000001', 'MAT000002', 4),
-('CLS000001', 'MAT000003', 2),
-('CLS000001', 'MAT000004', 5),
-('CLS000001', 'MAT000005', 3),
-('CLS000001', 'MAT000006', 2),
-('CLS000001', 'MAT000007', 4),
-('CLS000001', 'MAT000008', 3),
-('CLS000001', 'MAT000009', 5),
-('CLS000001', 'MAT000010', 1),
-('CLS000001', 'MAT000011', 4),
-('CLS000001', 'MAT000012', 2),
-('CLS000002', 'MAT000001', 2),
-('CLS000002', 'MAT000002', 3),
-('CLS000002', 'MAT000003', 5),
-('CLS000002', 'MAT000004', 4),
-('CLS000002', 'MAT000005', 3),
-('CLS000002', 'MAT000006', 2),
-('CLS000002', 'MAT000007', 5),
-('CLS000002', 'MAT000008', 4),
-('CLS000002', 'MAT000009', 3),
-('CLS000002', 'MAT000010', 2),
-('CLS000002', 'MAT000011', 1),
-('CLS000002', 'MAT000012', 4),
-('CLS000003', 'MAT000001', 5),
-('CLS000003', 'MAT000002', 3),
-('CLS000003', 'MAT000003', 2),
-('CLS000003', 'MAT000004', 4),
-('CLS000003', 'MAT000005', 1),
-('CLS000003', 'MAT000006', 3),
-('CLS000003', 'MAT000007', 5),
-('CLS000003', 'MAT000008', 4),
-('CLS000003', 'MAT000009', 2),
-('CLS000003', 'MAT000010', 5),
-('CLS000003', 'MAT000011', 3),
-('CLS000003', 'MAT000012', 4),
-('CLS000004', 'MAT000001', 3),
-('CLS000004', 'MAT000002', 5),
-('CLS000004', 'MAT000003', 2),
-('CLS000004', 'MAT000004', 1),
-('CLS000004', 'MAT000005', 4),
-('CLS000004', 'MAT000006', 3),
-('CLS000004', 'MAT000007', 5),
-('CLS000004', 'MAT000008', 4),
-('CLS000004', 'MAT000009', 2),
-('CLS000004', 'MAT000010', 3),
-('CLS000004', 'MAT000011', 1),
-('CLS000004', 'MAT000012', 5),
-('CLS000005', 'MAT000001', 4),
-('CLS000005', 'MAT000002', 2),
-('CLS000005', 'MAT000003', 3),
-('CLS000005', 'MAT000004', 5),
-('CLS000005', 'MAT000005', 1),
-('CLS000005', 'MAT000006', 4),
-('CLS000005', 'MAT000007', 2),
-('CLS000005', 'MAT000008', 5),
-('CLS000005', 'MAT000009', 3),
-('CLS000005', 'MAT000010', 1),
-('CLS000005', 'MAT000011', 2),
-('CLS000005', 'MAT000012', 4),
-('CLS000006', 'MAT000001', 5),
-('CLS000006', 'MAT000002', 3),
-('CLS000006', 'MAT000003', 4),
-('CLS000006', 'MAT000004', 2),
-('CLS000006', 'MAT000005', 1),
-('CLS000006', 'MAT000006', 5),
-('CLS000006', 'MAT000007', 3),
-('CLS000006', 'MAT000008', 4),
-('CLS000006', 'MAT000009', 5),
-('CLS000006', 'MAT000010', 2),
-('CLS000006', 'MAT000011', 3),
-('CLS000006', 'MAT000012', 4);
-
-
 CREATE TABLE classe_epreuve (
     id_classe CHAR(9) REFERENCES classe(id_classe) NOT NULL,
     id_epreuve CHAR(9) REFERENCES epreuve(id_epreuve) NOT NULL,
@@ -374,7 +299,19 @@ CREATE TABLE import_note (
     nom varchar not null,
     prenom varchar not null,
     note varchar not null,
-    unique(,code_classe,code_matiere,id_eleve)
+    unique(code_classe,code_matiere,matricule)
+);
+
+CREATE TABLE import_note (
+    id serial primary key,
+    code_epreuve varchar not null,
+    code_classe varchar not null,
+    code_matiere varchar not null,
+    matricule varchar not null,
+    nom varchar not null,
+    prenom varchar not null,
+    note varchar not null,
+    unique(code_epreuve,code_classe,code_matiere,matricule)
 );
 
 CREATE OR REPLACE FUNCTION delete_import_note()
@@ -386,31 +323,16 @@ BEGIN
 END;
 $$;
 
-drop table import_note;
-
-CREATE TABLE import_note (
-    id serial primary key,
-    code_epreuve varchar not null,
-    code_classe varchar not null,
-    code_matiere varchar not null,
-    id_eleve varchar not null,
-    nom varchar not null,
-    prenom varchar not null,
-    note varchar not null,
-    unique(code_epreuve,code_classe,code_matiere,id_eleve)
-);
-
-
 CREATE OR REPLACE FUNCTION insert_unique_note()
 RETURNS void
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO note (id_note,id_classe,id_eleve,id_epreuve,id_matiere,note)
+    INSERT INTO note (id_note,id_classe,matricule,id_epreuve,id_matiere,note)
     SELECT DISTINCT
         'NTE' || RIGHT('000000' || nextval('note_seq'), 6),
         c.id_classe,
-        i.id_eleve,
+        i.matricule,
         e.id_epreuve,
         m.id_matiere,
         CAST(i.note as DOUBLE PRECISION)
@@ -436,7 +358,6 @@ BEGIN
         and id_matiere = id_matiere_input;
 END
 $$;
-
 
 CREATE TABLE import_coefficient (
     id serial primary key,
@@ -483,9 +404,6 @@ BEGIN
 END
 $$;
 
-
-
-
 CREATE TABLE import_eleve_temporaire(
     id serial primary key,
     numero varchar not null,
@@ -493,7 +411,7 @@ CREATE TABLE import_eleve_temporaire(
     prenoms varchar not null,
     genre varchar(1) not null,
     dtn varchar not null,
-    matricule varchar not null,
+    matricule varchar not null
 );
 
 CREATE OR REPLACE FUNCTION insert_unique_eleve()
