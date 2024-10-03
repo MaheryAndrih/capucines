@@ -51,7 +51,8 @@ class EleveController extends Controller{
     public function select_eleve_classe(){
         $id_classe = request('id_classe');
         $classe = Classe::find($id_classe);
-        $eleves = VEleve::where('id_classe',$id_classe)->get();
+        $eleves = VEleve::where('id_classe',$id_classe)
+        ->OrderBy('numero')->get();
         return view('eleve.liste_eleve_classe',compact('eleves','id_classe','classe'));
     }
 
