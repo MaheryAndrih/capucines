@@ -1,6 +1,6 @@
-code_epreuve,code_classe,code_matiere,id_eleve,nom,prenom,note
-DS1,GS,MLG,ELV000011,RAMANANTSOA,Nantenaina,"12,5"
-DS1,GS,MLG,ELV000012,RANDRIAMAHARO,Herilala,12
-DS1,GS,MLG,ELV000013,RASOLOMANANA,Fidisoa,"9,25"
-DS1,GS,MLG,ELV000014,RAKOTOSON,Tiana,"10,5"
-DS1,GS,MLG,ELV000015,RAMANANDRASANA,Nantenaina,"13,75"
+code_epreuve,code_classe,code_matiere,matricule,nom,prenom,note
+DS1,GS,MLG,1767,ANDRIAMIHAJA,Miangoty Irène,"12,5"
+DS1,GS,MLG,1768,ANDRIANAINA,Mandresy Seheiah,12
+DS1,GS,MLG,1769,ANDRIANANDRIANINA,Josia,"9,25"
+DS1,GS,MLG,1770,ANDRIANJAFINIAINA,Ny Avana Sarobidy,"10,5"
+DS1,GS,MLG,1771,ANDRIANJANAHARY,Lionella Naylane,"13,75"

@@ -22,10 +22,15 @@ class NoteController extends Controller
         $notes = VNoteClasse::
             where('id_classe',$id_classe)
             ->where('id_matiere',$id_matiere)
-            ->where('id_epreuve',$id_epreuve)->get();
+            ->where('id_epreuve',$id_epreuve)
+            ->OrderBy('matricule')
+            ->get();
         return view('note.listeNote',
             [ 
-                'notes' => $notes 
+                'notes' => $notes,
+                'id_classe' => $id_classe,
+                'id_epreuve' => $id_epreuve,
+                'id_matiere' => $id_matiere
             ]
         );
     }
@@ -130,7 +135,7 @@ class NoteController extends Controller
                     $importNote->code_epreuve = $data['code_epreuve'];
                     $importNote->code_classe = $data['code_classe'];
                     $importNote->code_matiere = $data['code_matiere'];
-                    $importNote->id_eleve = $data['id_eleve'];
+                    $importNote->matricule = $data['matricule'];
                     $importNote->nom = $data['nom'];
                     $importNote->prenom = $data['prenom'];
                     $importNote->note = str_replace(",",".",$data['note']);
