@@ -215,4 +215,12 @@ class NoteController extends Controller
         $fileName = explode('_',$fileName);
         dd($fileName);
     }
+
+    public function to_create_csv(){
+        $classes = Classe::all();
+        $idClasseSelectionnee = request('id_classe') ?? $classes->first()->id_classe;
+        $matieres = VClasseMatiereCoefficient::where('id_classe', $idClasseSelectionnee)->get();
+        $epreuves = VEpreuve::where('id_classe', $idClasseSelectionnee)->get();
+        return view('note.createCSV',compact('classes','matieres','epreuves'));
+    }
 }

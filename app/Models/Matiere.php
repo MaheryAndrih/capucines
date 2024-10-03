@@ -9,5 +9,7 @@ class Matiere extends Model
 {
     use HasFactory;
 
+    protected $keyType = 'string';
+    protected $primaryKey = 'id_matiere';
     protected $table = 'matiere';
 }

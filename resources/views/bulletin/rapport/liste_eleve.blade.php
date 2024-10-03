@@ -27,13 +27,13 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Liste des eleves en {{ $classe->nom_classe }}</h3>
+                <h3 class="card-title">Liste des eleves en {{ $classe->nom_classe }} pour la matière {{ $matiere->nom_matiere }}</h3>
                   <div class="card-tools">
                     <form action="/search_eleve_class" method="post">
                       @csrf
                       <div class="input-group input-group-sm" style="width: 300px;">
                         <input type="text" name="search" class="form-control float-right" placeholder="Search">
-                        <input type="hidden" name="id_classe" value="{{ $id_classe }}">
+                        <input type="hidden" name="id_classe" value="{{ $classe->id_classe }}">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                             <i class="fas fa-search"></i>
@@ -49,7 +49,6 @@
                   <thead>
                     <tr>
                       <th>MATRICULE</th>
-                      <th>NUMERO</th>
                       <th>NOM</th>
                       <th>PRENOM</th>
                       <th>GENRE</th>
@@ -57,16 +56,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($eleves as $eleve)
                     <tr>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->matricule }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->numero }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->nom }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->prenom }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->genre }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->dtn }}</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">1526</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">nom</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">prenom</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">genre</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">dtn</a></td>
                       </tr>
-                    @endforeach
                   </tbody>
                 </table>
               </div>

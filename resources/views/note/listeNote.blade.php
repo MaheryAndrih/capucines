@@ -77,6 +77,7 @@
                         <thead>
                           <tr>
                             <th>Matricule</th>
+                            <th>Numero</th>
                             <th>Nom</th>
                             <th>Prenom</th>
                             <th>Note</th>
@@ -87,6 +88,7 @@
                           @foreach ($notes as $note)
                             <tr>
                               <td>{{ $note->id_eleve }}</td>
+                              <td>{{ $note->numero }}</td>
                               <td>{{ $note->nom }}</td>
                               <td>{{ $note->prenom }}</td>
                               <td>{{ $note->note }}/20</td>

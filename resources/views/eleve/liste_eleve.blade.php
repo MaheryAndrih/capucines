@@ -50,11 +50,11 @@
                   <tbody>
                     @foreach($eleves as $eleve)
                         <tr>
-                            <td><a href="/to_profil_eleve/{{ $eleve->id_eleve }}" style="color: inherit">{{ $eleve->id_eleve }}</a></td>
-                            <td><a href="/to_profil_eleve/{{ $eleve->id_eleve }}" style="color: inherit">{{ $eleve->nom }}</a></td>
-                            <td><a href="/to_profil_eleve/{{ $eleve->id_eleve }}" style="color: inherit">{{ $eleve->prenom }}</a></td>
-                            <td><a href="/to_profil_eleve/{{ $eleve->id_eleve }}" style="color: inherit">{{ $eleve->genre }}</a></td>
-                            <td><a href="/to_profil_eleve/{{ $eleve->id_eleve }}" style="color: inherit">{{ $eleve->dtn }}</a></td>
+                            <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->matricule }}</a></td>
+                            <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->nom }}</a></td>
+                            <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->prenom }}</a></td>
+                            <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->genre }}</a></td>
+                            <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->dtn }}</a></td>
                         </tr>
                     @endforeach
                   </tbody>

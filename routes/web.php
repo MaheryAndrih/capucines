@@ -5,6 +5,7 @@ use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BulletinController;
+use App\Http\Controllers\NoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/to_generer_bulletin', [BulletinController::class, 'to_generer_bulletin']);
 Route::post('/genererBulletin', [BulletinController::class, 'genererBulletin']);
+Route::get('/to_rang_matiere', [BulletinController::class, 'to_rang_matiere']);
+Route::post('/select_rapport_matiere', [BulletinController::class, 'select_rapport_matiere']);
 
 Route::get('/to_ajout_eleve', [EleveController::class, 'to_ajout_eleve']);
 Route::get('/to_eleve_classe', [EleveController::class, 'to_eleve_classe']);
@@ -40,3 +43,6 @@ Route::post('/select_eleve_classe', [EleveController::class, 'select_eleve_class
 Route::post('/search_eleve_class', [EleveController::class, 'search_eleve_class']);
 Route::get('/to_eleve', [EleveController::class, 'to_eleve']);
 Route::get('/to_profil_eleve/{matricule}', [EleveController::class, 'to_profil_eleve']);
+Route::post('/ajouter_eleve', [EleveController::class, 'ajouter_eleve']);
+
+Route::get('to_create_csv',[NoteController::class,'to_create_csv']);

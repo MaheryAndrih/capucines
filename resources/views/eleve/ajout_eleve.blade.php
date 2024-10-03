@@ -3,18 +3,18 @@
 @section('pageTitle', 'Ajout Eleve')
 
 @section('content-header')
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-12">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#"><small>Eleve</small></a></li>
-              <li class="breadcrumb-item active"><small>Ajout étudiant</small></li>
-            </ol>
-          </div>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-12">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#"><small>Eleve</small></a></li>
+            <li class="breadcrumb-item active"><small>Ajout étudiant</small></li>
+          </ol>
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
 @endsection
 
 @section('main-content')
@@ -24,7 +24,7 @@
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
-          <div class="col-md-6 mx-auto">
+          <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
@@ -32,27 +32,85 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form>
+              <form action="/ajouter_eleve" method="post">
+                @csrf
                 <div class="card-body">
-                    <div class="form-group">
-                      <label for="inputAnneeScolaire">Année Scolaire</label>
-                      <input type="text" class="form-control" id="inputAnneeScolaire" placeholder="2024-2025" disabled>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="inputAnneeScolaire">Année Scolaire</label>
+                        <input type="text" class="form-control" id="inputAnneeScolaire" placeholder="2024-2025" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Nom</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="nom" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Prénom</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="prenom" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Date de naissance</label>
+                        <input type="date" name="dtn" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                        <label>Classe</label>
+                        <select class="form-control" name="id_classe">
+                        @foreach($classes as $classe)
+                            <option value="{{ $classe->id_classe }}">{{ $classe->code_classe }}</option>
+                        @endforeach
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Numero</label>
+                        <input type="number" class="form-control" id="exampleInputPassword1" name="numero" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Genre</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="genre" value="M" required>
+                          <label class="form-check-label">Masculin</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="genre" value="F" required>
+                          <label class="form-check-label">Féminin</label>
+                        </div>
+                      </div>
                     </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Nom</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Prénom</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Nom père</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="nom_pere">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Profession père</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="profession_pere">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Numéro père</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="numero_pere">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Nom mère</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="nom_mere">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Profession mère</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="profession_mere">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Numéro mère</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="numero_mere">
+                      </div>
+                    </div>
                   </div>
                 </div>
+                {{ $erreur }}
                 <!-- /.card-body -->
-                
-                </form>
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Ajouter</button>
                 </div>
+                </form>
             </div>
             <!-- /.card -->
 

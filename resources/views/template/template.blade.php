@@ -75,6 +75,12 @@
                             <p>Liste note</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/to_create_csv" class="nav-link" method="post">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>Création CSV</p>
+                        </a>
+                    </li>
                     <li class="nav-header">BULLETINS</li>
                     <li class="nav-item">
                         <a href="/to_generer_bulletin" class="nav-link">
@@ -87,6 +93,29 @@
                             <i class="nav-icon fas fa-tasks"></i>
                             <p>Liste bulletin</p>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                        <i class="nav-icon far fa-square"></i>
+                        <p>
+                            Rapport
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/to_rang_matiere" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rang/Matière</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/to_eleve_classe" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rang/Examen</p>
+                            </a>
+                        </li>
+                        </ul>
                     </li>
                     <li class="nav-header">ADMINISTRATION</li>
                     <li class="nav-item">
