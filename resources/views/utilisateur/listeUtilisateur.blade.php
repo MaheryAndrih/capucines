@@ -76,7 +76,7 @@
                         <td>{{ $utilisateur->id_utilisateur }}</td>
                         <td>{{ $utilisateur->username }}</td>
                         <td><button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#modifUser{{ $utilisateur->id_utilisateur }}">Modifier</button></td>
-                        <form action="/deletetilisateur" method="post">
+                        <form action="/deleteUtilisateur" method="post">
                             @csrf
                             <input type="hidden" name="id_utilisateur" value="{{ $utilisateur->id_utilisateur }}">
                             <td><button type="submit" class="btn btn-danger">Supprimer</button></td>
