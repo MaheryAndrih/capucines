@@ -291,16 +291,6 @@ CREATE or REPLACE View v_epreuve as
         join epreuve as e on 
             ce.id_epreuve = e.id_epreuve;
 
-CREATE TABLE import_note (
-    id serial primary key,
-    code_classe varchar not null,
-    code_matiere varchar not null,
-    matricule varchar not null,
-    nom varchar not null,
-    prenom varchar not null,
-    note varchar not null,
-    unique(code_classe,code_matiere,matricule)
-);
 
 CREATE TABLE import_note (
     id serial primary key,
@@ -313,6 +303,7 @@ CREATE TABLE import_note (
     note varchar not null,
     unique(code_epreuve,code_classe,code_matiere,matricule)
 );
+
 
 CREATE OR REPLACE FUNCTION delete_import_note()
 RETURNS void
@@ -332,7 +323,7 @@ BEGIN
     SELECT DISTINCT
         'NTE' || RIGHT('000000' || nextval('note_seq'), 6),
         c.id_classe,
-        i.matricule,
+        CAST(i.matricule as INT),
         e.id_epreuve,
         m.id_matiere,
         CAST(i.note as DOUBLE PRECISION)
@@ -421,7 +412,7 @@ AS $$
 BEGIN
     INSERT INTO eleve (matricule,nom,prenom,genre,dtn)
     SELECT DISTINCT
-        CAST(i.matricule as INT),
+        CAST(CAST(i.matricule as INT), as INT),
         i.noms,
         i.prenoms,
         i.genre,

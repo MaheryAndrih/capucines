@@ -21,7 +21,14 @@ class CoefficientController extends Controller
     public function listeCoefficient(Request $request){
         $id_classe = $request->input('id_classe');
         $listeCoefficient = VClasseMatiereCoefficient::where('id_classe',$id_classe)->get();
-        return view('administration.coefficient.liste_coefficient',['listeCoefficient' => $listeCoefficient]);
+        $id_classe = null;
+        if(count($listeCoefficient) > 0){
+            $id_classe = $listeCoefficient[0]->id_classe;
+        }
+        return view('administration.coefficient.liste_coefficient',[
+            'listeCoefficient' => $listeCoefficient,
+            'id_classe' => $id_classe
+        ]);
     }
 
     public function update(Request $request){

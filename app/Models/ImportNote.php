@@ -17,7 +17,7 @@ class ImportNote extends Model
         'code_epreuve',
         'code_classe',
         'code_matiere',
-        'id_eleve',
+        'matricule',
         'nom',
         'prenom',
         'note'

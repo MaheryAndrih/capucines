@@ -39,18 +39,18 @@
                 <div class="col-8">
                   <button type="button" class="btn btn-block btn-secondary btn-xs bouton-export">Exporter pdf</button>
                   <button type="button" class="btn btn-block bg-gradient-warning btn-xs bouton-export" data-toggle="modal" data-target="#modela"
-                    data-id-classe="{{ $notes[0]->id_classe }}"
-                    data-id-epreuve="{{ $notes[0]->id_epreuve }}"
-                    data-id-matiere="{{ $notes[0]->id_matiere }}"
+                    data-id-classe="{{ $id_classe }}"
+                    data-id-epreuve="{{ $id_epreuve }}"
+                    data-id-matiere="{{ $id_matiere }}"
                   >
                     Tout supprimer
                   </button>
                 </div>                
                 <div class="col-4 petite-interligne">
                   <p>Annee scolaire : 2024-2025</p>
-                  <p>Libelle : {{ $notes[0]->id_epreuve }}</p>
-                  <p>Classe : {{ $notes[0]->id_classe }}</p>
-                  <p>Matiere : {{ $notes[0]->id_matiere }}</p>
+                  <p>Libelle : {{ $id_epreuve }}</p>
+                  <p>Classe : {{ $id_classe }}</p>
+                  <p>Matiere : {{ $id_matiere }}</p>
                   <p>Nombre : 35 eleves</p>
                   <p>Moyenne : 16,32/20</p>
                 </div>
@@ -87,7 +87,7 @@
                         <tbody>
                           @foreach ($notes as $note)
                             <tr>
-                              <td>{{ $note->id_eleve }}</td>
+                              <td>{{ $note->matricule }}</td>
                               <td>{{ $note->numero }}</td>
                               <td>{{ $note->nom }}</td>
                               <td>{{ $note->prenom }}</td>
