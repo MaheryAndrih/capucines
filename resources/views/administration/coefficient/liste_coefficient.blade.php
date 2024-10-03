@@ -173,6 +173,7 @@
                   <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
                   <label class="custom-file-label" for="exampleInputFile">Choisir le fichier</label>
                   <input type="hidden" value="ImportCoefficient" name="model">
+                  <input type="hidden" value="{{ $listeCoefficient[0]->id_classe }}" name="id_classe">
                 </div>
               </div>
             </div>

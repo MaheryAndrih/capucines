@@ -159,18 +159,6 @@
                             <p>Coefficient</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('coefficient.showImport') }}" class="nav-link">
-                            <i class="nav-icon far fa-square"></i>
-                            <p>Import Coefficient</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('import.showImport') }}" class="nav-link">
-                            <i class="nav-icon far fa-square"></i>
-                            <p>Import</p>
-                        </a>
-                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

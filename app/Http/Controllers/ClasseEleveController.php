@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
 use App\Models\ImportClasseEleve;
+use App\Models\ImportEleveTemporaire;
 use App\Models\ImportNote;
+use App\Models\VEleve;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Sabberworm\CSS\Property\Import;
+use Symfony\Component\Routing\Loader\Configurator\ImportConfigurator;
 
 class ClasseEleveController extends Controller
 {
     //
-    public function doImport(Request $request)
+    public function importClasseEleve(Request $request)
     {
         //verifier si le request a un fichier
         if ($request->hasFile('file'))
@@ -22,33 +26,31 @@ class ClasseEleveController extends Controller
                 //verifier si le Model reference a importer present dans le Model
                 self::verifyCsvFile($request->file('file'));
                 self::verifyModel($request->input('model'));
-                
-
                 $file = $request->file('file');
                 $handle = fopen($file->getRealPath(), "r");
                 $header = fgetcsv($handle);
                 if (isset($header[0])) {
                     $header[0] = preg_replace('/\x{FEFF}/u', '', $header[0]);
                 }
-
+                $id_classe = request('id_classe');
+                // dd($id_classe);
                 DB::beginTransaction();
-                // DB::select('SELECT delete_import_coefficient()');
+                DB::select('SELECT delete_import_eleve_temporaire()');
                 while (($line = fgetcsv($handle))!== FALSE) 
                 {
                     $data = array_combine($header, $line);
-                    $importClasseEleve = new ImportNote();
-                    // $importClasseEleve->numero = $data['N°'];
-                    // $importClasseEleve->noms = $data['Noms'];
-                    // $importClasseEleve->prenoms = $data['Prénoms'];
-                    // $importClasseEleve->sexe = $data['Sexe'];
-                    // $importClasseEleve->date_de_naiss = $data['Date de naiss'];
-                    // $importClasseEleve->matricule = $data['N°Mat'];
-                    // $importClasseEleve->save();
+                    $importClasseEleve = new ImportEleveTemporaire();
+                    $importClasseEleve->numero = $data['N°'];
+                    $importClasseEleve->noms = $data['Noms'];
+                    $importClasseEleve->prenoms = $data['Prénoms'];
+                    $importClasseEleve->genre = $data['Sexe'];
+                    $importClasseEleve->dtn = $data['Date de naiss'];
+                    $importClasseEleve->matricule = $data['N°Mat'];
+                    $importClasseEleve->save();
+
                 }
-                // $id_classe = $request->input('id_classe');
-                // dd($id_classe);
-                // DB::select('SELECT delete_coefficient_existant(?)',[$id_classe]);
-                // DB::select('SELECT insert_unique_coefficient()');
+                DB::select('SELECT insert_unique_eleve()');
+                DB::select('SELECT insert_unique_eleve_classe(?)',[$id_classe]);
                 DB::commit();
                 fclose($handle);
                 return redirect()->back()->with('success'.$request->input('model'), 'Aucune anomalie touve');
