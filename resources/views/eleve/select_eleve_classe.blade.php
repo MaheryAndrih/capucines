@@ -32,7 +32,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-                <form action="/select_eleve_classe" method="post">
+                <form action="/select_eleve_classe" method="get">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">

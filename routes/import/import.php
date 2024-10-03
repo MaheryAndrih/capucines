@@ -17,6 +17,6 @@ Route::group([
     'prefix' => 'classeEleve',
     'as' => 'classeEleve.',
     ],function() {
-    Route::post('doImport', 'doImport')->name('doImport');
+    Route::POST('importClasseEleve', 'importClasseEleve')->name('importClasseEleve');
 });
 

@@ -119,8 +119,8 @@ create table eleve(
     matricule serial primary key,
     nom varchar(30) not null,
     prenom varchar(30) not null,
-    dtn date check (dtn <= NOW()),
-    genre char(1) check(genre = 'M' or genre = 'F'),
+    dtn date check (dtn <= NOW()) not null,
+    genre char(1) check(genre = 'M' or genre = 'F') not null,
     nom_pere varchar(200),
     profession_pere varchar(100),
     numero_pere varchar(14),
@@ -133,7 +133,7 @@ create table classe_eleve(
     id_classe char(9) references classe(id_classe),
     matricule int references eleve(matricule),
     numero int,
-    unique(matricule,id_classe,numero)
+    unique(matricule)
 );
 
 create table classe_matiere_coefficient(
@@ -483,3 +483,57 @@ BEGIN
 END
 $$;
 
+
+
+
+CREATE TABLE import_eleve_temporaire(
+    id serial primary key,
+    numero varchar not null,
+    noms varchar not null,
+    prenoms varchar not null,
+    genre varchar(1) not null,
+    dtn varchar not null,
+    matricule varchar not null,
+);
+
+CREATE OR REPLACE FUNCTION insert_unique_eleve()
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO eleve (matricule,nom,prenom,genre,dtn)
+    SELECT DISTINCT
+        CAST(i.matricule as INT),
+        i.noms,
+        i.prenoms,
+        i.genre,
+        CAST(i.dtn as DATE)
+    FROM import_eleve_temporaire AS i
+    ON CONFLICT DO NOTHING;
+END
+$$;
+
+CREATE OR REPLACE FUNCTION delete_import_eleve_temporaire()
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM import_eleve_temporaire;
+END
+$$;
+
+CREATE OR REPLACE FUNCTION insert_unique_eleve_classe(id_classe_input VARCHAR)
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO classe_eleve (id_classe,matricule,numero)
+    SELECT DISTINCT
+        id_classe_input,
+        e.matricule,
+        CAST(i.numero as INT)
+    FROM import_eleve_temporaire AS i
+        JOIN eleve as e 
+            ON e.matricule = CAST(i.matricule as INT);
+END
+$$;

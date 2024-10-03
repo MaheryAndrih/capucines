@@ -5,6 +5,7 @@ use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BulletinController;
+use App\Http\Controllers\ClasseEleveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,9 @@ Route::post('/genererBulletin', [BulletinController::class, 'genererBulletin']);
 
 Route::get('/to_ajout_eleve', [EleveController::class, 'to_ajout_eleve']);
 Route::get('/to_eleve_classe', [EleveController::class, 'to_eleve_classe']);
-Route::post('/select_eleve_classe', [EleveController::class, 'select_eleve_classe']);
+Route::get('/select_eleve_classe', [EleveController::class, 'select_eleve_classe']);
 Route::post('/search_eleve_class', [EleveController::class, 'search_eleve_class']);
 Route::get('/to_eleve', [EleveController::class, 'to_eleve']);
 Route::get('/to_profil_eleve/{matricule}', [EleveController::class, 'to_profil_eleve']);
+
+Route::post('/importClasseEleve', [ClasseEleveController::class, 'importClasseEleve']);

@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 @error('error')
-                     <div class="alert alert-danger">{{ $message }}</div>
+                  <div class="alert alert-danger">{{ $message }}</div>
                  @enderror
             </div>
             <!-- /.card-body -->
