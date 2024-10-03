@@ -31,11 +31,10 @@ Route::post('/editUtilisateur', [UtilisateurController::class, 'editUtilisateur'
 Route::post('/deleteUtilisateur', [UtilisateurController::class, 'deleteUtilisateur']);
 Route::post('/login', [LoginController::class, 'login']);
 
-Route::get('/to_ajout_eleve', [EleveController::class, 'to_ajout_eleve']);
-
 Route::get('/to_generer_bulletin', [BulletinController::class, 'to_generer_bulletin']);
 Route::post('/genererBulletin', [BulletinController::class, 'genererBulletin']);
 
+Route::get('/to_ajout_eleve', [EleveController::class, 'to_ajout_eleve']);
 Route::get('/to_eleve_classe', [EleveController::class, 'to_eleve_classe']);
 Route::post('/select_eleve_classe', [EleveController::class, 'select_eleve_classe']);
 Route::post('/search_eleve_class', [EleveController::class, 'search_eleve_class']);

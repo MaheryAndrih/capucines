@@ -129,101 +129,12 @@ create table eleve(
     numero_mere varchar(14)
 );
 
-CREATE OR REPLACE FUNCTION insert_unique_eleve()
-RETURNS void
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    INSERT INTO eleve(matricule,nom,prenom,genre,dtn)
-    SELECT
-        i.matricule,
-        i.noms,
-        i.prenoms,
-        i.sexe,
-        i.Date_de_naiss
-    FROM import_coefficient AS i
-        JOIN classe AS c    
-            ON c.code_classe = i.code_classe
-        JOIN matiere AS m 
-            ON m.code_matiere = i.code_matiere
-    ON CONFLICT DO NOTHING;
-END
-$$; 
-
-INSERT INTO eleve(id_eleve,genre,nom_pere,profession_pere,numero_pere,nom_mere,profession_mere,numero_mere,nom,prenom,dtn) VALUES 
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMIADANA', 'Joronavalona', '2006-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RATSIMBAZAFY', 'Mialy', '2007-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOMANANA', 'Nantenaina', '2008-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Solofa', '2009-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMAHARO', 'Herilala', '2010-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOMANANA', 'Fidisoa', '2011-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOSON', 'Tiana', '2012-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANDRASANA', 'Nantenaina', '2013-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMANANA', 'Solofa', '2014-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOFOZAFY', 'Mialy', '2015-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Nantenaina', '2016-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMAHARO', 'Herilala', '2017-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOMANANA', 'Fidisoa', '2018-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOSON', 'Tiana', '2019-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANDRASANA', 'Nantenaina', '2020-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMANANA', 'Solofa', '2021-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOFOZAFY', 'Mialy', '2022-12-01'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Nantenaina', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMIADANA', 'Joronavalona', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RATSIMBAZAFY', 'Mialy', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOMANANA', 'Nantenaina', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Solofa', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMAHARO', 'Herilala', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOMANANA', 'Fidisoa', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAKOTOSON', 'Tiana', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANDRASANA', 'Nantenaina', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMANANA', 'Solofa', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RASOLOFOZAFY', 'Mialy', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RAMANANTSOA', 'Nantenaina', '2023-09-14'),
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','RAKOTO JEAN','Developpeur','0312345678','RASOA JEANNE','COMPTABLE','0398765432', 'RANDRIAMIADANA', 'Joronavalona', '2023-09-14');
-
-INSERT INTO eleve(id_eleve,genre,nom_pere,profession_pere,numero_pere,nom_mere,profession_mere,numero_mere,nom,prenom,dtn) VALUES 
-('ELV' || RIGHT('000000' || nextval('eleve_seq'), 6),'M','MAHERY MAHERY','Developpeur','0312345678','MAHERY MAHERY','COMPTABLE','0398765432', 'MAHERY', 'MAHERY', '2023-09-14');
-
-
 create table classe_eleve(
     id_classe char(9) references classe(id_classe),
     matricule int references eleve(matricule),
     numero int,
     unique(matricule,id_classe,numero)
 );
-
-INSERT INTO classe_eleve( id_classe,id_eleve ) VALUES 
-( 'CLS000001', 'ELV000001'),
-( 'CLS000001', 'ELV000002'),
-( 'CLS000001', 'ELV000003'),
-( 'CLS000001', 'ELV000004'),
-( 'CLS000001', 'ELV000005'),
-( 'CLS000002', 'ELV000006'),
-( 'CLS000002', 'ELV000007'),
-( 'CLS000002', 'ELV000008'),
-( 'CLS000002', 'ELV000009'),
-( 'CLS000002', 'ELV000010'),
-( 'CLS000003', 'ELV000011'),
-( 'CLS000003', 'ELV000012'),
-( 'CLS000003', 'ELV000013'),
-( 'CLS000003', 'ELV000014'),
-( 'CLS000003', 'ELV000015'),
-( 'CLS000004', 'ELV000016'),
-( 'CLS000004', 'ELV000017'),
-( 'CLS000004', 'ELV000018'),
-( 'CLS000004', 'ELV000019'),
-( 'CLS000004', 'ELV000020'),
-( 'CLS000005', 'ELV000021'),
-( 'CLS000005', 'ELV000022'),
-( 'CLS000005', 'ELV000023'),
-( 'CLS000005', 'ELV000024'),
-( 'CLS000005', 'ELV000025'),
-( 'CLS000006', 'ELV000026'),
-( 'CLS000006', 'ELV000027'),
-( 'CLS000006', 'ELV000028'),
-( 'CLS000006', 'ELV000029'),
-( 'CLS000006', 'ELV000030');
 
 create table classe_matiere_coefficient(
     id_classe char(9) references classe(id_classe) not null,
@@ -404,51 +315,13 @@ create sequence note_seq
     increment by 1
     minvalue 1;
 
-INSERT INTO note VALUES
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000001', 'EPR000001', 'MAT000001', 15.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000001', 'EPR000002', 'MAT000002', 16.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000002', 'EPR000003', 'MAT000003', 12.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000003', 'EPR000004', 'MAT000004', 18.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000004', 'EPR000005', 'MAT000005', 14.5),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000005', 'EPR000006', 'MAT000006', 13.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000002', 'ELV000006', 'EPR000001', 'MAT000007', 10.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000002', 'ELV000007', 'EPR000002', 'MAT000008', 17.5),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000002', 'ELV000008', 'EPR000003', 'MAT000009', 19.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000002', 'ELV000009', 'EPR000004', 'MAT000010', 16.5),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000002', 'ELV000010', 'EPR000005', 'MAT000011', 13.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000003', 'ELV000011', 'EPR000001', 'MAT000012', 9.5),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000003', 'ELV000012', 'EPR000002', 'MAT000001', 8.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000003', 'ELV000013', 'EPR000003', 'MAT000002', 14.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000003', 'ELV000014', 'EPR000004', 'MAT000003', 19.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000003', 'ELV000015', 'EPR000005', 'MAT000004', 17.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000004', 'ELV000016', 'EPR000006', 'MAT000005', 10.5),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000004', 'ELV000017', 'EPR000007', 'MAT000006', 11.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000004', 'ELV000018', 'EPR000008', 'MAT000007', 12.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000004', 'ELV000019', 'EPR000009', 'MAT000008', 17.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000004', 'ELV000020', 'EPR000001', 'MAT000009', 9.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000005', 'ELV000021', 'EPR000002', 'MAT000010', 10.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000005', 'ELV000022', 'EPR000003', 'MAT000011', 14.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000005', 'ELV000023', 'EPR000004', 'MAT000012', 18.5),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000005', 'ELV000024', 'EPR000005', 'MAT000001', 16.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000005', 'ELV000025', 'EPR000006', 'MAT000002', 11.5),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000006', 'ELV000026', 'EPR000007', 'MAT000003', 13.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000006', 'ELV000027', 'EPR000008', 'MAT000004', 15.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000006', 'ELV000028', 'EPR000009', 'MAT000005', 18.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000006', 'ELV000029', 'EPR000001', 'MAT000006', 16.5),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000006', 'ELV000030', 'EPR000002', 'MAT000007', 19.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000001', 'ELV000001', 'EPR000003', 'MAT000002', 14.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000002', 'ELV000008', 'EPR000004', 'MAT000011', 17.5),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000003', 'ELV000014', 'EPR000005', 'MAT000009', 18.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000004', 'ELV000018', 'EPR000006', 'MAT000010', 16.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000005', 'ELV000023', 'EPR000007', 'MAT000012', 19.0),
-('NTE' || RIGHT('000000' || nextval('note_seq'), 6), 'CLS000006', 'ELV000030', 'EPR000009', 'MAT000003', 13.0);
-
 CREATE or REPLACE View v_note_classe as
     select 
     classe_matiere_coefficient.id_classe, classe_matiere_coefficient.id_matiere,classe_matiere_coefficient.coefficient,
     classe_epreuve.id_epreuve,
     eleve.matricule, eleve.nom, eleve.prenom,
-    COALESCE(note.note,0) as note
+    COALESCE(note.note,0) as note,
+    classe_eleve.numero
     from classe_matiere_coefficient
     left join classe_epreuve on classe_epreuve.id_classe=classe_matiere_coefficient.id_classe
     left join classe_eleve on classe_eleve.id_classe=classe_matiere_coefficient.id_classe
@@ -459,7 +332,7 @@ CREATE or REPLACE View v_note_classe as
         and note.id_epreuve=classe_epreuve.id_epreuve;
 
 CREATE or REPLACE View v_eleve as
-    select eleve.*,COALESCE(classe_eleve.id_classe,'NULL') as id_classe,COALESCE(classe.nom_classe,'NON-CLASSEE') as nom_classe
+    select eleve.*,COALESCE(classe_eleve.id_classe,'NULL') as id_classe,COALESCE(classe.nom_classe,'NON-CLASSEE') as nom_classe, classe_eleve.numero
     from classe_eleve full join eleve on classe_eleve.matricule=eleve.matricule
     left join classe on classe_eleve.id_classe=classe.id_classe;
 
@@ -470,9 +343,6 @@ CREATE or REPLACE v_bulletin as
     from v_note_classe
     GROUP BY v_note_classe.id_classe,v_note_classe.id_matiere,v_note_classe.coefficient,v_note_classe.id_epreuve,
     v_note_classe.id,v_note_classe.nom,v_note_classe.prenom,v_note_classe.note;
-
-DELETE FROM classe_matiere_coefficient WHERE id_matiere='MAT000012';
-DELETE FROM classe_matiere_coefficient WHERE id_matiere='MAT000012';
 
 CREATE or REPLACE View v_classe_matiere_coefficient as 
     select  
