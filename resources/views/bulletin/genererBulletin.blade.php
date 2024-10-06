@@ -10,8 +10,8 @@
     <div class="row mb-2">
         <div class="col-sm-12">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#"><small>Bulletin</small></a></li>
-            <li class="breadcrumb-item active"><small>Generer</small></li>
+            <li class="breadcrumb-item"><a href="#"><small>BULLETINS</small></a></li>
+            <li class="breadcrumb-item active"><small>GENERER</small></li>
         </ol>
         </div>
     </div>
@@ -39,7 +39,7 @@
                 <div class="card-body">
                     <div class="form-group">
                     <label for="inputAnneeScolaire">Annee Scolaire</label>
-                    <input type="text" class="form-control" id="inputAnneeScolaire" placeholder="2024-2025" disabled>
+                    <input type="text" class="form-control" id="inputAnneeScolaire" placeholder="{{ date('Y') }}-{{ date('Y')+1 }}" disabled>
                     </div>
                     <div class="form-group">
                     <label>Libelle</label>

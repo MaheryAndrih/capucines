@@ -8,8 +8,8 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#"><small>Administration</small></a></li>
-              <li class="breadcrumb-item active"><small>Utilisateur</small></li>
+              <li class="breadcrumb-item"><a href="/to_generer_bulletin"><small>BULLETINS</small></a></li>
+              <li class="breadcrumb-item active"><small>RAPPORT RANG MATIERE</small></li>
             </ol>
           </div>
         </div>
@@ -25,7 +25,7 @@
       <div class="col-md-6 mx-auto">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Ajouter Note</h3>
+            <h3 class="card-title">Sélection Classe Matière</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->

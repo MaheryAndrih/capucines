@@ -85,6 +85,32 @@ class EleveController extends Controller{
         return view('eleve.profil',compact('eleve'));
     }
 
+    public function deleteEleveClasse(){
+        $eleve = ClasseEleve::where('matricule',request('matricule'))->delete();
+        $id_classe = request('id_classe');
+        $classe = Classe::find($id_classe);
+        $eleves = VEleve::where('id_classe',$id_classe)
+        ->OrderBy('numero')->get();
+        return view('eleve.liste_eleve_classe',compact('eleves','id_classe','classe'));
+    }
+
+    public function modifier_eleve_info(){
+        $el = Eleve::find(request('matricule'));
+        $el->nom=request('nom');
+        $el->prenom=request('prenom');
+        $el->dtn=request('dtn');
+        $el->genre=request('genre');
+        $el->nom_pere=request('nom_pere');
+        $el->profession_pere=request('profession_pere');
+        $el->numero_pere=request('numero_pere');
+        $el->nom_mere=request('nom_mere');
+        $el->profession_mere=request('profession_mere');
+        $el->numero_mere=request('numero_mere');
+        $el->save();
+        $eleve = VEleve::find(request('matricule'));
+        return view('eleve.profil',compact('eleve'));
+    }
+
 }
 
 ?>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Classe;
 use App\Models\VClasseMatiereCoefficient;
 use App\Models\Matiere;
+use App\Models\Epreuve;
+use App\Models\VNoteClasse;
 use Illuminate\Http\Request;
 
 class BulletinController extends Controller{
@@ -28,7 +30,22 @@ class BulletinController extends Controller{
     public function select_rapport_matiere(){
         $classe = Classe::find(request('id_classe'));
         $matiere = Matiere::find(request('id_matiere'));
-        return view('bulletin.rapport.liste_eleve',compact('classe','matiere'));
+        $notes = VNoteClasse::where('id_classe',request('id_classe'))
+            ->where('id_matiere',request('id_matiere'))
+            ->orderBy('numero')
+            ->get();
+        return view('bulletin.rapport.liste_eleve',compact('classe','matiere','notes'));
+    }
+
+    public function to_rang_examen(){
+        $classes = Classe::all();
+        return view('bulletin.rapport.rang_examen',compact('classes'));
+    }
+
+    public function select_rapport_examen(){
+        $classe = Classe::find(request('id_classe'));
+        $epreuve = Epreuve::find(request('id_epreuve'));
+        return view('bulletin.rapport.liste_rang_examen',compact('classe','epreuve'));
     }
 
 }

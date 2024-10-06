@@ -9,8 +9,8 @@
       <div class="row mb-2">
         <div class="col-sm-12">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#"><small>Note</small></a></li>
-            <li class="breadcrumb-item active"><small>Selection note</small></li>
+            <li class="breadcrumb-item"><a href="{{ route('note.ajout') }}"><small>NOTES</small></a></li>
+            <li class="breadcrumb-item active"><small>SELECTION NOTE</small></li>
           </ol>
         </div>
       </div>

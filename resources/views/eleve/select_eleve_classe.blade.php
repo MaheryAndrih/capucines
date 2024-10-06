@@ -8,8 +8,8 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#"><small>Eleve</small></a></li>
-              <li class="breadcrumb-item active"><small>Classe</small></li>
+              <li class="breadcrumb-item"><a href="/to_liste_utilisateur"><small>ADMININSTRATION</small></a></li>
+              <li class="breadcrumb-item active"><small>ETUDIANT CLASSE</small></li>
             </ol>
           </div>
         </div>
@@ -28,7 +28,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Ajouter un élève</h3>
+                <h3 class="card-title">Sélection Classe</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
