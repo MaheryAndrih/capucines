@@ -8,8 +8,8 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#"><small>Administration</small></a></li>
-              <li class="breadcrumb-item active"><small>Etudiant</small></li>
+              <li class="breadcrumb-item"><a href="#"><small>ELEVE</small></a></li>
+              <li class="breadcrumb-item active"><small>PROFIL</small></li>
             </ol>
           </div>
         </div>
@@ -61,80 +61,99 @@
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
-                <div class="tab-content">
+                <form action="/modifier_eleve_info" method="post" class="form-horizontal">
+                  @csrf
+                  <div class="tab-content">
                     <div class="active tab-pane" id="info">
-                        <form class="form-horizontal">
-                            <div class="form-group row">
-                                <label for="inputName" class="col-sm-2 col-form-label">Nom</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputName" value="{{ $eleve->nom }}" disabled>
-                                </div>
+                      <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Nom</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" name="nom" value="{{ $eleve->nom }}">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="inputEmail" class="col-sm-2 col-form-label">Prenom</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" name="prenom" value="{{ $eleve->prenom }}">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="inputName2" class="col-sm-2 col-form-label">Naissance</label>
+                          <div class="col-sm-10">
+                              <input type="date" class="form-control" name="dtn" value="{{ $eleve->dtn }}">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputName2" class="col-sm-2 col-form-label">Genre</label>
+                        <div class="col-sm-10">
+                          @if($eleve->genre=="M")
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="genre" value="M" checked>
+                              <label class="form-check-label">Masculin</label>
                             </div>
-                            <div class="form-group row">
-                                <label for="inputEmail" class="col-sm-2 col-form-label">Prenom</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail" value="{{ $eleve->prenom }}" disabled>
-                                </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="genre" value="F">
+                              <label class="form-check-label">Féminin</label>
                             </div>
-                            <div class="form-group row">
-                                <label for="inputName2" class="col-sm-2 col-form-label">Naissance</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName2" value="{{ $eleve->dtn }}" disabled>
-                                </div>
+                          @else
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="genre" value="M">
+                              <label class="form-check-label">Masculin</label>
                             </div>
-                            <div class="form-group row">
-                                <div class="offset-sm-2 col-sm-10">
-                                    <button type="submit" class="btn btn-warning">Modifier</button>
-                                </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="genre" value="F" checked>
+                              <label class="form-check-label">Féminin</label>
                             </div>
-                        </form>
+                          @endif
+                        </div>
+                      </div>
                     </div>
                     <div class="tab-pane" id="parents">
-                        <form class="form-horizontal">
-                            <div class="form-group row">
-                                <label for="inputName" class="col-sm-2 col-form-label">Nom Père</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputName" value="{{ $eleve->nom_pere }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputEmail" class="col-sm-2 col-form-label">Profession Père</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail" value="{{ $eleve->profession_pere }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputName2" class="col-sm-2 col-form-label">Numero Père</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName2" value="{{ $eleve->numero_pere }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputName" class="col-sm-2 col-form-label">Nom Mère</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputName" value="{{ $eleve->nom_mere }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputEmail" class="col-sm-2 col-form-label">Profession Mère</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail" value="{{ $eleve->profession_mere }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputName2" class="col-sm-2 col-form-label">Numero Mère</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName2" value="{{ $eleve->numero_mere }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="offset-sm-2 col-sm-10">
-                                    <button type="submit" class="btn btn-warning">Modifier</button>
-                                </div>
-                            </div>
-                        </form>
+                      <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Nom Père</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" name="nom_pere" value="{{ $eleve->nom_pere }}">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="inputEmail" class="col-sm-2 col-form-label">Profession Père</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" name="profession_pere" value="{{ $eleve->profession_pere }}">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="inputName2" class="col-sm-2 col-form-label">Numero Père</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" name="numero_pere" value="{{ $eleve->numero_pere }}">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Nom Mère</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" name="nom_mere" value="{{ $eleve->nom_mere }}">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="inputEmail" class="col-sm-2 col-form-label">Profession Mère</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" name="profession_mere" value="{{ $eleve->profession_mere }}">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="inputName2" class="col-sm-2 col-form-label">Numero Mère</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" name="numero_mere" value="{{ $eleve->numero_mere }}">
+                          </div>
+                      </div>
+                      <input type="hidden" name="matricule" value="{{ $eleve->matricule }}">
                     </div>
-                </div>
+                  </div>
+                  <div class="form-group row">
+                      <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-warning">Modifier</button>
+                      </div>
+                  </div>
+                </form>
               </div><!-- /.card-body -->
             </div>
             <!-- /.card -->

@@ -14,9 +14,8 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#"><small>Administration</small></a></li>
-              <li class="breadcrumb-item active"><small>Etudiant</small></li>
-              <li class="breadcrumb-item active"><small>Eleve</small></li>
+              <li class="breadcrumb-item"><a href="#"><small>ADMININSTRATION</small></a></li>
+              <li class="breadcrumb-item active"><small>ELEVE</small></li>
             </ol>
           </div>
         </div>

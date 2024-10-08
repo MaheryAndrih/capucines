@@ -8,8 +8,9 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#"><small>Administration</small></a></li>
-              <li class="breadcrumb-item active"><small>Utilisateur</small></li>
+              <li class="breadcrumb-item"><a href="/to_liste_utilisateur"><small>ADMININSTRATION</small></a></li>
+              <li class="breadcrumb-item active"><a href="/to_eleve_classe"><small>ETUDIANT CLASSE</small></a></li>
+              <li class="breadcrumb-item active"><small>LISTE</small></li>
             </ol>
           </div>
         </div>
@@ -61,6 +62,7 @@
                       <th>PRENOM</th>
                       <th>GENRE</th>
                       <th>NAISSANCE</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -72,6 +74,12 @@
                         <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->prenom }}</a></td>
                         <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->genre }}</a></td>
                         <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->dtn }}</a></td>
+                        <form action="/deleteEleveClasse" method="post">
+                            @csrf
+                            <input type="hidden" name="matricule" value="{{ $eleve->matricule }}">
+                            <input type="hidden" name="id_classe" value="{{ $eleve->id_classe }}">
+                            <td><button type="submit" class="btn btn-danger">Supprimer</button></td>
+                        </form>
                       </tr>
                     @endforeach
                   </tbody>

@@ -8,8 +8,8 @@
       <div class="row mb-2">
         <div class="col-sm-12">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#"><small>Eleve</small></a></li>
-            <li class="breadcrumb-item active"><small>Ajout étudiant</small></li>
+            <li class="breadcrumb-item"><a href="/to_liste_utilisateur"><small>ADMINISTRATION</small></a></li>
+            <li class="breadcrumb-item active"><small>ETUDIANT</small></li>
           </ol>
         </div>
       </div>

@@ -37,6 +37,8 @@ Route::get('/to_generer_bulletin', [BulletinController::class, 'to_generer_bulle
 Route::post('/genererBulletin', [BulletinController::class, 'genererBulletin']);
 Route::get('/to_rang_matiere', [BulletinController::class, 'to_rang_matiere']);
 Route::post('/select_rapport_matiere', [BulletinController::class, 'select_rapport_matiere']);
+Route::get('/to_rang_examen', [BulletinController::class, 'to_rang_examen']);
+Route::post('/select_rapport_examen', [BulletinController::class, 'select_rapport_examen']);
 
 Route::get('/to_ajout_eleve', [EleveController::class, 'to_ajout_eleve']);
 Route::get('/to_eleve_classe', [EleveController::class, 'to_eleve_classe']);
@@ -45,7 +47,10 @@ Route::post('/search_eleve_class', [EleveController::class, 'search_eleve_class'
 Route::get('/to_eleve', [EleveController::class, 'to_eleve']);
 Route::get('/to_profil_eleve/{matricule}', [EleveController::class, 'to_profil_eleve']);
 Route::post('/ajouter_eleve', [EleveController::class, 'ajouter_eleve']);
+Route::post('/deleteEleveClasse', [EleveController::class, 'deleteEleveClasse']);
+Route::post('/modifier_eleve_info', [EleveController::class, 'modifier_eleve_info']);
 
 Route::get('to_create_csv',[NoteController::class,'to_create_csv']);
+Route::post('search_eleve_note',[NoteController::class,'search_eleve_note']);
 
 Route::post('/importClasseEleve', [ClasseEleveController::class, 'importClasseEleve']);

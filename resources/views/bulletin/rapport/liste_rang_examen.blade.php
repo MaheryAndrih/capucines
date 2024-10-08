@@ -28,7 +28,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{ $classe->nom_classe }} - {{ $matiere->nom_matiere }}</h3>
+                <h3 class="card-title">{{ $epreuve->nom_epreuve }} - {{ $classe->nom_classe }}</h3>
                   <div class="card-tools">
                     <form action="/search_eleve_class" method="post">
                       @csrf
@@ -49,23 +49,21 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>NUMERO</th>
                       <th>MATRICULE</th>
                       <th>NOM</th>
                       <th>PRENOM</th>
+                      <th>GENRE</th>
                       <th>NAISSANCE</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($notes as $note)
                     <tr>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->numero }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->matricule }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->nom }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->prenom }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->id_matiere }}</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">1526</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">nom</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">prenom</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">genre</a></td>
+                        <td><a href="/to_profil_eleve" style="color: inherit">dtn</a></td>
                       </tr>
-                    @endforeach
                   </tbody>
                 </table>
               </div>

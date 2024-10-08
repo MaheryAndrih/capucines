@@ -110,7 +110,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/to_eleve_classe" class="nav-link">
+                            <a href="/to_rang_examen" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Rang/Examen</p>
                             </a>

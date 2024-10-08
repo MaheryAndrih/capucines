@@ -228,4 +228,29 @@ class NoteController extends Controller
         $epreuves = VEpreuve::where('id_classe', $idClasseSelectionnee)->get();
         return view('note.createCSV',compact('classes','matieres','epreuves'));
     }
+
+    public function search_eleve_note(){
+        $search = request('search');
+        $id_classe = request('id_classe');
+        $id_matiere = request('id_matiere');
+        $id_epreuve = request('id_epreuve');
+        $notes = VNoteClasse::
+            where('id_classe',$id_classe)
+            ->where('id_matiere',$id_matiere)
+            ->where('id_epreuve',$id_epreuve)
+            ->where(function($query) use ($search) {
+                $query->whereRaw('LOWER(nom) like ?', ['%' . strtolower($search) . '%'])
+                    ->orWhereRaw('LOWER(prenom) like ?', ['%' . strtolower($search) . '%']);
+            })
+            ->OrderBy('matricule')
+            ->get();
+        return view('note.listeNote',
+            [ 
+                'notes' => $notes,
+                'id_classe' => $id_classe,
+                'id_epreuve' => $id_epreuve,
+                'id_matiere' => $id_matiere
+            ]
+        );
+    }
 }

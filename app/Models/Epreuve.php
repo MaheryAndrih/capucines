@@ -9,5 +9,7 @@ class Epreuve extends Model
 {
     use HasFactory;
 
+    protected $keyType = 'string';
+    protected $primaryKey = 'id_epreuve';
     protected $table = 'epreuve';
 }

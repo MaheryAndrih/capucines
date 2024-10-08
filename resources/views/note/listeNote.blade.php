@@ -12,8 +12,8 @@
       <div class="row mb-2">
         <div class="col-sm-12">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#"><small>Note</small></a></li>
-            <li class="breadcrumb-item active"><a href="selectionNote.html"><small>Selection</small></a></li>
+            <li class="breadcrumb-item"><a href="{{ route('note.ajout') }}"><small>NOTES</small></a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('login.acceuil') }}"><small>SELECTION</small></a></li>
             <li class="breadcrumb-item"><small>Liste</small></li>
           </ol>
         </div>
@@ -60,15 +60,20 @@
                   <div class="card">
                     <div class="card-header">
                       <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-      
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                              <i class="fas fa-search"></i>
-                            </button>
+                        <form action="/search_eleve_note" method="post">
+                          @csrf
+                          <div class="input-group input-group-sm" style="width: 250px;">
+                            <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                            <input type="hidden" name="id_classe" value="{{ $id_classe }}">
+                            <input type="hidden" name="id_matiere" value="{{ $id_matiere }}">
+                            <input type="hidden" name="id_epreuve" value="{{ $id_epreuve }}">
+                            <div class="input-group-append">
+                              <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                              </button>
+                            </div>
                           </div>
-                        </div>
+                        </form>
                       </div>
                     </div>
                     <!-- /.card-header -->
@@ -87,11 +92,11 @@
                         <tbody>
                           @foreach ($notes as $note)
                             <tr>
-                              <td>{{ $note->matricule }}</td>
-                              <td>{{ $note->numero }}</td>
-                              <td>{{ $note->nom }}</td>
-                              <td>{{ $note->prenom }}</td>
-                              <td>{{ $note->note }}/20</td>
+                              <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->matricule }}</a></td>
+                              <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->numero }}</a></td>
+                              <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->nom }}</a></td>
+                              <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->prenom }}</a></td>
+                              <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->note }}/20</a></td>
                               <td>
                                 <button type="button" class="btn btn-block bg-gradient-info btn-xs" data-toggle="modal" data-target="#modal-sm"
                                   data-nom = "{{ $note->nom }}"
