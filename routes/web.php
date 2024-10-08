@@ -26,6 +26,8 @@ require __DIR__.'/authentification/login/login.php';
 require __DIR__.'/note/note.php';
 require __DIR__.'/coefficient/coefficient.php';
 require __DIR__.'/import/import.php';
+require __DIR__.'/export/export.php';
+
 
 Route::get('/to_liste_utilisateur', [UtilisateurController::class, 'to_liste_utilisateur']);
 Route::post('/addUtilisateur', [UtilisateurController::class, 'addUtilisateur']);
