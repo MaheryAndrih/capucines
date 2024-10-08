@@ -49,7 +49,6 @@
           </form>
         </div>
         <!-- /.card -->
-
       </div>
       <!--/.col (right) -->
     </div>

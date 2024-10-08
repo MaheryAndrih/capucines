@@ -48,11 +48,11 @@
                 </div>                
                 <div class="col-4 petite-interligne">
                   <p>Annee scolaire : 2024-2025</p>
-                  <p>Libelle : {{ $id_epreuve }}</p>
-                  <p>Classe : {{ $id_classe }}</p>
-                  <p>Matiere : {{ $id_matiere }}</p>
-                  <p>Nombre : 35 eleves</p>
-                  <p>Moyenne : 16,32/20</p>
+                  <p>Libelle :<strong> {{ $nom_epreuve['nom_epreuve'] }}  </strong> </p>
+                  <p>Classe :<strong> {{ $nom_classe['nom_classe'] }}  </strong> </p>
+                  <p>Matiere :<strong> {{ $nom_matiere['nom_matiere'] }}  </strong> </p>
+                  <p>Nombre :<strong> {{ $nbr_eleve }} eleves  </strong> </p>
+                  <p>Moyenne :<strong> {{ $moyenne }}/20  </strong> </p>
                 </div>
               </div>
               <div class="row" style="margin-top: 2%;">

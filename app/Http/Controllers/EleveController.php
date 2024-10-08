@@ -76,7 +76,7 @@ class EleveController extends Controller{
     }
 
     public function to_eleve(){
-        $eleves = Eleve::all();
+        $eleves = VEleve::all();
         return view('eleve.liste_eleve',compact('eleves'));
     }
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classe;
+use App\Models\ClasseEleve;
+use App\Models\Epreuve;
 use App\Models\ImportNote;
+use App\Models\Matiere;
 use App\Models\Note;
 use App\Models\VClasseMatiereCoefficient;
 use App\Models\VEpreuve;
@@ -19,18 +22,29 @@ class NoteController extends Controller
         $id_classe = $request->input('id_classe');
         $id_matiere = $request->input('id_matiere');
         $id_epreuve = $request->input('id_epreuve');
-        $notes = VNoteClasse::
-            where('id_classe',$id_classe)
+        $nom_classe = Classe::select('nom_classe')->where('id_classe',$id_classe)->first();
+        $nom_matiere = Matiere::select('nom_matiere')->where('id_matiere',$id_matiere)->first();
+        $nom_epreuve = Epreuve::select('nom_epreuve')->where('id_epreuve',$id_epreuve)->first();
+        $nbr_eleve = ClasseEleve::where('id_classe', $id_classe)->count();
+        $notes = VNoteClasse::where('id_classe',$id_classe)
             ->where('id_matiere',$id_matiere)
             ->where('id_epreuve',$id_epreuve)
-            ->OrderBy('matricule')
+            ->OrderBy('numero')
             ->get();
+        $moyenne = DB::select('SELECT get_moyenne_matiere(?,?,?)',[$id_classe,$id_matiere,$id_epreuve]);
+        $moyenne_value = $moyenne[0]->get_moyenne_matiere;
+        $moyenne_value = round($moyenne_value, 2);
         return view('note.listeNote',
             [ 
                 'notes' => $notes,
                 'id_classe' => $id_classe,
                 'id_epreuve' => $id_epreuve,
-                'id_matiere' => $id_matiere
+                'id_matiere' => $id_matiere,
+                'nom_classe' => $nom_classe,
+                'nom_matiere' => $nom_matiere,
+                'nom_epreuve' => $nom_epreuve,
+                'nbr_eleve' => $nbr_eleve,
+                'moyenne' => $moyenne_value 
             ]
         );
     }
@@ -109,10 +123,9 @@ class NoteController extends Controller
         //verifier si le request a un fichier
         if ($request->hasFile('file'))
         {
-           
             try
             {
-                $id = $request->only(['id_matiere','id_epreuve','id_classe']);
+                $id = $request->only(['id_classe','id_matiere','id_epreuve']);
                 //verifier si le Model reference a importer present dans le Model
                 self::verifyCsvFile($request->file('file'));
                 // self::checkLibelleCompatibility($id,$request->file('file'));
@@ -120,11 +133,14 @@ class NoteController extends Controller
                 $attributes = self::getMassAssignableAttributes($request->input('model')); 
 
                 $file = $request->file('file');
+                self::getOriginalFileName($id,$file);
                 $handle = fopen($file->getRealPath(), "r");
                 $header = fgetcsv($handle);
-                // dd($attributes);
-                self::arraysAreIdentical($header,$attributes);
-
+                if (isset($header[0])) {
+                    $header[0] = preg_replace('/\x{FEFF}/u', '', $header[0]);
+                }
+                self::getOriginalFileName($id,$file);
+                // self::arraysAreIdentical($header,$attributes);
                 DB::beginTransaction();
                 DB::select('SELECT delete_import_note()');
                 while (($line = fgetcsv($handle))!== FALSE) 
@@ -211,6 +227,22 @@ class NoteController extends Controller
         if($count_diff != 0)
         {
             throw new \InvalidArgumentException("La premiere ligne du fichier csv n'est pas identique au model de reference");
+        }
+        return true;
+    }
+
+    public static function getOriginalFileName($id_data,UploadedFile $file){
+        $file_name = $file->getClientOriginalName();
+        $file_name = explode('_',$file_name);
+        // dd($file_name[0]);
+        $epreuve = Epreuve::select('code_epreuve')->where('id_epreuve',$id_data['id_epreuve'])->first();
+        $classe = Classe::select('code_classe')->where('id_classe',$id_data['id_classe'])->first();
+        $matiere = Matiere::select('code_matiere','nom_matiere')->where('id_matiere',$id_data['id_matiere'])->first();
+        if($file_name[0] != $epreuve['code_epreuve']){
+            throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ". $epreuve['code_epreuve']."_".$classe['code_classe']."_".$matiere['code_matiere']."_".$matiere['nom_matiere'].".csv");
+        }
+        if($file_name[1] != $classe['code_classe']){
+            throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ". $epreuve['code_epreuve']."_".$classe['code_classe']."_".$matiere['code_matiere']."_".$matiere['nom_matiere'].".csv");
         }
         return true;
     }
