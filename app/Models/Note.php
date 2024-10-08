@@ -26,7 +26,7 @@ class Note extends Objet
     protected $fillable = [
         'id_note',
         'id_classe',
-        'id_eleve',
+        'matricule',
         'id_matiere',
         'id_epreuve',
         'note',
@@ -40,7 +40,7 @@ class Note extends Objet
         $this->fill([
             'id_note' => $id_note,
             'id_classe' => $data['id_classe'],
-            'id_eleve' => $data['id_eleve'],
+            'matricule' => $data['id_eleve'],
             'id_matiere' => $data['id_matiere'],
             'id_epreuve' => $data['id_epreuve'],
             'note' => $data['note'],

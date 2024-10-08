@@ -21,13 +21,15 @@ class CoefficientController extends Controller
     public function listeCoefficient(Request $request){
         $id_classe = $request->input('id_classe');
         $listeCoefficient = VClasseMatiereCoefficient::where('id_classe',$id_classe)->get();
-        $id_classe = null;
+        $classe = null;
         if(count($listeCoefficient) > 0){
             $id_classe = $listeCoefficient[0]->id_classe;
+            $classe = Classe::select('code_classe')->where('id_classe',$id_classe)->first();
         }
         return view('administration.coefficient.liste_coefficient',[
             'listeCoefficient' => $listeCoefficient,
-            'id_classe' => $id_classe
+            'id_classe' => $id_classe,
+            'classe' => $classe
         ]);
     }
 
@@ -63,7 +65,6 @@ class CoefficientController extends Controller
                 self::verifyCsvFile($request->file('file'));
                 self::verifyModel($request->input('model'));
                 $attributes = self::getMassAssignableAttributes($request->input('model')); 
-
                 $file = $request->file('file');
                 $handle = fopen($file->getRealPath(), "r");
                 $header = fgetcsv($handle);
@@ -158,4 +159,5 @@ class CoefficientController extends Controller
         return true;
     }
 
+ 
 }

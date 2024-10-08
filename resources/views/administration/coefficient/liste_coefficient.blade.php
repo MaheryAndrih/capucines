@@ -32,7 +32,7 @@
               </div>
               <br/>
               <div class="row">
-                <p><button type="submit" class="btn btn-primary">Ajouter</button></p>
+                <p><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modala">Ajouter</button></p>
                 <p><button type="submit" class="btn btn-primary" style="margin-left: 9%" data-toggle="modal" data-target="#modely">Importer</button></p>
               </div>
             </div>
@@ -68,6 +68,8 @@
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modela"
                           data-id-matiere="{{ $coefficient->id_matiere }}"
                           data-id-classe="{{ $coefficient->id_classe }}"
+                          data-code_classe="{{ $classe['code_classe'] }}"
+                          data-code_matiere="{{ $coefficient->code_matiere }}"
                         >
                           Supprimer
                         </button>
@@ -140,7 +142,7 @@
           @csrf
           <div class="modal-body">
             <div class="card-body">
-              <p>Cette supprimera la matiere <strong></strong> de la classe <strong></strong></p>
+              <p>Supprimer la matiere <strong id="inputCodeMatiere"></strong> de la classe <strong id="inputCodeClasse"></strong></p>
               <input type="hidden" id="inputIdClasse" name="id_classe">
               <input type="hidden" id="inputIdMatiere" name="id_matiere">
             </div>
@@ -191,6 +193,32 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
+  <div class="modal fade" id="modala">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Ajouter coefficient</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{ route('coefficient.import') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="modal-body">
+            <div class="card-body">
+              
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            <button type="submint" class="btn btn-warning">Confirmer</button>
+          </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 @endsection
 
 @section('jsPerso')
@@ -220,10 +248,14 @@
       var codeMatiere = button.data('code-matiere'); // Récupère le code_matiere
       var idMatiere = button.data('id-matiere'); 
       var idClasse = button.data('id-classe');
+      var code_classe = button.data('code_classe');
+      var code_matiere = button.data('code_matiere');
 
       var modal = $(this);
       modal.find('#inputIdMatiere').val(idMatiere);
       modal.find('#inputIdClasse').val(idClasse);
+      modal.find('#inputCodeClasse').text(code_classe);
+      modal.find('#inputCodeMatiere').text(code_matiere);
     });
   </script>
 @endsection

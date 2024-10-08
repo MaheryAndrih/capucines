@@ -48,11 +48,11 @@
                 </div>                
                 <div class="col-4 petite-interligne">
                   <p>Annee scolaire : 2024-2025</p>
-                  <p>Libelle : {{ $id_epreuve }}</p>
-                  <p>Classe : {{ $id_classe }}</p>
-                  <p>Matiere : {{ $id_matiere }}</p>
-                  <p>Nombre : 35 eleves</p>
-                  <p>Moyenne : 16,32/20</p>
+                  <p>Libelle :<strong> {{ $nom_epreuve['nom_epreuve'] }}  </strong> </p>
+                  <p>Classe :<strong> {{ $nom_classe['nom_classe'] }}  </strong> </p>
+                  <p>Matiere :<strong> {{ $nom_matiere['nom_matiere'] }}  </strong> </p>
+                  <p>Nombre :<strong> {{ $nbr_eleve }} eleves  </strong> </p>
+                  <p>Moyenne :<strong> {{ $moyenne }}/20  </strong> </p>
                 </div>
               </div>
               <div class="row" style="margin-top: 2%;">
@@ -104,7 +104,7 @@
                                   data-note = "{{ $note->note }}"
                                   data-id-classe = "{{ $note->id_classe }}"
                                   data-id-matiere = "{{ $note->id_matiere }}"
-                                  data-id-eleve = "{{ $note->id_eleve }}"
+                                  data-id-eleve = "{{ $note->matricule }}"
                                   data-id-epreuve = "{{ $note->id_epreuve }}"
                                 >
                                   Modifier
@@ -155,7 +155,7 @@
               </div>
               <div class="form-group">
                 <label for="inputNote">Note</label>
-                <input type="number" class="form-control" id="inputNote" name="new_note">
+                <input type="text"  class="form-control" name="new_note" id="inputNote" required>
               </div>
               <input type="hidden" id="inputIdClasse" name="id_classe">
               <input type="hidden" id="inputIdMatiere" name="id_matiere">

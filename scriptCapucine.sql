@@ -446,3 +446,51 @@ BEGIN
             ON e.matricule = CAST(i.matricule as INT);
 END
 $$;
+
+update epreuve set code_epreuve='EXI' where id_epreuve = 'EPR000003'; 
+update epreuve set code_epreuve='EXII' where id_epreuve = 'EPR00006'; 
+update epreuve set code_epreuve='EXIII' where id_epreuve = 'EPR000009'; 
+
+update classe set code_classe='11e' where id_classe = 'CLS000004'; 
+update classe set code_classe='10e' where id_classe = 'CLS000005'; 
+update classe set code_classe='9e' where id_classe = 'CLS000006'; 
+update classe set code_classe='8e' where id_classe = 'CLS000007'; 
+update classe set code_classe='7e' where id_classe = 'CLS000008'; 
+update classe set code_classe='1eS' where id_classe = 'CLS000014'; 
+update classe set code_classe='1eL' where id_classe = 'CLS000015';
+update classe set code_classe='TleA' where id_classe = 'CLS000016'; 
+update classe set code_classe='TleC' where id_classe = 'CLS000017'; 
+update classe set code_classe='TleD' where id_classe = 'CLS000018';
+update classe set code_classe='G2I' where id_classe = 'CLS000019'; 
+update classe set code_classe='G2II' where id_classe = 'CLS000020'; 
+update classe set code_classe='G2III' where id_classe = 'CLS000021'; 
+
+ALTER TABLE eleve ALTER COLUMN nom TYPE VARCHAR(50);
+ALTER TABLE eleve ALTER COLUMN prenom TYPE VARCHAR(50);
+
+CREATE OR REPLACE FUNCTION get_moyenne_matiere(
+    id_classe_input varchar, 
+    id_matiere_input varchar, 
+    id_epreuve_input varchar
+)
+RETURNS double precision
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    moyenne_note double precision;
+BEGIN
+    SELECT AVG(note) 
+    INTO moyenne_note
+    FROM v_note_classe
+    WHERE id_epreuve = id_epreuve_input 
+      AND id_matiere = id_matiere_input 
+      AND id_classe = id_classe_input;
+
+    RETURN moyenne_note;
+END
+$$;
+
+ALTER TABLE classe_eleve ADD CONSTRAINT unique_eleve_numero UNIQUE(matricule,numero); 
+ALTER TABLE eleve ALTER COLUMN matricule TYPE INT primary key;
+ALTER TABLE eleve DROP CONSTRAINT eleve_pkey cascade;
+ALTER TABLE classe_eleve ADD CONSTRAINT classe_eleve_matricule_fk matricule references eleve(matricule);

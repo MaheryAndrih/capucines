@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,4 +25,9 @@ class VEleve extends Objet
             ->get();
         return $note[0]->note;
     }
+    
+    public function getDtnAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y'); // Formate la date au format jour/mois/année
+    }   
 }
