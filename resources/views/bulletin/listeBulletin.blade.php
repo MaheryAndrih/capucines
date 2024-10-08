@@ -81,13 +81,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>183</td>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>17/20</td>
-                            <td><button type="button" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
-                        </tr>
+                        <form action="{{ route('export.apercu') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <tr>
+                                <td>183</td>
+                                <td>John</td>
+                                <td>Doe</td>
+                                <td>17/20</td>
+                                <td><button type="submit" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
+                            </tr>
+                        </form>
                         <tr>
                             <td>278</td>
                             <td>Miles</td>
