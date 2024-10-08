@@ -38,10 +38,10 @@ class NoteController extends Controller
     public static function update($requestVariable){
         DB::table('note')->
             where('id_classe',$requestVariable['id_classe'])
-            ->where('id_eleve',$requestVariable['id_eleve'])
+            ->where('matricule',$requestVariable['id_eleve'])
             ->where('id_matiere',$requestVariable['id_matiere'])
             ->where('id_epreuve',$requestVariable['id_epreuve'])
-            ->update(['note' => $requestVariable['note']]);
+            ->update(['note' => doubleval($requestVariable['note'])]);
     }
 
     public static function insert($requestVariable){
@@ -61,7 +61,7 @@ class NoteController extends Controller
         ;
         $note = Note::
          where('id_classe',$requestVariable['id_classe'])
-        ->where('id_eleve',$requestVariable['id_eleve'])
+        ->where('matricule',$requestVariable['id_eleve'])
         ->where('id_matiere',$requestVariable['id_matiere'])
         ->where('id_epreuve',$requestVariable['id_epreuve'])
         ->first();

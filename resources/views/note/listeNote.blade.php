@@ -99,7 +99,7 @@
                                   data-note = "{{ $note->note }}"
                                   data-id-classe = "{{ $note->id_classe }}"
                                   data-id-matiere = "{{ $note->id_matiere }}"
-                                  data-id-eleve = "{{ $note->id_eleve }}"
+                                  data-id-eleve = "{{ $note->matricule }}"
                                   data-id-epreuve = "{{ $note->id_epreuve }}"
                                 >
                                   Modifier
@@ -150,7 +150,7 @@
               </div>
               <div class="form-group">
                 <label for="inputNote">Note</label>
-                <input type="number" class="form-control" id="inputNote" name="new_note">
+                <input type="text"  class="form-control" name="new_note" id="inputNote" required>
               </div>
               <input type="hidden" id="inputIdClasse" name="id_classe">
               <input type="hidden" id="inputIdMatiere" name="id_matiere">
