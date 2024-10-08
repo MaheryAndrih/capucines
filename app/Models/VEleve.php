@@ -14,4 +14,14 @@ class VEleve extends Objet
     protected $primaryKey = 'matricule';
     protected $fillable = ['matricule','nom','prenom','dtn','genre','nom_pere','profession_pere','numero_pere','nom_mere','profession_mere','numero_mere','id_classe','nom_classe','numero'];
     protected $table = 'v_eleve';
+
+    public function getNote($epreuve){
+        $note = VNoteClasse::where('id_classe',request('id_classe'))
+            ->where('id_matiere',request('id_matiere'))
+            ->where('id_epreuve',$epreuve)
+            ->where('matricule',$this->matricule)
+            ->orderBy('numero')
+            ->get();
+        return $note[0]->note;
+    }
 }

@@ -53,17 +53,33 @@
                       <th>MATRICULE</th>
                       <th>NOM</th>
                       <th>PRENOM</th>
-                      <th>NAISSANCE</th>
+                      <th>DS1</th>
+                      <th>DS2</th>
+                      <th>Examen I</th>
+                      <th>DS3</th>
+                      <th>DS4</th>
+                      <th>Examen II</th>
+                      <th>DS5</th>
+                      <th>DS6</th>
+                      <th>Examen III</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($notes as $note)
+                    @foreach($eleves as $eleve)
                     <tr>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->numero }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->matricule }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->nom }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->prenom }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $note->matricule }}" style="color: inherit">{{ $note->id_matiere }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->numero }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->matricule }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->nom }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->prenom }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote('EPR000001') }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote('EPR000002') }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote('EPR000003') }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote('EPR000004') }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote('EPR000005') }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote('EPR000006') }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote('EPR000007') }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote('EPR000008') }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote('EPR000009') }}</a></td>
                       </tr>
                     @endforeach
                   </tbody>
