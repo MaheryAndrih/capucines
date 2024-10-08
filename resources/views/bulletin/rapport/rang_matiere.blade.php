@@ -33,6 +33,14 @@
             @csrf
             <div class="card-body">
               <div class="form-group">
+                <label>Epreuve</label>
+                <select class="form-control" name="id_epreuve">
+                      <option value="1">Examen Trimestriel I</option>
+                      <option value="4">Examen Trimestriel II</option>
+                      <option value="7">Examen Trimestriel III</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label>Classe</label>
                 <select class="form-control" name="id_classe" id="classeSelect">
                     @foreach($classes as $classe)

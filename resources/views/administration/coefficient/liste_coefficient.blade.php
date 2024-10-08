@@ -41,7 +41,6 @@
               <table class="table table-hover text-nowrap">
                 <thead>
                   <tr>
-                    <th></th>
                     <th>MATIERE</th>
                     <th>VALEUR</th>
                     <th></th>
@@ -51,7 +50,6 @@
                 <tbody>
                   @foreach ($listeCoefficient as $coefficient)
                     <tr>
-                      <td></td>
                       <td>{{ $coefficient->code_matiere }}</td>
                       <td>{{ $coefficient->coefficient }}</td>
                       <td>
