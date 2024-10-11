@@ -115,6 +115,30 @@ insert into matiere values
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Philosophie','PHILO'),
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'Coloriage','CLR');
 
+INSERT INTO MATIERE VALUES
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'MORALE','MOR'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'LANGAGE','LANG'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'RECITATION','RCT'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'PRE-LECTURE','PRL'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'LECTURE','LECT'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'ECRITURE','ECR'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'COPIE','COP'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'DICTEE','DCT'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'EVEIL','EVL'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'ACM','ACM'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'APSE','APSE'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'INFO','INF');
+
+INSERT INTO MATIERE VALUES
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'EXPRESSION ORALE/LECTURE','EXP'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'DIKASORATRA/SORATONONINA','DIKS'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'FANAZARANA HITENY/VAKITENY','VAK'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'PROBLEMES','PB'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'CHANT/RECITATION','CHN'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'TFM','TFM'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'DESSIN/ACM','DES'),
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'DICTEE/ECRITURE','DCT');
+
 create table eleve(
     matricule serial primary key,
     nom varchar(30) not null,

@@ -75,6 +75,7 @@ class CoefficientController extends Controller
                 DB::select('SELECT delete_import_coefficient()');
                 while (($line = fgetcsv($handle))!== FALSE) 
                 {
+                    // dd($line);
                     $data = array_combine($header, $line);
                     // dd($data);
                     $importCoefficient = new ImportCoefficient();
