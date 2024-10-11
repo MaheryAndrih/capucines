@@ -12,12 +12,16 @@ use Illuminate\Http\Request;
 class BulletinController extends Controller{
 
     public function to_generer_bulletin(){
-        $classes = Classe::all();
-        return view('bulletin.genererBulletin',compact('classes'));
+        $classes = Classe::orderBy('id_classe')->get();
+        $epreuves = Epreuve::whereIn('code_epreuve', ['EXI', 'EXII', 'EXIII'])->get();
+        return view('bulletin.genererBulletin',compact('classes','epreuves'));
     }
 
-    public function genererBulletin(){
-        return view('bulletin.listeBulletin');
+    public function genererBulletin(Request $request){
+        $id_classe = $request->input('id_classe');
+        $id_epreuve = $request->input('id_epreuve');
+        $eleves = VEleve::where('id_classe',$id_classe)->OrderBy('numero')->get();
+        return view('bulletin.listeBulletin',compact('eleves','id_classe','id_epreuve'));
     }
 
     public function to_rang_matiere(){

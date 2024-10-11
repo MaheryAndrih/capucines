@@ -4,50 +4,407 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ $eleve->numero }}_{{ $eleve->prenom }}_{{ $eleve->nom_classe }}_{{ $epreuve->nom_epreuve }}</title>
     <style>
-        html, body {
+        body {
+            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
-            height: 100%;
+            font-size: 10px;
+            padding: 10px 20px;
+        }
+        .header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            background-color: #f0f0f0;
+            display: block;
+            height: 35px;
+        }
+        .school-name {
+            float: left;
+            line-height: 140%;
+        }
+        .school-year {
+            float: right;
+            font-style: italic;
+        }
+        .title {
+            text-align: center;
+            margin: 22px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .bulletinTitre{
+            margin-top: 5%;
+            margin-left: 5%; 
+            display: block;
+            line-height: 0%;
+        }
+        .eleve-info{
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 3%;
+            /* border: 1px black solid; */
+
         }
 
-        .portrait-container {
-            width: 21cm; /* Largeur d'une page A4 en mode portrait */
-            height: 29.7cm; /* Hauteur d'une page A4 en mode portrait */
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            box-sizing: border-box;
-            transform-origin: top left;
+        .eleve-info table {
+            width: 100%;
+            border-collapse: collapse; /* Pour éviter les espaces entre les bordures */
         }
 
-        /* Ajustement de l'échelle pour que le contenu s'adapte à la fenêtre */
-        @media screen {
-            .portrait-container {
-                transform: scale(calc(100vh / 29.7cm));
-                transform-origin: top left;
-            }
+        .eleve-info td{
+            padding: 3px;
         }
 
-        /* Ajustement pour les petites fenêtres */
-        @media screen and (max-width: 21cm) {
-            .portrait-container {
-                transform: scale(calc(100vw / 21cm));
-                transform-origin: top left;
-            }
+        .bulletin{
+            width: 100%;
+            /* border: 1px black solid; */
+            height: 100vh;
+            margin-top: 3%;
         }
+
+        .bulletin table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .bulletin td, th {
+        border: 1px solid black;
+        }
+
+        .th-rotate{
+            transform: rotate(90deg); 
+            display: inline-block;
+            height: 40px;
+            width: 2px;
+            padding-top: 10px;
+            padding-left: 5px; 
+        }
+
+        .th-NOTE{
+            width: 15px;
+        }
+
+        .td-MATIERE{
+            padding-left: 10px; 
+            text-align: left;
+        }
+
+        .bulletin td{
+            height: 20px;
+            text-align: center;
+        }
+
+        .width-note{
+            width: 30px;
+        }
+
+        .border-top-bottome{
+            border-bottom: none;
+            border-top:none ;
+        }
+
     </style>
 </head>
 <body>
-    <div class="portrait-container">
-        <!-- Contenu de la page ici -->
-        <h1>Page en mode portrait</h1>
-        <p>Ceci est un exemple de mise en page en mode portrait.</p>
-    </div>
+    <header class="header">
+        <div class="school-name">Lycée privé <span class="script-font" style="font-family: Script Mt Bold">"Les Capucines"</span><br>
+            <strong>Lot IIH 13A Ankerana<br></strong>
+            <strong>Arreté N&deg; 103/2016-MEN du 14 Mars 2016<br></strong>
+            <strong>Arreté N&deg; 16281/2019/MENETP du 09 Août 2019<br></strong>
+        </div>
+        <div class="school-year">Année scolaire: 2024-2025</div>
+    </header>
+    <main class="content">
+        <div class="bulletinTitre">
+            <h1 class="title">BULLETIN DE NOTES</h1>
+            <h3 style="font-weight: bold;text-align:center ;line-height: 0.5px">{{ $epreuve->nom_epreuve }}</h3>
+        </div>
+        <div class="eleve-info">
+            <table>
+                <tr>
+                    <td>Nom:</td>
+                    <td>{{ $eleve->nom }}</td>
+                    <td>Genre:</td>
+                    <td>{{ $eleve->genre }}</td>
+                    <td>CLASSE:</td>
+                    <td>{{ $eleve->nom_classe }}</td>
+                </tr>
+                <tr>
+                    <td>Prénom(s):</td>
+                    <td>{{ $eleve->prenom }}</td>
+                    <td>Né(e) le:</td>
+                    <td>{{ $eleve->dtn }}</td>
+                    <td>Numéro de classe:</td>
+                    <td>{{ $eleve->numero }}</td>
+                </tr>
+                <tr>
+                    <td>Matricule:</td>
+                    <td>{{ $eleve->matricule }}</td>
+                    <td></td>
+                    <td></td>
+                    <td>Statut:</td>
+                    <td>Passante</td>
+                </tr>
+            </table>
+        </div>
+        <div class="bulletin">
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width: 150px">MATIERE</th>
+                        <th colspan="2">TEST PERIODIQUES</th>
+                        <th rowspan="2"><span class="th-rotate">EXAM</span></th>
+                        <th rowspan="2"><span class="th-rotate">Moyenne</span></th>
+                        <th rowspan="2"><span class="th-rotate">Points</span></th>
+                        <th rowspan="2"><span class="th-rotate">COEFF</span></th>
+                        <th rowspan="2"><span class="th-rotate">M*C</span></th>
+                        <th rowspan="2"><span class="th-rotate">RANG</span></th>
+                        <th   rowspan="2">APPRECIATIONS</th>
+                    </tr>
+                    <tr>
+                        <th class="th-NOTE">1ere NOTE</th>
+                        <th class="th-NOTE">2eme NOTE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">EXPRESSION ORALE/LECTURE</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">FRANCAIS</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">DIKASORATRA/SORATONONINA</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">FANAZARANA HITENY/VAKITENY</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">MALAGASY</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">MATHEMATIQUES</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">PROBLEMES</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">EVEIL</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">CHANT/RECREATION</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">TFM</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">DESSIN/ACM</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">APSE</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">INFO</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: left">DICTEE/ECRITURE</td>
+                        <td class="width-note"></td>
+                        <td class="width-note"></td>
+                        <td class="width-note">15.75</td>
+                        <td class="width-note">15</td>
+                        <td class="width-note">20</td>
+                        <td class="width-note">0.5</td>
+                        <td class="width-note">7.5</td>
+                        <td class="width-note">22 eme ex</td>
+                        <td class="width-note">Bien</td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: center" colspan="6"><strong>Moyenne de classe = 16.7/20</strong></td>
+                        <td class="width-note">8.5</td>
+                        <td class="width-note">142.75</td>
+                        <td style="width: 20px; text-align:left; padding-left:5px;" colspan="2"><strong>RANG:21 eme sur 31 eleves</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align: center" colspan="7"><strong>Total des notes obtenues: 142.75 sur 170</strong></td>
+                        <td style="text-align:center;" colspan="3"><strong>Moyenne:16.79 sur 20</strong></td>
+                    </tr>
+                    <tr>
+                        <td  colspan="6" style="text-align: center; border-top:none; border-bottom: none">ABSENCES/RETARDS-SANCTIONS</td>
+                        <td colspan="4" style="text-align: center; border-top:none; border-bottom: none">DECISION DU CONSEIL DE CLASSE</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: center; border-top:none; border-bottom: none"></td>
+                        <td colspan="4" style="text-align: center; border-top:none; border-bottom: none"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: center; border-top:none; border-bottom: none"></td>
+                        <td colspan="4" style="text-align: center; border-top:none; border-bottom: none"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: center; border-top:none;"></td>
+                        <td colspan="4" style="text-align: center; border-top:none;"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-MATIERE" style="text-align:left; border-right:none">Note 1er trimestre: 17.17</td>
+                        <td colspan="3" style="border-left:none; border-right:none">Note 2eme trimestre: 17.49</td>
+                        <td style="border-left:none; border-right:none"></td>
+                        <td colspan="3" style="border-left:none; border-right:none">Note de passage: 17.15</td>
+                        <td colspan="2" style="border-left:none;">Rang annuel: 10eme</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="td-MATIERE" style="border-bottom:none; text-align:left; border-right:none; ">Signature des Parents</td>
+                        <td colspan="4" class="td-MATIERE" style="border-bottom:none; text-align:left; border-left:none">Antananarivo,le 03 Juillet 2024</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-right:none;"></td>
+                        <td colspan="4" class="td-MATIERE" style="border-top:none;border-bottom:none;text-align:left; border-left:none; margin-top:-10%">RAZAFINDRAINIBE Andritsilavo Francky</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-right:none;"></td>
+                        <td colspan="4" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-left:none"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-right:none;"></td>
+                        <td colspan="4" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-left:none"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-right:none;"></td>
+                        <td colspan="4" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-left:none"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-right:none;"></td>
+                        <td colspan="4" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-left:none"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="td-MATIERE" style="border-top:none; text-align:left; border-right:none;"></td>
+                        <td colspan="4" class="td-MATIERE" style="border-top:none; text-align:left; border-left:none">Directeur</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+        <p>VEUILLEZ BIEN CONSERVER CE DOCUMENT, AUCUN DUPLICATA NE SERA DELIVRE</p>
+    </footer>
 </body>
 </html>
+
