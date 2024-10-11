@@ -16,9 +16,9 @@ class VEleve extends Objet
     protected $fillable = ['matricule','nom','prenom','dtn','genre','nom_pere','profession_pere','numero_pere','nom_mere','profession_mere','numero_mere','id_classe','nom_classe','numero'];
     protected $table = 'v_eleve';
 
-    public function getNote($epreuve){
-        $note = VNoteClasse::where('id_classe',request('id_classe'))
-            ->where('id_matiere',request('id_matiere'))
+    public function getNote($epreuve,$id_matiere){
+        $note = VNoteClasse::where('id_classe',$this->id_classe)
+            ->where('id_matiere',$id_matiere)
             ->where('id_epreuve',$epreuve)
             ->where('matricule',$this->matricule)
             ->orderBy('numero')
@@ -26,11 +26,11 @@ class VEleve extends Objet
         return $note[0]->note;
     }
 
-    public function getMoyenne($epreuves,$id_matiere){
+    public function getMoyenneMatiere($epreuves,$id_matiere){
         $somme = 0;
         $diviser = 0;
         foreach($epreuves as $epreuve){
-            $somme = $somme + $this->getNote($epreuve->id_epreuve);
+            $somme = $somme + $this->getNote($epreuve->id_epreuve,$id_matiere);
             $diviser = $diviser + Note::where('id_classe',$this->id_classe)
                 ->where('id_matiere',$id_matiere)
                 ->where('id_epreuve',$epreuve->id_epreuve)
@@ -41,6 +41,16 @@ class VEleve extends Objet
             return $somme;
         }
         return $somme/$diviser;
+    }
+
+    public function getMoyenne($epreuves){
+        $somme = 0;
+        $matieres = ClasseMatiereCoefficient::where('id_classe',$this->id_classe);
+        var_dump($matieres);
+        /*foreach($matieres as $matiere){
+
+        }*/
+        //return $somme;
     }
     
     public function getDtnAttribute($value)

@@ -49,21 +49,33 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
+                      <th>NUMERO</th>
                       <th>MATRICULE</th>
                       <th>NOM</th>
                       <th>PRENOM</th>
                       <th>GENRE</th>
-                      <th>NAISSANCE</th>
+                      <th>MOYENNE</th>
+                      <th>RANG</th>
                     </tr>
                   </thead>
                   <tbody>
+                  @php
+                    $rang = 1;
+                  @endphp
+                  @foreach($eleves as $eleve)
                     <tr>
-                        <td><a href="/to_profil_eleve" style="color: inherit">1526</a></td>
-                        <td><a href="/to_profil_eleve" style="color: inherit">nom</a></td>
-                        <td><a href="/to_profil_eleve" style="color: inherit">prenom</a></td>
-                        <td><a href="/to_profil_eleve" style="color: inherit">genre</a></td>
-                        <td><a href="/to_profil_eleve" style="color: inherit">dtn</a></td>
-                      </tr>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->numero }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->matricule }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->nom }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->prenom }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->genre }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getMoyenne($epreuves) }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $rang }}</a></td>
+                    </tr>
+                    @php
+                      $rang++;
+                    @endphp
+                  @endforeach
                   </tbody>
                 </table>
               </div>

@@ -42,7 +42,7 @@ class BulletinController extends Controller{
             $i++;
         }
         $eleves = $els->sortByDesc(function ($eleve) use($epreuves,$id_matiere) {
-            return $eleve->getMoyenne($epreuves,$id_matiere);
+            return $eleve->getMoyenneMatiere($epreuves,$id_matiere);
         });
         return view('bulletin.rapport.liste_eleve',compact('classe','matiere','eleves','id_epreuve','epreuves'));
     }
@@ -54,8 +54,18 @@ class BulletinController extends Controller{
 
     public function select_rapport_examen(){
         $classe = Classe::find(request('id_classe'));
-        $epreuve = Epreuve::find(request('id_epreuve'));
-        return view('bulletin.rapport.liste_rang_examen',compact('classe','epreuve'));
+        $id_epreuve = request('id_epreuve');
+        $epreuve = Epreuve::find($id_epreuve);
+        $eleves = VEleve::where('id_classe',request('id_classe'))->get();
+        $epreuves = [];
+        $i=0;
+        while($i<3){
+            $epr = Epreuve::find('EPR00000'.$id_epreuve);
+            array_push($epreuves, $epr);
+            $id_epreuve++;
+            $i++;
+        }
+        return view('bulletin.rapport.liste_rang_examen',compact('classe','epreuve','eleves','epreuves'));
     }
 
 }

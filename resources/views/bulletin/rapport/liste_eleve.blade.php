@@ -50,22 +50,22 @@
                   @php
                     $rang = 1;
                   @endphp
-                    @foreach($eleves as $eleve)
+                  @foreach($eleves as $eleve)
                     <tr>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->numero }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->matricule }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->nom }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->prenom }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote($epreuves[0]->id_epreuve) }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote($epreuves[1]->id_epreuve) }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote($epreuves[2]->id_epreuve) }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getMoyenne($epreuves,$matiere->id_matiere) }}</a></td>
-                        <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $rang }}</a></td>
-                      </tr>
-                      @php
-                        $rang++;
-                      @endphp
-                    @endforeach
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->numero }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->matricule }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->nom }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->prenom }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote($epreuves[0]->id_epreuve,$matiere->id_matiere) }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote($epreuves[1]->id_epreuve,$matiere->id_matiere) }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getNote($epreuves[2]->id_epreuve,$matiere->id_matiere) }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getMoyenneMatiere($epreuves,$matiere->id_matiere) }}</a></td>
+                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $rang }}</a></td>
+                    </tr>
+                    @php
+                      $rang++;
+                    @endphp
+                  @endforeach
                   </tbody>
                 </table>
               </div>
