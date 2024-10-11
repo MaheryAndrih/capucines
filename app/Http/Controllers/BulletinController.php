@@ -27,16 +27,28 @@ class BulletinController extends Controller{
     public function to_rang_matiere(){
         $classes = Classe::all();
         $idClasseSelectionnee = request('id_classe') ?? $classes->first()->id_classe;
-
         $matieres = VClasseMatiereCoefficient::where('id_classe', $idClasseSelectionnee)->get();
         return view('bulletin.rapport.rang_matiere',compact('classes','matieres'));
     }
 
     public function select_rapport_matiere(){
         $classe = Classe::find(request('id_classe'));
-        $matiere = Matiere::find(request('id_matiere'));
-        $eleves = VEleve::where('id_classe',request('id_classe'))->get();
-        return view('bulletin.rapport.liste_eleve',compact('classe','matiere','eleves'));
+        $id_matiere = request('id_matiere');
+        $matiere = Matiere::find($id_matiere);
+        $els = VEleve::where('id_classe',request('id_classe'))->get();
+        $id_epreuve = request('id_epreuve');
+        $epreuves = [];
+        $i=0;
+        while($i<3){
+            $epreuve = Epreuve::find('EPR00000'.$id_epreuve);
+            array_push($epreuves, $epreuve);
+            $id_epreuve++;
+            $i++;
+        }
+        $eleves = $els->sortByDesc(function ($eleve) use($epreuves,$id_matiere) {
+            return $eleve->getMoyenne($epreuves,$id_matiere);
+        });
+        return view('bulletin.rapport.liste_eleve',compact('classe','matiere','eleves','id_epreuve','epreuves'));
     }
 
     public function to_rang_examen(){

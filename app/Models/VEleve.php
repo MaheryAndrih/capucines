@@ -25,6 +25,23 @@ class VEleve extends Objet
             ->get();
         return $note[0]->note;
     }
+
+    public function getMoyenne($epreuves,$id_matiere){
+        $somme = 0;
+        $diviser = 0;
+        foreach($epreuves as $epreuve){
+            $somme = $somme + $this->getNote($epreuve->id_epreuve);
+            $diviser = $diviser + Note::where('id_classe',$this->id_classe)
+                ->where('id_matiere',$id_matiere)
+                ->where('id_epreuve',$epreuve->id_epreuve)
+                ->where('matricule',$this->matricule)
+                ->count();
+        }
+        if($diviser==0){
+            return $somme;
+        }
+        return $somme/$diviser;
+    }
     
     public function getDtnAttribute($value)
     {
