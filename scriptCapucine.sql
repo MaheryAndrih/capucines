@@ -448,7 +448,7 @@ END
 $$;
 
 update epreuve set code_epreuve='EXI' where id_epreuve = 'EPR000003'; 
-update epreuve set code_epreuve='EXII' where id_epreuve = 'EPR00006'; 
+update epreuve set code_epreuve='EXII' where id_epreuve = 'EPR000006'; 
 update epreuve set code_epreuve='EXIII' where id_epreuve = 'EPR000009'; 
 
 update classe set code_classe='11e' where id_classe = 'CLS000004'; 
