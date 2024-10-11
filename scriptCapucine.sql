@@ -472,7 +472,7 @@ END
 $$;
 
 update epreuve set code_epreuve='EXI' where id_epreuve = 'EPR000003'; 
-update epreuve set code_epreuve='EXII' where id_epreuve = 'EPR00006'; 
+update epreuve set code_epreuve='EXII' where id_epreuve = 'EPR000006'; 
 update epreuve set code_epreuve='EXIII' where id_epreuve = 'EPR000009'; 
 
 update classe set code_classe='11e' where id_classe = 'CLS000004'; 
@@ -553,3 +553,150 @@ INSERT INTO detail_epreuve VALUES
 ('EPR000009','EPR000007'),
 ('EPR000009','EPR000008'),
 ('EPR000009','EPR000009');
+
+CREATE OR REPLACE FUNCTION calculer_moyenne(
+    ds1 DOUBLE PRECISION,
+    ds2 DOUBLE PRECISION,
+    exam DOUBLE PRECISION
+) RETURNS DOUBLE PRECISION AS $$
+BEGIN
+    RETURN 
+        CASE 
+            WHEN (ds1 > 0 OR ds2 > 0 OR exam > 0) THEN
+                (COALESCE(ds1, 0) + COALESCE(ds2, 0) + COALESCE(exam, 0)) / 
+                NULLIF(
+                    (CASE WHEN ds1 > 0 THEN 1 ELSE 0 END) + 
+                    (CASE WHEN ds2 > 0 THEN 1 ELSE 0 END) + 
+                    (CASE WHEN exam > 0 THEN 1 ELSE 0 END), 
+                0)
+            ELSE 
+                0 
+        END;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_bulletin(
+    p_id_epreuve VARCHAR,
+    p_matricule INTEGER DEFAULT NULL
+)
+RETURNS TABLE (
+    id_classe CHARACTER(9),
+    id_matiere CHARACTER(9),
+    nom_matiere VARCHAR,
+    matricule INTEGER,
+    nom VARCHAR,
+    prenom VARCHAR,
+    ds1 DOUBLE PRECISION,
+    ds2 DOUBLE PRECISION,
+    exam DOUBLE PRECISION,
+    coefficient DOUBLE PRECISION,
+    moyenne DOUBLE PRECISION,
+    mc DOUBLE PRECISION
+) AS $$
+BEGIN
+    IF p_id_epreuve = 'EPR000003' THEN
+        RETURN QUERY
+        SELECT 
+            vc.id_classe, 
+            vc.id_matiere,
+            matiere.nom_matiere,
+            vc.matricule, 
+            vc.nom,       
+            vc.prenom,    
+            MAX(CASE WHEN vc.id_epreuve = 'EPR000001' THEN vc.note END) AS ds1,
+            MAX(CASE WHEN vc.id_epreuve = 'EPR000002' THEN vc.note END) AS ds2,
+            MAX(CASE WHEN vc.id_epreuve = 'EPR000003' THEN vc.note END) AS exam,
+            classe_matiere_coefficient.coefficient,
+            calculer_moyenne(
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000001' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000002' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000003' THEN vc.note END)
+            ) AS moyenne,
+            (calculer_moyenne(
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000001' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000002' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000003' THEN vc.note END)
+            ) * classe_matiere_coefficient.coefficient) AS mc
+        FROM 
+            v_note_classe vc
+        JOIN 
+            classe_matiere_coefficient ON vc.id_classe = classe_matiere_coefficient.id_classe AND vc.id_matiere = classe_matiere_coefficient.id_matiere
+        JOIN
+            matiere ON vc.id_matiere=matiere.id_matiere
+        WHERE 
+            (p_matricule IS NULL OR vc.matricule = p_matricule)
+        GROUP BY 
+            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient;
+
+    ELSIF p_id_epreuve = 'EPR000006' THEN
+        RETURN QUERY
+        SELECT 
+            vc.id_classe, 
+            vc.id_matiere,
+            matiere.nom_matiere,
+            vc.matricule,
+            vc.nom,
+            vc.prenom,
+            MAX(CASE WHEN vc.id_epreuve = 'EPR000004' THEN vc.note END) AS ds1,
+            MAX(CASE WHEN vc.id_epreuve = 'EPR000005' THEN vc.note END) AS ds2,
+            MAX(CASE WHEN vc.id_epreuve = 'EPR000006' THEN vc.note END) AS exam,
+            classe_matiere_coefficient.coefficient,
+            calculer_moyenne(
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000004' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000005' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000006' THEN vc.note END)
+            ) AS moyenne,
+            (calculer_moyenne(
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000004' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000005' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000006' THEN vc.note END)
+            ) * classe_matiere_coefficient.coefficient) AS mc
+        FROM 
+            v_note_classe vc
+        JOIN 
+            classe_matiere_coefficient ON vc.id_classe = classe_matiere_coefficient.id_classe AND vc.id_matiere = classe_matiere_coefficient.id_matiere
+        JOIN
+            matiere ON vc.id_matiere=matiere.id_matiere
+        WHERE 
+            (p_matricule IS NULL OR vc.matricule = p_matricule)
+        GROUP BY 
+            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient;
+
+    ELSIF p_id_epreuve = 'EPR000009' THEN
+        RETURN QUERY
+        SELECT 
+            vc.id_classe, 
+            vc.id_matiere,
+            matiere.nom_matiere,
+            vc.matricule,
+            vc.nom,
+            vc.prenom,
+            MAX(CASE WHEN vc.id_epreuve = 'EPR000007' THEN vc.note END) AS ds1,
+            MAX(CASE WHEN vc.id_epreuve = 'EPR000008' THEN vc.note END) AS ds2,
+            MAX(CASE WHEN vc.id_epreuve = 'EPR000009' THEN vc.note END) AS exam,
+            classe_matiere_coefficient.coefficient,
+            calculer_moyenne(
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000007' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000008' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000009' THEN vc.note END)
+            ) AS moyenne,
+            (calculer_moyenne(
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000007' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000008' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000009' THEN vc.note END)
+            ) * classe_matiere_coefficient.coefficient) AS mc
+        FROM 
+            v_note_classe vc
+        JOIN 
+            classe_matiere_coefficient ON vc.id_classe = classe_matiere_coefficient.id_classe AND vc.id_matiere = classe_matiere_coefficient.id_matiere
+        JOIN
+            matiere ON vc.id_matiere=matiere.id_matiere
+        WHERE 
+            (p_matricule IS NULL OR vc.matricule = p_matricule)
+        GROUP BY 
+            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM get_bulletin('EPR000003', 1802);
