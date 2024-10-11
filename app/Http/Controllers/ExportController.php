@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bulletin;
 use App\Models\Classe;
 use App\Models\Epreuve;
 use App\Models\VEleve;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,9 +18,11 @@ class ExportController extends Controller
     public function apercu(Request $request){
         $eleve = VEleve::where('matricule',$request->input('matricule'))->first();
         $epreuve = Epreuve::where('id_epreuve',$request->input('id_epreuve'))->first();
+        $bulletins = Bulletin::getBulletin($epreuve->id_epreuve,$eleve->matricule);
         $data = [ 
             "eleve" => $eleve,
-            "epreuve" => $epreuve
+            "epreuve" => $epreuve,
+            "bulletins" => $bulletins
         ];
         $pdf = Pdf::loadView('export.apercu',$data);
         return $pdf->stream();
@@ -46,9 +50,11 @@ class ExportController extends Controller
     }
 
     private function saveBulletin($eleve,$classe,$epreuve){
+        $bulletins = Bulletin::getBulletin($epreuve->id_epreuve,$eleve->matricule);
         $data = [
             "eleve" => $eleve,
-            "epreuve" => $epreuve
+            "epreuve" => $epreuve,
+            "bulletins" => $bulletins
         ];
         $pdf = Pdf::loadView('export.apercu', $data);
         $filePath = storage_path("app/public/bulletins/{$eleve->numero}_{$eleve->prenom}_{$classe['nom_classe']}_{$epreuve['code_epreuve']}.pdf");
