@@ -490,7 +490,29 @@ BEGIN
 END
 $$;
 
-ALTER TABLE classe_eleve ADD CONSTRAINT unique_eleve_numero UNIQUE(matricule,numero); 
-ALTER TABLE eleve ALTER COLUMN matricule TYPE INT primary key;
-ALTER TABLE eleve DROP CONSTRAINT eleve_pkey cascade;
+ALTER TABLE classe_eleve ADD CONSTRAINT unique_eleve_numero UNIQUE(matricule,numero);
 ALTER TABLE classe_eleve ADD CONSTRAINT classe_eleve_matricule_fk matricule references eleve(matricule);
+
+--11/10/2024;
+
+update epreuve set nom_epreuve='PREMIER TRIMESTRE' where id_epreuve = 'EPR000003'; 
+update epreuve set nom_epreuve='DEUXIEME TRIMESTRE' where id_epreuve = 'EPR000006'; 
+update epreuve set nom_epreuve='TROISIEME TRIMESTRE' where id_epreuve = 'EPR000009';
+
+update classe set nom_classe='12eme' where id_classe = 'CLS000003';
+update classe set nom_classe='11eme' where id_classe = 'CLS000004';
+update classe set nom_classe='10eme' where id_classe = 'CLS000005';
+update classe set nom_classe='9eme' where id_classe = 'CLS000006';
+update classe set nom_classe='8eme' where id_classe = 'CLS000007';
+update classe set nom_classe='7eme' where id_classe = 'CLS000008';
+update classe set nom_classe='6eme' where id_classe = 'CLS000009';
+update classe set nom_classe='5eme' where id_classe = 'CLS000010';
+update classe set nom_classe='4eme' where id_classe = 'CLS000011';
+update classe set nom_classe='3eme' where id_classe = 'CLS000012';
+update classe set nom_classe='1ere_S' where id_classe = 'CLS000014';
+update classe set nom_classe='1ere_L' where id_classe = 'CLS000015';
+update classe set nom_classe='Iere_G2' where id_classe = 'CLS000019';
+update classe set nom_classe='IIeme_G2' where id_classe = 'CLS000020';
+update classe set nom_classe='IIIeme_G2' where id_classe = 'CLS000021';
+
+

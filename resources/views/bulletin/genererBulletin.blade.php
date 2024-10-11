@@ -42,16 +42,16 @@
                     <input type="text" class="form-control" id="inputAnneeScolaire" placeholder="{{ date('Y') }}-{{ date('Y')+1 }}" disabled>
                     </div>
                     <div class="form-group">
-                    <label>Libelle</label>
-                    <select class="form-control">
-                        <option>Examen 1er Trimestre</option>
-                        <option>Examen 2eme Trimestre</option>
-                        <option>Examen 3eme Trimestre</option>
+                    <label>Examen</label>
+                    <select class="form-control" name="id_epreuve">
+                        @foreach($epreuves as $epreuve)
+                            <option value="{{ $epreuve->id_epreuve }}">{{ $epreuve->nom_epreuve }}</option>
+                        @endforeach
                     </select>
                     </div>
                     <div class="form-group">
                     <label>Classe</label>
-                    <select class="form-control">
+                    <select class="form-control" name="id_classe">
                         @foreach($classes as $classe)
                             <option value="{{ $classe->id_classe }}">{{ $classe->nom_classe }}</option>
                         @endforeach

@@ -42,7 +42,13 @@
             <div class="card-body">
             <div class="row">
                 <div class="col-8">
-                <button type="button" class="btn btn-block btn-success btn-xs bouton-export" style="margin-top: 15%;" data-toggle="modal" data-target="#modal-sm">Generer</button>
+                <form action="{{ route('bulletin.generer') }}" method="GET" enctype="multipart/form-data">
+                    <button type="submit" class="btn btn-block btn-success btn-xs bouton-export" style="margin-top: 15%;">
+                        Generer
+                    </button>
+                    <input type="hidden" value ="{{ $id_classe }}" name="id_classe">
+                    <input type="hidden" value ="{{ $id_epreuve }}" name="id_epreuve">
+                </form>
                 </div>
                 <div class="col-4 petite-interligne">
                 <p>Annee scolaire : 2024-2025</p>
@@ -74,6 +80,7 @@
                         <thead>
                         <tr>
                             <th>Matricule</th>
+                            <th>Numero</th>
                             <th>Nom</th>
                             <th>Prenom</th>
                             <th>Moyenne</th>
@@ -81,37 +88,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <form action="{{ route('export.apercu') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <tr>
-                                <td>183</td>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>17/20</td>
-                                <td><button type="submit" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
-                            </tr>
-                        </form>
-                        <tr>
-                            <td>278</td>
-                            <td>Miles</td>
-                            <td>Davies</td>
-                            <td>17.25/20</td>
-                            <td><button type="button" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
-                        </tr>
-                        <tr>
-                            <td>183</td>
-                            <td>RAMAKAVELO</td>
-                            <td>Anjara Tia</td>
-                            <td>12.25/20</td>
-                            <td><button type="button" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
-                        </tr>
-                        <tr>
-                            <td>278</td>
-                            <td>SOMBIRALITERA</td>
-                            <td>Jhony</td>
-                            <td>15.5/20</td>
-                            <td><button type="button" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
-                        </tr>
+                            @foreach ($eleves as $eleve )
+                                <form action="{{ route('export.apercu') }}" method="GET" enctype="multipart/form-data">
+                                    @csrf
+                                    <tr>
+                                        <td>{{ $eleve->matricule }}</td>
+                                        <td>{{ $eleve->numero }}</td>
+                                        <td>{{ $eleve->nom }}</td>
+                                        <td>{{ $eleve->prenom }}</td>
+                                        <td>17/20</td>
+                                        <input type="hidden" value="{{ $eleve->matricule }}" name="matricule">
+                                        <td><button type="submit" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
+                                    </tr>
+                                    <input type="hidden" value ="{{ $id_epreuve }}" name="id_epreuve">
+                                </form>
+                            @endforeach
                         </tbody>
                     </table>
                     </div>
