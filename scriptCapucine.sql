@@ -490,8 +490,6 @@ BEGIN
 END
 $$;
 
-ALTER TABLE classe_eleve ADD CONSTRAINT unique_eleve_numero UNIQUE(matricule,numero);
-ALTER TABLE classe_eleve ADD CONSTRAINT classe_eleve_matricule_fk matricule references eleve(matricule);
 
 --11/10/2024;
 
