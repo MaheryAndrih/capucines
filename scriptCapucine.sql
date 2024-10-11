@@ -513,4 +513,19 @@ update classe set nom_classe='Iere_G2' where id_classe = 'CLS000019';
 update classe set nom_classe='IIeme_G2' where id_classe = 'CLS000020';
 update classe set nom_classe='IIIeme_G2' where id_classe = 'CLS000021';
 
+CREATE TABLE detail_epreuve(
+    id_epreuve_mere char(9) references epreuve(id_epreuve),
+    id_epreuve_fille char(9) references epreuve(id_epreuve),
+    unique(id_epreuve_mere,id_epreuve_fille)
+);
 
+INSERT INTO detail_epreuve VALUES
+('EPR000003','EPR000001'),
+('EPR000003','EPR000002'),
+('EPR000003','EPR000003'),
+('EPR000006','EPR000004'),
+('EPR000006','EPR000005'),
+('EPR000006','EPR000006'),
+('EPR000009','EPR000007'),
+('EPR000009','EPR000008'),
+('EPR000009','EPR000009');
