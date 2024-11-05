@@ -168,12 +168,8 @@ create table classe_matiere_coefficient(
     id_classe char(9) references classe(id_classe) not null,
     id_matiere char(9) references matiere(id_matiere) not null,
     coefficient double precision not null check(coefficient >= 0.5),
-    unique(id_classe,id_matiere)
+    unique(id_classe,id_matiere,rang)
 );
-
-
-ALTER TABLE classe_matiere_coefficient ADD COLUMN rang INT;
-ALTER TABLE classe_matiere_coefficient ADD CONSTRAINT unique_rang_matiere unique(id_classe,id_matiere,rang);
 
 CREATE TABLE classe_epreuve (
     id_classe CHAR(9) REFERENCES classe(id_classe) NOT NULL,
@@ -656,7 +652,7 @@ BEGIN
         WHERE 
             (p_matricule IS NULL OR vc.matricule = p_matricule)
         GROUP BY 
-            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient
+            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient, classe_matiere_coefficient.rang
         ORDER BY
             classe_matiere_coefficient.rang;
 
@@ -692,7 +688,7 @@ BEGIN
         WHERE 
             (p_matricule IS NULL OR vc.matricule = p_matricule)
         GROUP BY 
-            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient
+            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient, classe_matiere_coefficient.rang
         ORDER BY
             classe_matiere_coefficient.rang;
 
@@ -728,7 +724,7 @@ BEGIN
         WHERE 
             (p_matricule IS NULL OR vc.matricule = p_matricule)
         GROUP BY 
-            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient
+            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient, classe_matiere_coefficient.rang
         ORDER BY
             classe_matiere_coefficient.rang;
     END IF;
