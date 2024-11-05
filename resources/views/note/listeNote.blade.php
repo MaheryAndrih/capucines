@@ -37,6 +37,15 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-8">
+<<<<<<< HEAD
+=======
+                  <button type="button" class="btn btn-block btn-secondary btn-xs bouton-export" data-toggle="modal" data-target="#model"
+                    data-id-classe="{{ $id_classe }}"
+                    data-id-epreuve="{{ $id_epreuve }}"
+                    data-id-matiere="{{ $id_matiere }}">
+                    Importer
+                  </button>
+>>>>>>> 288aeae652d2f742ce302f2e9f08ff35b3b490dc
                   <button type="button" class="btn btn-block bg-gradient-warning btn-xs bouton-export" data-toggle="modal" data-target="#modela"
                     data-id-classe="{{ $id_classe }}"
                     data-id-epreuve="{{ $id_epreuve }}"
@@ -188,7 +197,7 @@
         <div class="modal-body">
           <div class="card-body">
             <p>Cette action supprimera tout les notes de la classe <strong></strong></p>
-            <input type="hidden" id="inputIdClasse" name="id_classe">
+            <input type="text" id="inputIdClasse" name="id_classe">
             <input type="hidden" id="inputIdMatiere" name="id_matiere">
             <input type="hidden" id="inputIdEpreuve" name="id_epreuve">
           </div>
@@ -203,9 +212,54 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade" id="model">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Import</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{ route('note.import') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="model" value="ImportNote">
+        <div class="modal-body">
+          <div class="card-body">
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
+                <label class="custom-file-label" for="exampleInputFile">Choisir le fichier</label>
+                <input type="hidden" id="idClasse" name="id_classe">
+                <input type="hidden" id="idMatiere" name="id_matiere">
+                <input type="hidden" id="idEpreuve" name="id_epreuve">
+              </div>
+            </div>
+          </div>
+          @error('error')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          <button type="submint" class="btn btn-warning">Confirmer</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 @endsection
 
 @section('jsPerso')
+  <script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+  <script>
+    $(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
   <script>
     $('#modal-sm').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget); // Bouton qui déclenche le modal
@@ -238,6 +292,18 @@
       modal.find('#inputIdClasse').val(idClasse);
       modal.find('#inputIdMatiere').val(idMatiere);
       modal.find('#inputIdEpreuve').val(idEpreuve);
+    });
+
+    $('#model').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var idClasse = button.data('id-classe');
+      var idMatiere = button.data('id-matiere');
+      var idEpreuve = button.data('id-epreuve');
+
+      var modal = $(this);
+      modal.find('#idClasse').val(idClasse);
+      modal.find('#idMatiere').val(idMatiere);
+      modal.find('#idEpreuve').val(idEpreuve);
     });
   </script>
 @endsection

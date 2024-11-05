@@ -19,7 +19,7 @@ class LoginController extends Controller
 
         // Récupérer les matières correspondant à la classe sélectionnée
         $matieres = VClasseMatiereCoefficient::where('id_classe', $idClasseSelectionnee)
-                      ->select('id_matiere', 'code_matiere')
+                      ->select('id_matiere', 'nom_matiere')
                       ->get();
 
         $epreuves = VEpreuve::where('id_classe', $idClasseSelectionnee)
@@ -36,7 +36,7 @@ class LoginController extends Controller
     }
 
     public function getMatieres($idClasse){
-        $matieres = VClasseMatiereCoefficient::where('id_classe',$idClasse)->select('id_matiere','code_matiere')->get();
+        $matieres = VClasseMatiereCoefficient::where('id_classe',$idClasse)->select('id_matiere','nom_matiere')->get();
         return response()->json($matieres);
     }
 

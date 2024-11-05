@@ -103,8 +103,8 @@ class NoteController extends Controller
 
         // Récupérer les matières correspondant à la classe sélectionnée
         $matieres = VClasseMatiereCoefficient::where('id_classe', $idClasseSelectionnee)
-                      ->select('id_matiere', 'code_matiere')
-                      ->get();
+                ->select('id_matiere', 'nom_matiere')
+                ->get();
 
         $epreuves = VEpreuve::where('id_classe', $idClasseSelectionnee)
             ->select('id_epreuve', 'code_epreuve')
@@ -146,7 +146,6 @@ class NoteController extends Controller
                 while (($line = fgetcsv($handle))!== FALSE) 
                 {
                     $data = array_combine($header, $line);
-                    // dd($data);
                     $importNote = new ImportNote;
                     $importNote->code_epreuve = $data['code_epreuve'];
                     $importNote->code_classe = $data['code_classe'];

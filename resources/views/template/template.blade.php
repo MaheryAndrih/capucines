@@ -64,14 +64,8 @@
                         with font-awesome or any other icon font library -->
                     <li class="nav-header">NOTES</li>
                     <li class="nav-item">
-                        <a href="{{ route('note.ajout') }}" class="nav-link">
+                        <a href="{{ route('login.acceuil') }}" class="nav-link" method="post">
                             <i class="nav-icon fas fa-edit"></i>
-                            <p>Ajout note</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('login.acceuil') }}" class="nav-link active" method="post">
-                            <i class="nav-icon fas fa-book"></i>
                             <p>Liste note</p>
                         </a>
                     </li>

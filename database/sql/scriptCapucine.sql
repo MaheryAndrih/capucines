@@ -202,6 +202,7 @@ create table classe_matiere_coefficient(
     unique(id_classe,id_matiere),
 );
 
+
 INSERT INTO classe_matiere_coefficient (id_classe, id_matiere, coefficient) VALUES
 ('CLS000001', 'MAT000001', 3),
 ('CLS000001', 'MAT000002', 4),

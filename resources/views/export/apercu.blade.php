@@ -145,7 +145,12 @@
                     <td></td>
                     <td></td>
                     <td>Statut:</td>
-                    <td>Passante</td>
+                    @if($eleve->statut == TRUE)
+                        <td>Passant(e)</td>
+                    @endif
+                    @if($eleve->statut == FALSE)
+                        <td>Redoublant(e)</td>
+                    @endif
                 </tr>
             </table>
         </div>
@@ -169,174 +174,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">EXPRESSION ORALE/LECTURE</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">FRANCAIS</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">DIKASORATRA/SORATONONINA</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">FANAZARANA HITENY/VAKITENY</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">MALAGASY</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">MATHEMATIQUES</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">PROBLEMES</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">EVEIL</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">CHANT/RECREATION</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">TFM</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">DESSIN/ACM</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">APSE</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">INFO</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
-                    <tr>
-                        <td class="td-MATIERE" style="text-align: left">DICTEE/ECRITURE</td>
-                        <td class="width-note"></td>
-                        <td class="width-note"></td>
-                        <td class="width-note">15.75</td>
-                        <td class="width-note">15</td>
-                        <td class="width-note">20</td>
-                        <td class="width-note">0.5</td>
-                        <td class="width-note">7.5</td>
-                        <td class="width-note">22 eme ex</td>
-                        <td class="width-note">Bien</td>
-                    </tr>
+                    @foreach ($bulletins as $bulletin)
+                        <tr>
+                            <td class="td-MATIERE" style="text-align: left">{{ $bulletin->nom_matiere }}</td>
+                            <td class="width-note">{{ $bulletin->ds1 }}</td>
+                            <td class="width-note">{{ $bulletin->ds2 }}</td>
+                            <td class="width-note">{{ $bulletin->exam }}</td>
+                            <td class="width-note">{{ $bulletin->moyenne }}</td>
+                            <td class="width-note">20</td>
+                            <td class="width-note">{{ $bulletin->coefficient }}</td>
+                            <td class="width-note">{{ $bulletin->mc }}</td>
+                            <td class="width-note">22 eme ex</td>
+                            <td class="width-note">{{ $bulletin->appreciation }}</td>
+                        </tr>
+                    @endforeach
                     <tr>
                         <td class="td-MATIERE" style="text-align: center" colspan="6"><strong>Moyenne de classe = 16.7/20</strong></td>
                         <td class="width-note">8.5</td>
@@ -372,7 +223,7 @@
                     </tr>
                     <tr>
                         <td colspan="6" class="td-MATIERE" style="border-bottom:none; text-align:left; border-right:none; ">Signature des Parents</td>
-                        <td colspan="4" class="td-MATIERE" style="border-bottom:none; text-align:left; border-left:none">Antananarivo,le 03 Juillet 2024</td>
+                        <td colspan="4" class="td-MATIERE" style="border-bottom:none; text-align:left; border-left:none">Antananarivo,le {{ $date }}</td>
                     </tr>
                     <tr>
                         <td colspan="6" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-right:none;"></td>
