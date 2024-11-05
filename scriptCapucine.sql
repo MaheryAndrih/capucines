@@ -156,6 +156,8 @@ create table eleve(
     numero_mere varchar(14)
 );
 
+ALTER TABLE eleve ADD COLUMN image VARCHAR;
+
 create table classe_eleve(
     id_classe char(9) references classe(id_classe),
     matricule int references eleve(matricule),
@@ -460,13 +462,14 @@ RETURNS void
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO eleve (matricule,nom,prenom,genre,dtn)
+    INSERT INTO eleve (matricule,nom,prenom,genre,dtn,image)
     SELECT DISTINCT
-        CAST(CAST(i.matricule as INT), as INT),
+        CAST(i.matricule AS INT),
         i.noms,
         i.prenoms,
         i.genre,
-        CAST(i.dtn as DATE)
+        CAST(i.dtn as DATE),
+        i.matricule||'.jpg'
     FROM import_eleve_temporaire AS i
     ON CONFLICT DO NOTHING;
 END
@@ -739,5 +742,3 @@ BEGIN
     DELETE  FROM classe_eleve WHERE id_classe = id_classe_var ;
 END;
 $$;
-
-

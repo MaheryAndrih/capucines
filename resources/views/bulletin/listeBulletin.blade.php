@@ -43,7 +43,8 @@
                                 <h5>Liste des bulletins</h5> 
                             </div>
                             <div class="col-2 ml-auto">
-                                <input class="form-control form-control-sm" type="date" value="{{ $date }}" name="date">
+                                <input class="form-control form-control-sm" type="date" value="{{ $date }}" name="date" id="dateInput">
+                                
                             </div>
                         </div>
                     </div>
@@ -55,7 +56,6 @@
                                 </button>
                                 <input type="hidden" value ="{{ $id_classe }}" name="id_classe">
                                 <input type="hidden" value ="{{ $id_epreuve }}" name="id_epreuve">
-                            
                             </div>
                             <div class="col-4 petite-interligne">
                             <p>Annee scolaire : 2024-2025</p>
@@ -105,6 +105,7 @@
                                                     <td>{{ $eleve->nom }}</td>
                                                     <td>{{ $eleve->prenom }}</td>
                                                     <td>17/20</td>
+                                                    <input type="hidden" name="date" id="hiddenDate">
                                                     <input type="hidden" value="{{ $eleve->matricule }}" name="matricule">
                                                     <td><button type="submit" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
                                                 </tr>
@@ -129,4 +130,20 @@
     <!-- /.container-fluid -->
 </section>
 
+@endsection
+@section('jsPerso')
+<script>
+    function updateHiddenDate() {
+        // Copie la valeur de dateInput dans hiddenDate
+        document.getElementById('hiddenDate').value = document.getElementById('dateInput').value;
+    }
+
+    // Exécute la fonction lors du chargement de la page
+    window.addEventListener('DOMContentLoaded', (event) => {
+        updateHiddenDate(); // Initialise hiddenDate dès le chargement
+    });
+
+    // Exécute la fonction chaque fois que dateInput change
+    document.getElementById('dateInput').addEventListener('change', updateHiddenDate);
+</script>
 @endsection

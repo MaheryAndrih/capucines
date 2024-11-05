@@ -89,11 +89,7 @@ class EleveController extends Controller{
 
     public function deleteEleveClasse(){
         $eleve = ClasseEleve::where('matricule',request('matricule'))->delete();
-        $id_classe = request('id_classe');
-        $classe = Classe::find($id_classe);
-        $eleves = VEleve::where('id_classe',$id_classe)
-        ->OrderBy('numero')->get();
-        return view('eleve.liste_eleve_classe',compact('eleves','id_classe','classe'));
+        return redirect()->back();
     }
 
     public function modifier_eleve_info1(){

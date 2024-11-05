@@ -48,7 +48,6 @@ class ClasseEleveController extends Controller
                     $importClasseEleve->dtn = $data['Date de naiss'];
                     $importClasseEleve->matricule = $data['N°Mat'];
                     $importClasseEleve->save();
-
                 }
                 DB::select('SELECT delete_classe_eleve(?)',[$id_classe]);
                 DB::select('SELECT insert_unique_eleve()');
@@ -127,8 +126,9 @@ class ClasseEleveController extends Controller
 
     public static function checkFileName($id_classe,UploadedFile $file){
         $file_name = $file->getClientOriginalName();
+        $fileNameWithoutExtension = pathinfo($file_name, PATHINFO_FILENAME);
         $classe = Classe::select('code_classe')->where('id_classe',$id_classe)->first();
-        if($file_name != $classe['code_classe']){
+        if($fileNameWithoutExtension != $classe['code_classe']){
             throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ".$classe['code_classe'].".csv");
         }
         return true;

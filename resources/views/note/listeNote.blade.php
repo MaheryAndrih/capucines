@@ -37,15 +37,12 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-8">
-<<<<<<< HEAD
-=======
                   <button type="button" class="btn btn-block btn-secondary btn-xs bouton-export" data-toggle="modal" data-target="#model"
                     data-id-classe="{{ $id_classe }}"
                     data-id-epreuve="{{ $id_epreuve }}"
                     data-id-matiere="{{ $id_matiere }}">
                     Importer
                   </button>
->>>>>>> 288aeae652d2f742ce302f2e9f08ff35b3b490dc
                   <button type="button" class="btn btn-block bg-gradient-warning btn-xs bouton-export" data-toggle="modal" data-target="#modela"
                     data-id-classe="{{ $id_classe }}"
                     data-id-epreuve="{{ $id_epreuve }}"

@@ -83,12 +83,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../bulletin/selectionBulletin.html" class="nav-link">
-                            <i class="nav-icon fas fa-tasks"></i>
-                            <p>Liste bulletin</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="#" class="nav-link">
                         <i class="nav-icon far fa-square"></i>
                         <p>
