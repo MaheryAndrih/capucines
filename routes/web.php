@@ -50,7 +50,10 @@ Route::get('/to_eleve', [EleveController::class, 'to_eleve']);
 Route::get('/to_profil_eleve/{matricule}', [EleveController::class, 'to_profil_eleve']);
 Route::post('/ajouter_eleve', [EleveController::class, 'ajouter_eleve']);
 Route::post('/deleteEleveClasse', [EleveController::class, 'deleteEleveClasse']);
-Route::post('/modifier_eleve_info', [EleveController::class, 'modifier_eleve_info']);
+Route::post('/modifier_eleve_info1', [EleveController::class, 'modifier_eleve_info1']);
+Route::post('/modifier_eleve_info2', [EleveController::class, 'modifier_eleve_info2']);
+Route::post('/add_sanction', [EleveController::class, 'add_sanction']);
+Route::post('/deleteSanction', [EleveController::class, 'deleteSanction']);
 
 Route::get('to_create_csv',[NoteController::class,'to_create_csv']);
 Route::post('search_eleve_note',[NoteController::class,'search_eleve_note']);

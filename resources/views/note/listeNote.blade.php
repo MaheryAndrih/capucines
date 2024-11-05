@@ -37,7 +37,6 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-8">
-                  <button type="button" class="btn btn-block btn-secondary btn-xs bouton-export">Exporter pdf</button>
                   <button type="button" class="btn btn-block bg-gradient-warning btn-xs bouton-export" data-toggle="modal" data-target="#modela"
                     data-id-classe="{{ $id_classe }}"
                     data-id-epreuve="{{ $id_epreuve }}"

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Classe;
 use App\Models\VEleve;
 use App\Models\Eleve;
+use App\Models\Sanction;
 use App\Models\ClasseEleve;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -82,7 +83,8 @@ class EleveController extends Controller{
 
     public function to_profil_eleve(){
         $eleve = VEleve::find(request('matricule'));
-        return view('eleve.profil',compact('eleve'));
+        $sanctions = Sanction::where('matricule',request('matricule'))->get();
+        return view('eleve.profil',compact('eleve','sanctions'));
     }
 
     public function deleteEleveClasse(){
@@ -94,12 +96,20 @@ class EleveController extends Controller{
         return view('eleve.liste_eleve_classe',compact('eleves','id_classe','classe'));
     }
 
-    public function modifier_eleve_info(){
+    public function modifier_eleve_info1(){
         $el = Eleve::find(request('matricule'));
         $el->nom=request('nom');
         $el->prenom=request('prenom');
         $el->dtn=request('dtn');
         $el->genre=request('genre');
+        $el->save();
+        $eleve = VEleve::find(request('matricule'));
+        $sanctions = Sanction::where('matricule',request('matricule'))->get();
+        return view('eleve.profil',compact('eleve','sanctions'));
+    }
+
+    public function modifier_eleve_info2(){
+        $el = Eleve::find(request('matricule'));
         $el->nom_pere=request('nom_pere');
         $el->profession_pere=request('profession_pere');
         $el->numero_pere=request('numero_pere');
@@ -108,7 +118,25 @@ class EleveController extends Controller{
         $el->numero_mere=request('numero_mere');
         $el->save();
         $eleve = VEleve::find(request('matricule'));
-        return view('eleve.profil',compact('eleve'));
+        $sanctions = Sanction::where('matricule',request('matricule'))->get();
+        return view('eleve.profil',compact('eleve','sanctions'));
+    }
+
+    public function add_sanction(){
+        $data['matricule'] = request('matricule');
+        $data['motif'] = request('motif');
+        $sanction = new Sanction();
+        $sanction->store($data);
+        $eleve = VEleve::find(request('matricule'));
+        $sanctions = Sanction::where('matricule',request('matricule'))->get();
+        return view('eleve.profil',compact('eleve','sanctions'));
+    }
+
+    public function deleteSanction(){
+        $sanction = Sanction::find(request('sanction'))->delete();
+        $eleve = VEleve::find(request('matricule'));
+        $sanctions = Sanction::where('matricule',request('matricule'))->get();
+        return view('eleve.profil',compact('eleve','sanctions'));
     }
 
 }

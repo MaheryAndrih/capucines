@@ -276,12 +276,24 @@ class NoteController extends Controller
             })
             ->OrderBy('matricule')
             ->get();
+        $nom_epreuve = Epreuve::select('nom_epreuve')->where('id_epreuve',$id_epreuve)->first();
+        $nom_classe = Classe::select('nom_classe')->where('id_classe',$id_classe)->first();
+        $nom_matiere = Matiere::select('nom_matiere')->where('id_matiere',$id_matiere)->first();
+        $nbr_eleve = ClasseEleve::where('id_classe', $id_classe)->count();
+        $moyenne = DB::select('SELECT get_moyenne_matiere(?,?,?)',[$id_classe,$id_matiere,$id_epreuve]);
+        $moyenne_value = $moyenne[0]->get_moyenne_matiere;
+        $moyenne_value = round($moyenne_value, 2);
         return view('note.listeNote',
             [ 
                 'notes' => $notes,
                 'id_classe' => $id_classe,
                 'id_epreuve' => $id_epreuve,
-                'id_matiere' => $id_matiere
+                'id_matiere' => $id_matiere,
+                'nom_epreuve' => $nom_epreuve,
+                'nom_classe' => $nom_classe,
+                'nom_matiere' => $nom_matiere,
+                'nbr_eleve' => $nbr_eleve,
+                'moyenne' => $moyenne_value 
             ]
         );
     }

@@ -25,7 +25,7 @@
       <div class="col-md-6 mx-auto">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Sélection Classe Matière</h3>
+            <h3 class="card-title">Sélection Rapport Rang Matière</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->

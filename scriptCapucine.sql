@@ -161,6 +161,7 @@ create table classe_eleve(
 );
 
 create table classe_matiere_coefficient(
+    rang int not null,
     id_classe char(9) references classe(id_classe) not null,
     id_matiere char(9) references matiere(id_matiere) not null,
     coefficient double precision not null check(coefficient >= 0.5),
@@ -260,6 +261,18 @@ create table note(
 );
 
 create sequence note_seq
+    start with 1
+    increment by 1
+    minvalue 1;
+
+create table sanction (
+    id_sanction char(9) primary key,
+    matricule int references eleve(matricule),
+    motif varchar(100),
+    date_sanction date DEFAULT now()
+);
+
+create sequence sanction_seq
     start with 1
     increment by 1
     minvalue 1;
@@ -626,7 +639,9 @@ BEGIN
         WHERE 
             (p_matricule IS NULL OR vc.matricule = p_matricule)
         GROUP BY 
-            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient;
+            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient
+        ORDER BY
+            classe_matiere_coefficient.rang;
 
     ELSIF p_id_epreuve = 'EPR000006' THEN
         RETURN QUERY
@@ -660,7 +675,9 @@ BEGIN
         WHERE 
             (p_matricule IS NULL OR vc.matricule = p_matricule)
         GROUP BY 
-            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient;
+            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient
+        ORDER BY
+            classe_matiere_coefficient.rang;
 
     ELSIF p_id_epreuve = 'EPR000009' THEN
         RETURN QUERY
@@ -694,7 +711,9 @@ BEGIN
         WHERE 
             (p_matricule IS NULL OR vc.matricule = p_matricule)
         GROUP BY 
-            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient;
+            vc.id_classe, vc.id_matiere, matiere.nom_matiere, vc.matricule, vc.nom, vc.prenom, classe_matiere_coefficient.coefficient
+        ORDER BY
+            classe_matiere_coefficient.rang;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
