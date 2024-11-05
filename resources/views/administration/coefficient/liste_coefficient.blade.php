@@ -41,6 +41,7 @@
               <table class="table table-hover text-nowrap">
                 <thead>
                   <tr>
+                    <th>RANG</th>
                     <th>MATIERE</th>
                     <th>VALEUR</th>
                     <th></th>
@@ -50,7 +51,8 @@
                 <tbody>
                   @foreach ($listeCoefficient as $coefficient)
                     <tr>
-                      <td>{{ $coefficient->code_matiere }}</td>
+                      <td>{{ $coefficient->rang }}</td>
+                      <td>{{ $coefficient->nom_matiere }}</td>
                       <td>{{ $coefficient->coefficient }}</td>
                       <td>
                         <button type="button" class="btn btn-warning update-coefficient" data-toggle="modal" data-target="#modal-sm" 

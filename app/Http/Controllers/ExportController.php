@@ -19,6 +19,7 @@ class ExportController extends Controller
         $eleve = VEleve::where('matricule',$request->input('matricule'))->first();
         $epreuve = Epreuve::where('id_epreuve',$request->input('id_epreuve'))->first();
         $bulletins = Bulletin::getBulletin($epreuve->id_epreuve,$eleve->matricule);
+        
         $data = [ 
             "eleve" => $eleve,
             "epreuve" => $epreuve,
@@ -29,6 +30,7 @@ class ExportController extends Controller
     }
 
     public function generer(Request $request){
+        $date = $request->input('date');
         $classe = Classe::where('id_classe',$request->input('id_classe'))->first();
         $epreuve = Epreuve::where('id_epreuve',$request->input('id_epreuve'))->first();
         $eleves = VEleve::where('id_classe', $classe->id_classe)->orderBy('numero')->get();
@@ -39,7 +41,7 @@ class ExportController extends Controller
         $zip = new ZipArchive;
         if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
             foreach ($eleves as $eleve){
-                $filePath = $this->saveBulletin($eleve,$classe,$epreuve);
+                $filePath = $this->saveBulletin($eleve,$classe,$epreuve,$date);
                 $zip->addFile($filePath, basename($filePath));
             }
             $zip->close();
@@ -49,12 +51,13 @@ class ExportController extends Controller
         return response()->download($zipFilePath)->deleteFileAfterSend(true);
     }
 
-    private function saveBulletin($eleve,$classe,$epreuve){
+    private function saveBulletin($eleve,$classe,$epreuve,$date){
         $bulletins = Bulletin::getBulletin($epreuve->id_epreuve,$eleve->matricule);
         $data = [
             "eleve" => $eleve,
             "epreuve" => $epreuve,
-            "bulletins" => $bulletins
+            "bulletins" => $bulletins,
+            "date" => $date
         ];
         $pdf = Pdf::loadView('export.apercu', $data);
         $filePath = storage_path("app/public/bulletins/{$eleve->numero}_{$eleve->prenom}_{$classe['nom_classe']}_{$epreuve['code_epreuve']}.pdf");

@@ -21,7 +21,8 @@ class BulletinController extends Controller{
         $id_classe = $request->input('id_classe');
         $id_epreuve = $request->input('id_epreuve');
         $eleves = VEleve::where('id_classe',$id_classe)->OrderBy('numero')->get();
-        return view('bulletin.listeBulletin',compact('eleves','id_classe','id_epreuve'));
+        $date = date('Y-m-d');
+        return view('bulletin.listeBulletin',compact('eleves','id_classe','id_epreuve','date'));
     }
 
     public function to_rang_matiere(){

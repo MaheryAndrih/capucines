@@ -33,6 +33,7 @@ class ClasseEleveController extends Controller
                     $header[0] = preg_replace('/\x{FEFF}/u', '', $header[0]);
                 }
                 $id_classe = request('id_classe');
+                self::checkFileName($id_classe,$file);
                 // dd($id_classe);
                 DB::beginTransaction();
                 DB::select('SELECT delete_import_eleve_temporaire()');
@@ -49,6 +50,7 @@ class ClasseEleveController extends Controller
                     $importClasseEleve->save();
 
                 }
+                DB::select('SELECT delete_classe_eleve(?)',[$id_classe]);
                 DB::select('SELECT insert_unique_eleve()');
                 DB::select('SELECT insert_unique_eleve_classe(?)',[$id_classe]);
                 DB::commit();
@@ -119,6 +121,15 @@ class ClasseEleveController extends Controller
         if($count_diff != 0)
         {
             throw new \InvalidArgumentException("La premiere ligne du fichier csv n'est pas identique au model de reference");
+        }
+        return true;
+    }
+
+    public static function checkFileName($id_classe,UploadedFile $file){
+        $file_name = $file->getClientOriginalName();
+        $classe = Classe::select('code_classe')->where('id_classe',$id_classe)->first();
+        if($file_name != $classe['code_classe']){
+            throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ".$classe['code_classe'].".csv");
         }
         return true;
     }

@@ -17,5 +17,6 @@ class ImportCoefficient extends Model
         'code_classe',
         'code_matiere',
         'coefficient',
+        'rang'
     ];
 }

@@ -136,8 +136,11 @@ INSERT INTO MATIERE VALUES
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'PROBLEMES','PB'),
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'CHANT/RECITATION','CHN'),
 ('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'TFM','TFM'),
-('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'DESSIN/ACM','DES'),
-('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'DICTEE/ECRITURE','DCT');
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'DESSIN/ACM','DES');
+
+
+INSERT INTO MATIERE VALUES
+('MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),'DICTEE/ECRITURE','DCTECR');
 
 create table eleve(
     matricule serial primary key,
@@ -166,6 +169,10 @@ create table classe_matiere_coefficient(
     coefficient double precision not null check(coefficient >= 0.5),
     unique(id_classe,id_matiere)
 );
+
+
+ALTER TABLE classe_matiere_coefficient ADD COLUMN rang INT;
+ALTER TABLE classe_matiere_coefficient ADD CONSTRAINT unique_rang_matiere unique(id_classe,id_matiere,rang);
 
 CREATE TABLE classe_epreuve (
     id_classe CHAR(9) REFERENCES classe(id_classe) NOT NULL,
@@ -280,9 +287,14 @@ CREATE or REPLACE View v_note_classe as
         and note.matricule=eleve.matricule
         and note.id_epreuve=classe_epreuve.id_epreuve;
 
+ALTER TABLE classe_eleve ADD COLUMN passant BOOLEAN NOT NULL DEFAULT 't';
+ALTER TABLE classe_eleve DROP COLUMN passant ;
+ALTER TABLE classe_eleve ADD COLUMN statut BOOLEAN NOT NULL DEFAULT 't';
+
+
 CREATE or REPLACE View v_eleve as
-    select eleve.*,COALESCE(classe_eleve.id_classe,'NULL') as id_classe,COALESCE(classe.nom_classe,'NON-CLASSEE') as nom_classe, classe_eleve.numero
-    from classe_eleve full join eleve on classe_eleve.matricule=eleve.matricule
+    select eleve.*,COALESCE(classe_eleve.id_classe,'NULL') as id_classe,COALESCE(classe.nom_classe,'NON-CLASSEE') as nom_classe, classe_eleve.numero,
+    classe_eleve.statut from classe_eleve full join eleve on classe_eleve.matricule=eleve.matricule
     left join classe on classe_eleve.id_classe=classe.id_classe;
 
 CREATE or REPLACE v_bulletin as 
@@ -297,8 +309,10 @@ CREATE or REPLACE View v_classe_matiere_coefficient as
     select  
         cm.id_classe,
         cm.id_matiere,
+        m.nom_matiere,
         m.code_matiere,
-        cm.coefficient
+        cm.coefficient,
+        cm.rang
     from classe_matiere_coefficient as cm
         join matiere as m on
             m.id_matiere = cm.id_matiere;
@@ -381,6 +395,8 @@ CREATE TABLE import_coefficient (
     coefficient varchar not null
 );
 
+ALTER TABLE import_coefficient ADD COLUMN rang VARCHAR;
+
 CREATE OR REPLACE FUNCTION delete_import_coefficient()
 RETURNS void
 LANGUAGE plpgsql
@@ -395,11 +411,12 @@ RETURNS void
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO classe_matiere_coefficient(id_classe,id_matiere,coefficient)
+    INSERT INTO classe_matiere_coefficient(id_classe,id_matiere,coefficient,rang)
     SELECT
         c.id_classe,
         m.id_matiere,
-        CAST(i.coefficient as DOUBLE PRECISION)
+        CAST(i.coefficient as DOUBLE PRECISION),
+        CAST(i.rang as INT)
     FROM import_coefficient AS i
         JOIN classe AS c    
             ON c.code_classe = i.code_classe
@@ -699,4 +716,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT * FROM get_bulletin('EPR000003', 1802);
+CREATE OR REPLACE FUNCTION delete_classe_eleve(id_classe_var CHAR(9))
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE  FROM classe_eleve WHERE id_classe = id_classe_var ;
+END;
+$$;
+
+

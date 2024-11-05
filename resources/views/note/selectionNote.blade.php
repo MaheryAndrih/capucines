@@ -53,7 +53,7 @@
                   <select class="form-control" name="id_matiere" id="matiereSelect">
                     <option value="">-- Sélectionnez une matière --</option>
                     @foreach($matieres as $matiere)
-                      <option value="{{ $matiere->id_matiere }}">{{ $matiere->code_matiere }}</option>
+                      <option value="{{ $matiere->id_matiere }}">{{ $matiere->nom_matiere }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -99,7 +99,7 @@
             
             // Boucle pour ajouter les nouvelles matières
             $.each(data, function(key, matiere) {
-              matiereSelect.append('<option value="' + matiere.id_matiere + '">' + matiere.code_matiere + '</option>');
+              matiereSelect.append('<option value="' + matiere.id_matiere + '">' + matiere.nom_matiere + '</option>');
             });
           }
         });

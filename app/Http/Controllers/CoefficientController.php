@@ -20,7 +20,7 @@ class CoefficientController extends Controller
 
     public function listeCoefficient(Request $request){
         $id_classe = $request->input('id_classe');
-        $listeCoefficient = VClasseMatiereCoefficient::where('id_classe',$id_classe)->get();
+        $listeCoefficient = VClasseMatiereCoefficient::where('id_classe',$id_classe)->orderBy('rang')->get();
         $classe = null;
         if(count($listeCoefficient) > 0){
             $id_classe = $listeCoefficient[0]->id_classe;
@@ -82,6 +82,7 @@ class CoefficientController extends Controller
                     $importCoefficient->code_classe = $data['code_classe'];
                     $importCoefficient->code_matiere = $data['code_matiere'];
                     $importCoefficient->coefficient = str_replace(",",".",$data['coefficient']);
+                    $importCoefficient->rang = $data['rang'];
                     $importCoefficient->save();
                 }
                 $id_classe = $request->input('id_classe');

@@ -145,7 +145,12 @@
                     <td></td>
                     <td></td>
                     <td>Statut:</td>
-                    <td>Passante</td>
+                    @if($eleve->statut == TRUE)
+                        <td>Passant(e)</td>
+                    @endif
+                    @if($eleve->statut == FALSE)
+                        <td>Redoublant(e)</td>
+                    @endif
                 </tr>
             </table>
         </div>
@@ -218,7 +223,7 @@
                     </tr>
                     <tr>
                         <td colspan="6" class="td-MATIERE" style="border-bottom:none; text-align:left; border-right:none; ">Signature des Parents</td>
-                        <td colspan="4" class="td-MATIERE" style="border-bottom:none; text-align:left; border-left:none">Antananarivo,le 03 Juillet 2024</td>
+                        <td colspan="4" class="td-MATIERE" style="border-bottom:none; text-align:left; border-left:none">Antananarivo,le {{ $date }}</td>
                     </tr>
                     <tr>
                         <td colspan="6" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-right:none;"></td>
