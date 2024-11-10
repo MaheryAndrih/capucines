@@ -59,10 +59,10 @@
                             </div>
                             <div class="col-4 petite-interligne">
                             <p>Annee scolaire : 2024-2025</p>
-                            <p>Libelle : DS 1</p>
-                            <p>Classe : Terminale S</p>
-                            <p>Nombre d'eleves : 35</p>
-                            <p>Moyenne : 16,32/20</p>
+                            <p>Libelle : <strong>EXAMEN Premier Trimestre</strong></p>
+                            <p>Classe : <strong>12eme</strong></p>
+                            <p>Nombre d'eleves : <strong>36</strong></p>
+                            <p>Moyenne : <strong>16,24/20</strong></p>
                             </div>
                         </form>
                         </div>
@@ -96,6 +96,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $i = 0;
+                                        @endphp
                                         @foreach ($eleves as $eleve )
                                             <form action="{{ route('export.apercu') }}" method="GET" enctype="multipart/form-data">
                                                 @csrf
@@ -104,13 +107,14 @@
                                                     <td>{{ $eleve->numero }}</td>
                                                     <td>{{ $eleve->nom }}</td>
                                                     <td>{{ $eleve->prenom }}</td>
-                                                    <td>17/20</td>
+                                                    <td>{{ $randomNumbers[$i] }}/20</td>
                                                     <input type="hidden" name="date" id="hiddenDate">
                                                     <input type="hidden" value="{{ $eleve->matricule }}" name="matricule">
                                                     <td><button type="submit" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
                                                 </tr>
                                                 <input type="hidden" value ="{{ $id_epreuve }}" name="id_epreuve">
                                             </form>
+                                            @php $i++; @endphp
                                         @endforeach
                                     </tbody>
                                 </table>

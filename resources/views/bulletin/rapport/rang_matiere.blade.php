@@ -35,9 +35,11 @@
               <div class="form-group">
                 <label>Epreuve</label>
                 <select class="form-control" name="id_epreuve">
-                      <option value="1">Examen Trimestriel I</option>
-                      <option value="4">Examen Trimestriel II</option>
-                      <option value="7">Examen Trimestriel III</option>
+                  @foreach($epreuves as $epreuve)
+                  <option value="{{ $epreuve->id_epreuve }}" >
+                    {{ $epreuve->nom_epreuve }}
+                  </option>
+                @endforeach
                 </select>
               </div>
               <div class="form-group">
@@ -53,10 +55,10 @@
               <div class="form-group">
                 <label>Matière</label>
                 <select class="form-control" name="id_matiere" id="matiereSelect">
-                    <option value="">-- Sélectionnez une matière --</option>
-                    @foreach($matieres as $matiere)
-                        <option value="{{ $matiere->id_matiere }}">{{ $matiere->code_matiere }}</option>
-                    @endforeach
+                  <option value="">-- Sélectionnez une matière --</option>
+                  @foreach($matieres as $matiere)
+                    <option value="{{ $matiere->id_matiere }}">{{ $matiere->nom_matiere }}</option>
+                  @endforeach
                 </select>
               </div>
             </div>
@@ -101,12 +103,11 @@
             
             // Boucle pour ajouter les nouvelles matières
             $.each(data, function(key, matiere) {
-              matiereSelect.append('<option value="' + matiere.id_matiere + '">' + matiere.code_matiere + '</option>');
+              matiereSelect.append('<option value="' + matiere.id_matiere + '">' + matiere.nom_matiere + '</option>');
             });
           }
         });
       });
     });
   </script>
-   
 @endsection

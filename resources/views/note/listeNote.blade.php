@@ -141,7 +141,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Ajouter note</h4>
+        <h4 class="modal-title">Modifier note</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -150,6 +150,9 @@
         @csrf
         <div class="modal-body">
             <div class="card-body">
+              <div class="form-group">
+                <input type="text" class="form-control" disabled value="{{ $nom_epreuve['nom_epreuve'] }} / {{ $nom_matiere['nom_matiere'] }} / {{ $nom_classe['nom_classe'] }}">
+              </div>
               <div class="form-group">
                 <label for="inputNom">Nom</label>
                 <input type="text" class="form-control" id="inputNom" disabled>

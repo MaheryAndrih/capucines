@@ -407,6 +407,7 @@ CREATE TABLE import_coefficient (
 );
 
 ALTER TABLE import_coefficient ADD COLUMN rang VARCHAR;
+ALTER TABLE import_coefficient ADD COLUMN nom_matiere VARCHAR;
 
 CREATE OR REPLACE FUNCTION delete_import_coefficient()
 RETURNS void
@@ -415,6 +416,21 @@ AS $$
 BEGIN
     DELETE  from import_coefficient;
 END;
+$$;
+
+CREATE OR REPLACE FUNCTION insert_unique_matiere()
+RETURNS void
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO matiere(id_matiere,nom_matiere,code_matiere)
+    SELECT DISTINCT
+        'MAT' || RIGHT('000000' || nextval('matiere_seq'), 6),
+        i.nom_matiere,
+        i.code_matiere
+    FROM import_coefficient AS i
+    ON CONFLICT DO NOTHING;
+END
 $$;
 
 CREATE OR REPLACE FUNCTION insert_unique_coefficient()
@@ -566,22 +582,9 @@ update classe set nom_classe='Iere_G2' where id_classe = 'CLS000019';
 update classe set nom_classe='IIeme_G2' where id_classe = 'CLS000020';
 update classe set nom_classe='IIIeme_G2' where id_classe = 'CLS000021';
 
-CREATE TABLE detail_epreuve(
-    id_epreuve_mere char(9) references epreuve(id_epreuve),
-    id_epreuve_fille char(9) references epreuve(id_epreuve),
-    unique(id_epreuve_mere,id_epreuve_fille)
-);
 
-INSERT INTO detail_epreuve VALUES
-('EPR000003','EPR000001'),
-('EPR000003','EPR000002'),
-('EPR000003','EPR000003'),
-('EPR000006','EPR000004'),
-('EPR000006','EPR000005'),
-('EPR000006','EPR000006'),
-('EPR000009','EPR000007'),
-('EPR000009','EPR000008'),
-('EPR000009','EPR000009');
+
+
 
 CREATE OR REPLACE FUNCTION calculer_moyenne(
     ds1 DOUBLE PRECISION,
@@ -742,3 +745,159 @@ BEGIN
     DELETE  FROM classe_eleve WHERE id_classe = id_classe_var ;
 END;
 $$;
+
+CREATE TABLE detail_epreuve(
+    id_epreuve_mere CHAR(9) REFERENCES epreuve(id_epreuve),
+    id_epreuve_fille CHAR(9) REFERENCES epreuve(id_epreuve),
+    rang INT NOT NULL,
+    UNIQUE (id_epreuve_mere,id_epreuve_fille,rang),
+    UNIQUE(id_epreuve_fille)
+);
+
+INSERT INTO detail_epreuve VALUES
+('EPR000003','EPR000001',1),
+('EPR000003','EPR000002',2),
+('EPR000003','EPR000003',3),
+('EPR000006','EPR000004',1),
+('EPR000006','EPR000005',2),
+('EPR000006','EPR000006',3),
+('EPR000009','EPR000007',1),
+('EPR000009','EPR000008',2),
+('EPR000009','EPR000009',3);
+ 
+CREATE OR REPLACE VIEW v_note_mere AS
+SELECT
+    v.id_classe,
+    v.matricule,
+    v.id_matiere,
+    c.rang as rang_matiere,
+    c.coefficient,
+    v.nom,
+    v.prenom,
+    v.numero,
+    d.id_epreuve_mere,
+    MAX(CASE WHEN d.rang = 1 THEN d.id_epreuve_fille END) AS id_epreuve_fille_1,
+    MAX(CASE WHEN d.rang = 2 THEN d.id_epreuve_fille END) AS id_epreuve_fille_2,
+    MAX(CASE WHEN d.rang = 3 THEN d.id_epreuve_fille END) AS id_epreuve_fille_3,
+    MAX(CASE WHEN d.rang = 1 THEN v.note END) AS note_1,
+    MAX(CASE WHEN d.rang = 2 THEN v.note END) AS note_2,
+    MAX(CASE WHEN d.rang = 3 THEN v.note END) AS note_exam,
+    CASE 
+        WHEN 
+            (MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
+             MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
+             MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END)) > 0
+        THEN 
+            (
+                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN v.note END), 0), 0) +
+                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN v.note END), 0), 0) +
+                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN v.note END), 0), 0)
+            ) / 
+            NULLIF(
+                MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
+                MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
+                MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END),
+                0
+            )
+        ELSE NULL
+    END AS moyenne,
+    CASE 
+        WHEN 
+            (MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
+             MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
+             MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END)) > 0
+        THEN 
+            (
+                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN v.note END), 0), 0) +
+                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN v.note END), 0), 0) +
+                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN v.note END), 0), 0)
+            ) / 
+            NULLIF(
+                MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
+                MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
+                MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END),
+                0
+            ) * c.coefficient
+        ELSE NULL
+    END AS mc
+
+FROM 
+    v_note_classe v
+JOIN 
+    detail_epreuve d ON v.id_epreuve = d.id_epreuve_fille
+JOIN 
+    classe_matiere_coefficient c ON v.id_classe = c.id_classe
+    AND v.id_matiere = c.id_matiere
+
+GROUP BY 
+    v.id_classe, v.matricule, v.id_matiere, v.nom, v.prenom, d.id_epreuve_mere, c.rang, c.coefficient,v.numero
+
+ORDER BY 
+    v.id_classe, v.matricule, v.id_matiere, d.id_epreuve_mere;
+
+SELECT * FROM v_note_mere WHERE id_classe = 'CLS000003' AND id_matiere = 'MAT000010' AND id_epreuve_mere = 'EPR000003';
+
+CREATE OR REPLACE FUNCTION f_rapport_matiere(
+    id_classe_param VARCHAR,
+    id_matiere_param VARCHAR,
+    id_epreuve_mere_param VARCHAR
+)
+RETURNS TABLE (
+    id_classe CHAR(9),
+    matricule INTEGER,
+    id_matiere CHAR(9),
+    rang_matiere INTEGER,
+    nom VARCHAR,
+    prenom VARCHAR,
+    numero INTEGER,
+    id_epreuve_mere CHAR(9),
+    note_1 DOUBLE PRECISION,
+    note_2 DOUBLE PRECISION,
+    note_exam DOUBLE PRECISION,
+    coefficient DOUBLE PRECISION,
+    moyenne DOUBLE PRECISION,
+    mc DOUBLE PRECISION,
+    rang BIGINT 
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Retourne les données sous forme de tableau
+    RETURN QUERY
+    SELECT
+        v.id_classe,
+        v.matricule,
+        v.id_matiere,
+        v.rang_matiere,
+        v.nom,
+        v.prenom,
+        v.numero,
+        v.id_epreuve_mere,
+        v.note_1,
+        v.note_2,
+        v.note_exam,
+        v.coefficient,
+        v.moyenne,
+        v.mc,
+        DENSE_RANK() OVER (ORDER BY v.moyenne DESC) AS rang
+    FROM v_note_mere v
+    WHERE v.id_classe = id_classe_param
+      AND v.id_matiere = id_matiere_param
+      AND v.id_epreuve_mere = id_epreuve_mere_param;
+END;
+$$;
+
+
+SELECT * FROM f_rapport_matiere('CLS000003','MAT000010','EPR000003') WHERE matricule = 1803;
+
+CREATE OR REPLACE VIEW v_detail_epreuve AS
+SELECT 
+    de.id_epreuve_mere,
+    de.id_epreuve_fille,
+    de.rang,
+    e.nom_epreuve AS nom_epreuve_fille,
+    e.code_epreuve AS code_epreuve_fille
+FROM
+    detail_epreuve de
+JOIN 
+    epreuve e ON de.id_epreuve_fille = e.id_epreuve;

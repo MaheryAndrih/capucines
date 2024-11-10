@@ -1,0 +1,16 @@
+code_classe,nom_matiere,code_matiere,coefficient,rang
+12e,MORALE,MOR,"0,5",2
+12e,LANGAGE,LANG,"0,5",1
+12e,RECITATION,RCT,"0,5",3
+12e,PRE-LECTURE,PRL,"0,5",4
+12e,LECTURE,LECT,"0,5",5
+12e,ECRITURE,ECR,"0,5",6
+12e,COPIE,COP,"0,5",7
+12e,DCTEE,DCT,"0,5",8
+12e,MALAGASY,MLG,"0,5",9
+12e,Mathématique,MATH,"0,5",10
+12e,Eveil,EVL,"0,5",11
+12e,ACM,ACM,"0,5",12
+12e,APSE,APSE,"0,5",13
+12e,INFO,INF,1,14
+12e,RELIGION,REL,"0,5",15
