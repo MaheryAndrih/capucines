@@ -13,7 +13,7 @@ class VEleve extends Objet
     public $timestamps = false;
     protected $keyType = 'string';
     protected $primaryKey = 'matricule';
-    protected $fillable = ['matricule','nom','prenom','dtn','genre','nom_pere','profession_pere','numero_pere','nom_mere','profession_mere','numero_mere','id_classe','nom_classe','numero'];
+    protected $fillable = ['matricule','nom','prenom','dtn','genre','nom_pere','profession_pere','numero_pere','nom_mere','profession_mere','numero_mere','id_classe','nom_classe','numero','image'];
     protected $table = 'v_eleve';
 
     public function getNote($epreuve,$id_matiere){

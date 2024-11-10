@@ -7,23 +7,36 @@ use App\Models\Classe;
 use App\Models\Epreuve;
 use App\Models\VEleve;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ExportController extends Controller
 {
-    //
+    public static function parseDate($date){
+        $date = Carbon::parse($date)->translatedFormat('d F Y');
+        $date = ucfirst($date);
+        if (Str::length($date) >= 4) {
+            $date = substr_replace($date, strtoupper($date[3]), 3, 1);
+        }
+        return $date;
+    }
+
     public function apercu(Request $request){
         $eleve = VEleve::where('matricule',$request->input('matricule'))->first();
         $epreuve = Epreuve::where('id_epreuve',$request->input('id_epreuve'))->first();
         $bulletins = Bulletin::getBulletin($epreuve->id_epreuve,$eleve->matricule);
-        
+        $date = $request->input('date');
+        $date = self::parseDate($date);
+
         $data = [ 
             "eleve" => $eleve,
             "epreuve" => $epreuve,
-            "bulletins" => $bulletins
+            "bulletins" => $bulletins,
+            "date" => $date
         ];
         $pdf = Pdf::loadView('export.apercu',$data);
         return $pdf->stream();
@@ -31,6 +44,7 @@ class ExportController extends Controller
 
     public function generer(Request $request){
         $date = $request->input('date');
+        $date = self::parseDate($date);
         $classe = Classe::where('id_classe',$request->input('id_classe'))->first();
         $epreuve = Epreuve::where('id_epreuve',$request->input('id_epreuve'))->first();
         $eleves = VEleve::where('id_classe', $classe->id_classe)->orderBy('numero')->get();

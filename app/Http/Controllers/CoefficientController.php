@@ -68,14 +68,16 @@ class CoefficientController extends Controller
                 $file = $request->file('file');
                 $handle = fopen($file->getRealPath(), "r");
                 $header = fgetcsv($handle);
-                // dd($attributes);
+              
                 self::arraysAreIdentical($header,$attributes);
+                $id_classe = $request->input('id_classe');
+                self::checkFileName($id_classe,$file);
 
                 DB::beginTransaction();
                 DB::select('SELECT delete_import_coefficient()');
                 while (($line = fgetcsv($handle))!== FALSE) 
                 {
-                    // dd($line);
+                    // dd($line,$header);
                     $data = array_combine($header, $line);
                     // dd($data);
                     $importCoefficient = new ImportCoefficient();
@@ -83,11 +85,12 @@ class CoefficientController extends Controller
                     $importCoefficient->code_matiere = $data['code_matiere'];
                     $importCoefficient->coefficient = str_replace(",",".",$data['coefficient']);
                     $importCoefficient->rang = $data['rang'];
+                    $importCoefficient->nom_matiere = $data['nom_matiere'];
                     $importCoefficient->save();
                 }
-                $id_classe = $request->input('id_classe');
-                // dd($id_classe);
+                
                 DB::select('SELECT delete_coefficient_existant(?)',[$id_classe]);
+                DB::select('SELECT insert_unique_matiere()');
                 DB::select('SELECT insert_unique_coefficient()');
                 DB::commit();
                 fclose($handle);
@@ -161,5 +164,13 @@ class CoefficientController extends Controller
         return true;
     }
 
- 
+    public static function checkFileName($id_classe,UploadedFile $file){
+        $file_name = $file->getClientOriginalName();
+        $classe = Classe::select('code_classe')->where('id_classe',$id_classe)->first();
+        // dd($file_name,$classe['code_classe'].'coefficient.csv');
+        if($file_name != $classe['code_classe'].'_coefficient.csv'){
+            throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ".$classe['code_classe']."_coefficient.csv");
+        }
+        return true;
+    }
 }

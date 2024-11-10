@@ -37,15 +37,12 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-8">
-<<<<<<< HEAD
-=======
                   <button type="button" class="btn btn-block btn-secondary btn-xs bouton-export" data-toggle="modal" data-target="#model"
                     data-id-classe="{{ $id_classe }}"
                     data-id-epreuve="{{ $id_epreuve }}"
                     data-id-matiere="{{ $id_matiere }}">
                     Importer
                   </button>
->>>>>>> 288aeae652d2f742ce302f2e9f08ff35b3b490dc
                   <button type="button" class="btn btn-block bg-gradient-warning btn-xs bouton-export" data-toggle="modal" data-target="#modela"
                     data-id-classe="{{ $id_classe }}"
                     data-id-epreuve="{{ $id_epreuve }}"
@@ -144,7 +141,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Ajouter note</h4>
+        <h4 class="modal-title">Modifier note</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -153,6 +150,9 @@
         @csrf
         <div class="modal-body">
             <div class="card-body">
+              <div class="form-group">
+                <input type="text" class="form-control" disabled value="{{ $nom_epreuve['nom_epreuve'] }} / {{ $nom_matiere['nom_matiere'] }} / {{ $nom_classe['nom_classe'] }}">
+              </div>
               <div class="form-group">
                 <label for="inputNom">Nom</label>
                 <input type="text" class="form-control" id="inputNom" disabled>
