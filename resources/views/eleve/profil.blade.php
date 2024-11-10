@@ -210,6 +210,29 @@
                 </div>
               </div><!-- /.card-body -->
             </div>
+            <!-- Bar chart -->
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="far fa-chart-bar"></i>
+                  Evolution examen
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="bar-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <!-- /.card -->
             <!-- /.card -->
           </div>
           <!-- /.col -->
@@ -218,5 +241,43 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
+@section('jsPerso')
+  <!-- FLOT CHARTS -->
+  <script src="{{ asset('assets/plugins/flot/jquery.flot.js') }}"></script>
+  <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+  <script src="{{ asset('assets/plugins/flot/plugins/jquery.flot.resize.js') }}"></script>
+  <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+  <script src="{{ asset('assets/plugins/flot/plugins/jquery.flot.pie.js') }}"></script>
+  <script>
+    $(function () {
+      var bar_data = {
+        data : [[1,13], [2,12], [3,14], [4,13], [5,12], [6,14], [7,13], [8,12], [9,14]],
+        bars: { show: true }
+      }
+      $.plot('#bar-chart', [bar_data], {
+        grid  : {
+          borderWidth: 1,
+          borderColor: '#f3f3f3',
+          tickColor  : '#f3f3f3'
+        },
+        series: {
+          bars: {
+            show: true, barWidth: 0.5, align: 'center',
+          },
+        },
+        colors: ['#3c8dbc'],
+        xaxis : {
+          ticks: [[1,'DS1'], [2,'DS2'], [3,'Examen I'], [4,'DS3'], [5,'DS4'], [6,'Examen II'], [7,'DS5'], [8,'DS6'], [9,'Examen III']]
+        }
+      })
+    }
+  );
+  function labelFormatter(label, series) {
+    return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
+      + label
+      + '<br>'
+      + Math.round(series.percent) + '%</div>'
+  }
+  </script>
+@endsection
 @endsection

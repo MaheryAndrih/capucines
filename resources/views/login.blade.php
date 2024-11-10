@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Log in</title>
+  <title>Capucine</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
   <style>
     body {
-      background-image: url('../dist/img/caps.jpg');
+      background-image: url('assets/dist/img/caps.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -25,7 +25,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>CAPUCINES</b></a>
+    <b style="color: white; font-weight: 700">CAPUCINES</b>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -34,7 +34,7 @@
         <div class="text-center mb-4">
           <img src="{{ asset('assets//dist/img/logo2.jpeg') }}" alt="Logo" style="width: 100px; height: auto;">
         </div>
-      <p class="login-box-msg">Authentification</p>
+      <p class="login-box-msg" style="font-size: 20px">Authentification</p>
 
       <form action="/login" method="post">
         @csrf

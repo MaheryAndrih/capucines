@@ -171,7 +171,9 @@
                     <tr>
                         <th class="th-NOTE">1ere NOTE</th>
                         <th class="th-NOTE">2eme NOTE</th>
-                    </tr>
+                    </tr>ALTER TABLE classe_eleve ADD COLUMN passant BOOLEAN NOT NULL DEFAULT 't';
+ALTER TABLE classe_eleve DROP COLUMN passant ;
+ALTER TABLE classe_eleve ADD COLUMN statut BOOLEAN NOT NULL DEFAULT 't';
                 </thead>
                 <tbody>
                     @foreach ($bulletins as $bulletin)
