@@ -258,7 +258,7 @@ INSERT INTO appreciation VALUES
 create table note(
     id_note char(9) primary key,
     id_classe char(9) references classe(id_classe) not null,
-    matrid_epreuveicule int references eleve(matricule) not null,
+    matricule int references eleve(matricule) not null,
      char(9) references epreuve(id_epreuve) not null,
     id_matiere char(9) references matiere(id_matiere) not null,
     note double precision check (note >=0 and note <= 20),
