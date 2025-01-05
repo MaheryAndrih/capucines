@@ -548,10 +548,10 @@ AS $$
 DECLARE
     moyenne_note double precision;
 BEGIN
-    SELECT AVG(note) 
+    SELECT AVG(moyenne) 
     INTO moyenne_note
-    FROM v_note_classe
-    WHERE id_epreuve = id_epreuve_input 
+    FROM v_note_mere_classee
+    WHERE id_epreuve_mere = id_epreuve_input 
       AND id_matiere = id_matiere_input 
       AND id_classe = id_classe_input;
 
@@ -559,6 +559,7 @@ BEGIN
 END
 $$;
 
+SELECT * FROM v_note_mere_classee ;
 
 --11/10/2024;
 
@@ -881,7 +882,7 @@ BEGIN
         v.moyenne,
         v.mc,
         RANK() OVER (ORDER BY v.moyenne DESC) AS rang
-    FROM v_note_mere v
+    FROM v_note_mere_classee v
     WHERE v.id_classe = id_classe_param
       AND v.id_matiere = id_matiere_param
       AND v.id_epreuve_mere = id_epreuve_mere_param;

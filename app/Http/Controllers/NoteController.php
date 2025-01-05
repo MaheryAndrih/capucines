@@ -33,7 +33,7 @@ class NoteController extends Controller
             ->get();
         $moyenne = DB::select('SELECT get_moyenne_matiere(?,?,?)',[$id_classe,$id_matiere,$id_epreuve]);
         $moyenne_value = $moyenne[0]->get_moyenne_matiere;
-        $moyenne_value = round($moyenne_value, 2);
+        $moyenne_value = bcdiv($moyenne_value,1, 2);
         return view('note.listeNote',
             [ 
                 'notes' => $notes,
@@ -281,7 +281,7 @@ class NoteController extends Controller
         $nbr_eleve = ClasseEleve::where('id_classe', $id_classe)->count();
         $moyenne = DB::select('SELECT get_moyenne_matiere(?,?,?)',[$id_classe,$id_matiere,$id_epreuve]);
         $moyenne_value = $moyenne[0]->get_moyenne_matiere;
-        $moyenne_value = round($moyenne_value, 2);
+        $moyenne_value = bcdiv($moyenne_value,1, 2);
         return view('note.listeNote',
             [ 
                 'notes' => $notes,

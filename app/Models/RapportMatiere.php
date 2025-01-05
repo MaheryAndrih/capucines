@@ -21,11 +21,11 @@ class RapportMatiere extends Model
     public $timestamps = false;
 
     public function getMoyenneAttribute($value){
-        return round($value, 2);
+        return bcdiv($value,1, 2);
     }
 
     public function getMcAttribute($value){
-        return round($value, 2);
+        return bcdiv($value,1, 2);
     }
 
 }

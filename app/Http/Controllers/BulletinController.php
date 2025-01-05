@@ -25,11 +25,12 @@ class BulletinController extends Controller{
         $id_classe = $request->input('id_classe');
         $id_epreuve = $request->input('id_epreuve');
         $resultats = DB::select('SELECT * FROM f_rapport_etudiant_periode(?,?)',[$id_classe,$id_epreuve]);
+        // dd($resultats[0]->moyenne);
         foreach($resultats as $resultat){
-            $resultat->moyenne = round($resultat->moyenne,2);
+            $resultat->moyenne = bcdiv($resultat->moyenne,1,2);
         }
         $rapportGlobal = DB::select('SELECT * FROM f_rapport_global(?,?)',[$id_classe,$id_epreuve]);
-        $rapportGlobal[0]->moyenne_classe = round($rapportGlobal[0]->moyenne_classe,2);
+        $rapportGlobal[0]->moyenne_classe = bcdiv($rapportGlobal[0]->moyenne_classe,1,2);
         $date = date('Y-m-d');
         return view('bulletin.listeBulletin',compact('id_classe','id_epreuve','date','resultats','rapportGlobal'));
     }
@@ -51,7 +52,7 @@ class BulletinController extends Controller{
         $resultats = DB::select('SELECT * FROM f_rapport_matiere(?, ?, ?)', [$id_data['id_classe'], $id_data['id_matiere'],$id_data['id_epreuve']]);
         $moyenne = DB::select('SELECT get_moyenne_matiere(?,?,?)',[$classe->id_classe,$matiere->id_matiere,$epreuve->id_epreuve]);
         $moyenne_value = $moyenne[0]->get_moyenne_matiere;
-        $moyenne_value = round($moyenne_value, 2);
+        $moyenne_value = bcdiv($moyenne_value, 1,2);
         $rapport_matiere = collect($resultats)->map(function ($item) {
             return new RapportMatiere((array) $item);
         });
@@ -70,9 +71,9 @@ class BulletinController extends Controller{
         $resultats = DB::select('SELECT * FROM f_rapport_etudiant_periode(?,?)',[$id_classe,$id_epreuve]);
         $rapportGlobal = DB::select('SELECT * FROM f_rapport_global(?,?)',[$id_classe,$id_epreuve]);
         foreach($resultats as $resultat){
-            $resultat->moyenne = round($resultat->moyenne,2);
+            $resultat->moyenne = bcdiv($resultat->moyenne,1,2);
         }
-        $rapportGlobal[0]->moyenne_classe = round($rapportGlobal[0]->moyenne_classe,2);
+        $rapportGlobal[0]->moyenne_classe = bcdiv($rapportGlobal[0]->moyenne_classe,1,2);
         return view('bulletin.rapport.liste_rang_examen',compact('resultats','rapportGlobal'));
     }
 

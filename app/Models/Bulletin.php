@@ -67,9 +67,9 @@ class Bulletin extends Model
                 'ds2' => trim($values[7]),
                 'exam' => trim($values[8]),
                 'coefficient' => trim($values[9]),
-                'moyenne' => round(trim($values[10]),2),
-                'mc' => round(trim($values[11]),2),
-                'appreciation' => self::getAppreciation(round(trim($values[10]),2)),
+                'moyenne' => bcdiv(trim($values[10]),1,2),
+                'mc' => bcdiv(trim($values[11]),1,2),
+                'appreciation' => self::getAppreciation(bcdiv(trim($values[10]),1,2)),
                 'rang' => self::getRang(trim($values[0]),trim($values[1]),$idEpreuve,trim($values[3])),
                 'rapportEtudiant' => self::getRapportEtudiantPeriode(trim($values[0]),$idEpreuve,trim($values[3])),
                 'rapportGlobal' => self::getRapportGlobal(trim($values[0]),$idEpreuve)
@@ -93,14 +93,14 @@ class Bulletin extends Model
 
     public static function getRapportEtudiantPeriode($id_classe,$id_epreuve_mere,$matricule){
         $result = DB::select("SELECT * FROM f_rapport_etudiant_periode(?,?) WHERE matricule = ?" ,[$id_classe,$id_epreuve_mere,$matricule]);
-        $result[0]->moyenne = round($result[0]->moyenne, 2);
-        $result[0]->total_note = round($result[0]->total_note, 2);
+        $result[0]->moyenne = bcdiv($result[0]->moyenne,1, 2);
+        $result[0]->total_note = bcdiv($result[0]->total_note,1, 2);
         return $result[0];
     }
 
     public static function getRapportGlobal($id_classe,$id_epreuve_mere){
         $result = DB::select("SELECT * FROM f_rapport_global(?,?)" ,[$id_classe,$id_epreuve_mere]);
-        $result[0]->moyenne_classe =  round($result[0]->moyenne_classe, 2);
+        $result[0]->moyenne_classe =  bcdiv($result[0]->moyenne_classe,1, 2);
         return $result[0];
     }
 
