@@ -43,7 +43,7 @@
                     @foreach($classes as $classe)
                       <option value="{{ $classe->id_classe }}" 
                         @if($classe->id_classe == $idClasseSelectionnee) selected @endif>
-                          {{ $classe->code_classe }}
+                          {{ $classe->nom_classe }}
                       </option>
                     @endforeach
                   </select>
@@ -62,7 +62,7 @@
                   <select class="form-control" name="id_epreuve" id="epreuveSelect">
                     <option value="">-- Sélectionnez une epreuve --</option>
                     @foreach($epreuves as $epreuve)
-                      <option value="{{ $epreuve->id_epreuve }}">{{ $epreuve->code_epreuve }}</option>
+                      <option value="{{ $epreuve->id_epreuve }}">{{ $epreuve->nom_epreuve }}</option>
                     @endforeach
                   </select>
                 </div>

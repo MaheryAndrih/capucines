@@ -44,6 +44,9 @@
                   <li class="list-group-item">
                     <b>Genre</b> <a class="float-right">{{ $eleve->genre }}</a>
                   </li>
+                  <li class="list-group-item">
+                    <button class="btn btn-primary btn-block">Certificat de scolarite</button>
+                  </li>
                 </ul>
               </div>
               <!-- /.card-body -->

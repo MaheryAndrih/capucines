@@ -28,7 +28,12 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{ $classe->nom_classe }} - {{ $matiere->nom_matiere }} - {{ $epreuve->nom_epreuve }}</h3>
+                <h3 class="card-title">{{ $classe->nom_classe }} - {{ $matiere->nom_matiere }} - {{ $epreuve->nom_epreuve }} - <strong>Moyenne: {{ $moyenne_value }}</strong></h3>
+                <div class="card-tools">
+                  <button class="btn btn-primary">
+                    Generer pdf
+                  </button>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">

@@ -45,7 +45,7 @@ class EleveController extends Controller{
     }
 
     public function to_eleve_classe(){
-        $classes = Classe::all();
+        $classes = Classe::orderBy('id_classe')->get();
         return view('eleve.select_eleve_classe',compact('classes'));
     }
 

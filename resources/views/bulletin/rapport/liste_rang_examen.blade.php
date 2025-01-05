@@ -9,7 +9,7 @@
         <div class="col-sm-12">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/to_generer_bulletin"><small>BULLETINS</small></a></li>
-            <li class="breadcrumb-item active"><a href="/to_rang_matiere"><small>RAPPORT RANG MATIERE</small></a></li>
+            <li class="breadcrumb-item active"><a href="/to_rang_matiere"><small>RAPPORT RANG EXAMEN</small></a></li>
             <li class="breadcrumb-item active"><small>LISTE</small></li>
           </ol>
         </div>
@@ -28,54 +28,39 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{ $epreuve->nom_epreuve }} - {{ $classe->nom_classe }}</h3>
-                  <div class="card-tools">
-                    <form action="/search_eleve_class" method="post">
-                      @csrf
-                      <div class="input-group input-group-sm" style="width: 300px;">
-                        <input type="text" name="search" class="form-control float-right" placeholder="Search">
-                        <input type="hidden" name="id_classe" value="{{ $classe->id_classe }}">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                            <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
+                <h3 class="card-title">{{  $rapportGlobal[0]->nom_classe }} / <strong>{{  $rapportGlobal[0]->nom_epreuve }}</strong> / <strong>Moyenne de classe : {{ $rapportGlobal[0]->moyenne_classe }}</strong>
+                  / Effectif : {{  $rapportGlobal[0]->effectif }} eleves 
+                </h3>
+                <div class="card-tools">
+                  <button class="btn btn-primary">
+                    Generer pdf
+                  </button>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>NUMERO</th>
-                      <th>MATRICULE</th>
-                      <th>NOM</th>
-                      <th>PRENOM</th>
-                      <th>GENRE</th>
-                      <th>MOYENNE</th>
-                      <th>RANG</th>
+                      <th>Numero</th>
+                      <th>Matricule</th>
+                      <th>Nom</th>
+                      <th>Prenom</th>
+                      <th>Moyenne</th>
+                      <th>Rang</th>
                     </tr>
                   </thead>
                   <tbody>
-                  @php
-                    $rang = 1;
-                  @endphp
-                  @foreach($eleves as $eleve)
-                    <tr>
-                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->numero }}</a></td>
-                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->matricule }}</a></td>
-                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->nom }}</a></td>
-                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->prenom }}</a></td>
-                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->genre }}</a></td>
-                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $eleve->getMoyenne($epreuves) }}</a></td>
-                      <td><a href="/to_profil_eleve/{{ $eleve->matricule }}" style="color: inherit">{{ $rang }}</a></td>
-                    </tr>
-                    @php
-                      $rang++;
-                    @endphp
-                  @endforeach
+                    @foreach($resultats as $resultat)
+                      <tr>
+                        <td><a href="/to_profil_eleve/{{ $resultat->matricule }}" style="color: inherit">{{ $resultat->numero }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $resultat->matricule }}" style="color: inherit">{{ $resultat->matricule }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $resultat->matricule }}" style="color: inherit; font-size: smaller">{{ $resultat->nom }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $resultat->matricule }}" style="color: inherit; font-size: smaller">{{ $resultat->prenom }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $resultat->matricule }}" style="color: inherit">{{ $resultat->moyenne }}</a></td>
+                        <td><a href="/to_profil_eleve/{{ $resultat->matricule }}" style="color: inherit">{{ $resultat->rang }}</a></td>
+                      </tr>   
+                    @endforeach           
                   </tbody>
                 </table>
               </div>

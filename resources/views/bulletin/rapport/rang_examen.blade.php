@@ -35,10 +35,12 @@
               <div class="form-group">
                 <label>Epreuve</label>
                 <select class="form-control" name="id_epreuve">
-                    <option value="EPR000003" >Examen Trimestriel I</option>
-                    <option value="EPR000006" >Examen Trimestriel II</option>
-                    <option value="EPR000009" >Examen Trimestriel III</option>
-                </select>
+                  @foreach($epreuves as $epreuve)
+                    <option value="{{ $epreuve->id_epreuve }}" >
+                      {{ $epreuve->nom_epreuve }}
+                    </option>
+                  @endforeach
+              </select>
               </div>
               <div class="form-group">
                 <label>Classe</label>
@@ -54,7 +56,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Ajouter</button>
+              <button type="submit" class="btn btn-primary">Consulter</button>
             </div>
           </form>
         </div>

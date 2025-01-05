@@ -23,7 +23,10 @@ class Bulletin extends Model
         'coefficient',
         'moyenne',
         'mc',
-        'appreciation'
+        'appreciation',
+        'rang',
+        'rapportEtudiant',
+        'rapportGlobal'
     ];
 
     public static function getBulletin($idEpreuve, $matricule){
@@ -66,7 +69,10 @@ class Bulletin extends Model
                 'coefficient' => trim($values[9]),
                 'moyenne' => round(trim($values[10]),2),
                 'mc' => round(trim($values[11]),2),
-                'appreciation' => self::getAppreciation(round(trim($values[10]),2))
+                'appreciation' => self::getAppreciation(round(trim($values[10]),2)),
+                'rang' => self::getRang(trim($values[0]),trim($values[1]),$idEpreuve,trim($values[3])),
+                'rapportEtudiant' => self::getRapportEtudiantPeriode(trim($values[0]),$idEpreuve,trim($values[3])),
+                'rapportGlobal' => self::getRapportGlobal(trim($values[0]),$idEpreuve)
             ]);
         }
 
@@ -78,6 +84,24 @@ class Bulletin extends Model
         $apprecitation = DB::select('SELECT appreciation FROM appreciation WHERE debut <= CAST(? AS NUMERIC) AND fin > CAST(? AS NUMERIC)', [$moyenne, $moyenne]);
         $valeurAppreciation = $apprecitation[0]->appreciation;
         return $valeurAppreciation;
+    }
+
+    public static function getRang($id_classe,$id_matiere,$id_epreuve,$matricule){
+        $rang = DB::select("SELECT rang FROM f_rapport_matiere(?,?,?) WHERE matricule = ?" ,[$id_classe,$id_matiere,$id_epreuve,$matricule]);
+        return $rang[0]->rang;
+    }
+
+    public static function getRapportEtudiantPeriode($id_classe,$id_epreuve_mere,$matricule){
+        $result = DB::select("SELECT * FROM f_rapport_etudiant_periode(?,?) WHERE matricule = ?" ,[$id_classe,$id_epreuve_mere,$matricule]);
+        $result[0]->moyenne = round($result[0]->moyenne, 2);
+        $result[0]->total_note = round($result[0]->total_note, 2);
+        return $result[0];
+    }
+
+    public static function getRapportGlobal($id_classe,$id_epreuve_mere){
+        $result = DB::select("SELECT * FROM f_rapport_global(?,?)" ,[$id_classe,$id_epreuve_mere]);
+        $result[0]->moyenne_classe =  round($result[0]->moyenne_classe, 2);
+        return $result[0];
     }
 
 }

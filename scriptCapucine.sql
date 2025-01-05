@@ -879,7 +879,7 @@ BEGIN
         v.coefficient,
         v.moyenne,
         v.mc,
-        DENSE_RANK() OVER (ORDER BY v.moyenne DESC) AS rang
+        RANK() OVER (ORDER BY v.moyenne DESC) AS rang
     FROM v_note_mere v
     WHERE v.id_classe = id_classe_param
       AND v.id_matiere = id_matiere_param
@@ -888,7 +888,7 @@ END;
 $$;
 
 
-SELECT * FROM f_rapport_matiere('CLS000003','MAT000010','EPR000003') WHERE matricule = 1803;
+SELECT * FROM f_rapport_matiere('CLS000003','MAT000010','EPR000003') WHERE matricule = 1771;
 
 CREATE OR REPLACE VIEW v_detail_epreuve AS
 SELECT 
@@ -901,3 +901,97 @@ FROM
     detail_epreuve de
 JOIN 
     epreuve e ON de.id_epreuve_fille = e.id_epreuve;
+
+
+
+CREATE OR REPLACE VIEW v_rapport_etudiant_periode AS 
+SELECT 
+    id_classe,
+    matricule,
+    nom,
+    prenom,
+    numero,
+    id_epreuve_mere,
+    SUM(coefficient) as total_coef,
+    COALESCE (SUM(mc),0) as total_note,
+    20*SUM(coefficient) as point_max,
+    COALESCE (SUM(mc)/SUM(coefficient), 0) as moyenne 
+FROM v_note_mere
+GROUP BY numero,id_classe,id_epreuve_mere,matricule,nom,prenom ORDER BY matricule;
+
+CREATE OR REPLACE FUNCTION f_rapport_etudiant_periode(
+    id_classe_param VARCHAR,
+    id_epreuve_mere_param VARCHAR
+)
+RETURNS TABLE (
+    id_classe CHAR(9),
+    id_epreuve_mere CHAR(9),
+    nom VARCHAR,
+    prenom VARCHAR,
+    numero INTEGER,
+    matricule INTEGER,    
+    total_coef DOUBLE PRECISION,
+    point_max DOUBLE PRECISION,
+    total_note DOUBLE PRECISION,
+    moyenne DOUBLE PRECISION,
+    rang BIGINT 
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+        SELECT 
+            v.id_classe,
+            v.id_epreuve_mere,
+            v.nom,
+            v.prenom,
+            v.numero,
+            v.matricule,
+            v.total_coef,
+            v.point_max,
+            v.total_note,
+            v.moyenne,
+            RANK() OVER (ORDER BY v.moyenne DESC) as rang
+FROM v_rapport_etudiant_periode v
+    WHERE v.id_classe = id_classe_param
+    AND v.id_epreuve_mere = id_epreuve_mere_param;
+END;
+$$; 
+
+SELECT * FROM f_rapport_etudiant_periode('CLS000003','EPR000003');
+
+
+CREATE OR REPLACE FUNCTION f_rapport_global(
+    id_classe_param VARCHAR,
+    id_epreuve_mere_param VARCHAR
+)
+RETURNS TABLE (
+    id_classe CHAR(9),
+    nom_classe VARCHAR,
+    id_epreuve_mere CHAR(9),
+    nom_epreuve VARCHAR,
+    effectif INTEGER,
+    moyenne_classe DOUBLE PRECISION
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+        SELECT 
+            v.id_classe,
+            c.nom_classe,
+            v.id_epreuve_mere,
+            e.nom_epreuve,
+            cast(count(*) as int) as effectif,
+            avg(moyenne) as moyenne_classe
+FROM v_rapport_etudiant_periode v
+JOIN classe c ON c.id_classe = v.id_classe
+JOIN epreuve e ON e.id_epreuve = v.id_epreuve_mere
+    WHERE v.id_classe = id_classe_param
+    AND v.id_epreuve_mere = id_epreuve_mere_param
+    GROUP BY v.id_classe,v.id_epreuve_mere,c.nom_classe,e.nom_epreuve;
+END;
+$$;   
+
+SELECT * FROM f_rapport_global('CLS000003','EPR000003');
+

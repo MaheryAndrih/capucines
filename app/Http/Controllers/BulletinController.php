@@ -24,19 +24,18 @@ class BulletinController extends Controller{
     public function genererBulletin(Request $request){
         $id_classe = $request->input('id_classe');
         $id_epreuve = $request->input('id_epreuve');
-        $eleves = VEleve::where('id_classe',$id_classe)->OrderBy('numero')->get();
-        $date = date('Y-m-d');
-        $randomNumbers = [];
-        $eleves_total = count($eleves);
-        for($i = 0; $i < $eleves_total; $i++){
-            $randomNumbers[] = round(mt_rand(967,1724) / 100, 2);
+        $resultats = DB::select('SELECT * FROM f_rapport_etudiant_periode(?,?)',[$id_classe,$id_epreuve]);
+        foreach($resultats as $resultat){
+            $resultat->moyenne = round($resultat->moyenne,2);
         }
-        // dd($randomNumbers);
-        return view('bulletin.listeBulletin',compact('eleves','id_classe','id_epreuve','date','randomNumbers'));
+        $rapportGlobal = DB::select('SELECT * FROM f_rapport_global(?,?)',[$id_classe,$id_epreuve]);
+        $rapportGlobal[0]->moyenne_classe = round($rapportGlobal[0]->moyenne_classe,2);
+        $date = date('Y-m-d');
+        return view('bulletin.listeBulletin',compact('id_classe','id_epreuve','date','resultats','rapportGlobal'));
     }
 
     public function to_rang_matiere(){
-        $classes = Classe::all();
+        $classes = Classe::orderBy('id_classe')->get();
         $idClasseSelectionnee = request('id_classe') ?? $classes->first()->id_classe;
         $matieres = VClasseMatiereCoefficient::where('id_classe', $idClasseSelectionnee)->get();
         $epreuves = Epreuve::whereIn('code_epreuve', ['EXI', 'EXII', 'EXIII'])->get();
@@ -50,32 +49,31 @@ class BulletinController extends Controller{
         $epreuve = Epreuve::find($id_data['id_epreuve']);
         $details_epreuve = VDetailEpreuve::where('id_epreuve_mere',$epreuve->id_epreuve)->get();
         $resultats = DB::select('SELECT * FROM f_rapport_matiere(?, ?, ?)', [$id_data['id_classe'], $id_data['id_matiere'],$id_data['id_epreuve']]);
-
+        $moyenne = DB::select('SELECT get_moyenne_matiere(?,?,?)',[$classe->id_classe,$matiere->id_matiere,$epreuve->id_epreuve]);
+        $moyenne_value = $moyenne[0]->get_moyenne_matiere;
+        $moyenne_value = round($moyenne_value, 2);
         $rapport_matiere = collect($resultats)->map(function ($item) {
             return new RapportMatiere((array) $item);
         });
-        return view('bulletin.rapport.rapport_matiere',compact('classe','matiere','epreuve','rapport_matiere','details_epreuve'));
+        return view('bulletin.rapport.rapport_matiere',compact('classe','matiere','epreuve','rapport_matiere','details_epreuve','moyenne_value'));
     }
 
     public function to_rang_examen(){
-        $classes = Classe::all();
-        return view('bulletin.rapport.rang_examen',compact('classes'));
+        $classes = Classe::orderBy('id_classe')->get();
+        $epreuves = Epreuve::whereIn('code_epreuve', ['EXI', 'EXII', 'EXIII'])->get();
+        return view('bulletin.rapport.rang_examen',compact('classes','epreuves'));
     }
 
-    public function select_rapport_examen(){
-        $classe = Classe::find(request('id_classe'));
-        $id_epreuve = request('id_epreuve');
-        $epreuve = Epreuve::find($id_epreuve);
-        $eleves = VEleve::where('id_classe',request('id_classe'))->get();
-        $epreuves = [];
-        $i=0;
-        while($i<3){
-            $epr = Epreuve::find('EPR00000'.$id_epreuve);
-            array_push($epreuves, $epr);
-            $id_epreuve++;
-            $i++;
+    public function select_rapport_examen(Request $request){
+        $id_classe = $request->input('id_classe');
+        $id_epreuve = $request->input('id_epreuve');
+        $resultats = DB::select('SELECT * FROM f_rapport_etudiant_periode(?,?)',[$id_classe,$id_epreuve]);
+        $rapportGlobal = DB::select('SELECT * FROM f_rapport_global(?,?)',[$id_classe,$id_epreuve]);
+        foreach($resultats as $resultat){
+            $resultat->moyenne = round($resultat->moyenne,2);
         }
-        return view('bulletin.rapport.liste_rang_examen',compact('classe','epreuve','eleves','epreuves'));
+        $rapportGlobal[0]->moyenne_classe = round($rapportGlobal[0]->moyenne_classe,2);
+        return view('bulletin.rapport.liste_rang_examen',compact('resultats','rapportGlobal'));
     }
 
 }

@@ -186,19 +186,19 @@ ALTER TABLE classe_eleve ADD COLUMN statut BOOLEAN NOT NULL DEFAULT 't';
                             <td class="width-note">20</td>
                             <td class="width-note">{{ $bulletin->coefficient }}</td>
                             <td class="width-note">{{ $bulletin->mc }}</td>
-                            <td class="width-note">22 eme ex</td>
+                            <td class="width-note">{{ $bulletin->rang }}</td>
                             <td class="width-note">{{ $bulletin->appreciation }}</td>
                         </tr>
                     @endforeach
                     <tr>
-                        <td class="td-MATIERE" style="text-align: center" colspan="6"><strong>Moyenne de classe = 16.7/20</strong></td>
-                        <td class="width-note">8.5</td>
-                        <td class="width-note">142.75</td>
-                        <td style="width: 20px; text-align:left; padding-left:5px;" colspan="2"><strong>RANG:21 eme sur 31 eleves</strong></td>
+                        <td class="td-MATIERE" style="text-align: center" colspan="6"><strong>Moyenne de classe = {{ $bulletin->rapportGlobal->moyenne_classe }}/20</strong></td>
+                        <td class="width-note">{{ $bulletin->rapportEtudiant->total_coef }}</td>
+                        <td class="width-note">{{ $bulletin->rapportEtudiant->total_note }}</td>
+                        <td style="width: 20px; text-align:left; padding-left:5px;" colspan="2"><strong>RANG: {{ $bulletin->rapportEtudiant->rang }} sur {{ $bulletin->rapportGlobal->effectif }} eleves</strong></td>
                     </tr>
                     <tr>
-                        <td class="td-MATIERE" style="text-align: center" colspan="7"><strong>Total des notes obtenues: 142.75 sur 170</strong></td>
-                        <td style="text-align:center;" colspan="3"><strong>Moyenne:16.79 sur 20</strong></td>
+                        <td class="td-MATIERE" style="text-align: center" colspan="7"><strong>Total des notes obtenues: {{ $bulletin->rapportEtudiant->total_note }} sur {{ $bulletin->rapportEtudiant->point_max }}</strong></td>
+                        <td style="text-align:center;" colspan="3"><strong>Moyenne:{{$bulletin->rapportEtudiant->moyenne}} sur 20</strong></td>
                     </tr>
                     <tr>
                         <td  colspan="6" style="text-align: center; border-top:none; border-bottom: none">ABSENCES/RETARDS-SANCTIONS</td>
@@ -216,13 +216,13 @@ ALTER TABLE classe_eleve ADD COLUMN statut BOOLEAN NOT NULL DEFAULT 't';
                         <td colspan="6" style="text-align: center; border-top:none;"></td>
                         <td colspan="4" style="text-align: center; border-top:none;"></td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td class="td-MATIERE" style="text-align:left; border-right:none">Note 1er trimestre: 17.17</td>
                         <td colspan="3" style="border-left:none; border-right:none">Note 2eme trimestre: 17.49</td>
                         <td style="border-left:none; border-right:none"></td>
                         <td colspan="3" style="border-left:none; border-right:none">Note de passage: 17.15</td>
                         <td colspan="2" style="border-left:none;">Rang annuel: 10eme</td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <td colspan="6" class="td-MATIERE" style="border-bottom:none; text-align:left; border-right:none; ">Signature des Parents</td>
                         <td colspan="4" class="td-MATIERE" style="border-bottom:none; text-align:left; border-left:none">Antananarivo,le {{ $date }}</td>

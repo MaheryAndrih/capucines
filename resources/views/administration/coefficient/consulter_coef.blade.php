@@ -37,7 +37,7 @@
                 <label>Classe</label>
                 <select class="form-control" name="id_classe">
                   @foreach($classes as $classe)
-                    <option value="{{ $classe->id_classe }}">{{ $classe->code_classe }}</option>
+                    <option value="{{ $classe->id_classe }}">{{ $classe->nom_classe }}</option>
                   @endforeach
                 </select>
               </div>

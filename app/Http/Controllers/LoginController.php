@@ -14,7 +14,7 @@ class LoginController extends Controller
 {
     //
     public function acceuil(Request $request){
-        $classes = Classe::all();
+        $classes = Classe::orderBy('id_classe')->get();
         $idClasseSelectionnee = $request->input('id_classe') ?? $classes->first()->id_classe;
 
         // Récupérer les matières correspondant à la classe sélectionnée
@@ -41,7 +41,7 @@ class LoginController extends Controller
     }
 
     public function getEpreuves($idClasse){
-        $epreuves = VEpreuve::where('id_classe',$idClasse)->select('id_epreuve', 'code_epreuve')->get();
+        $epreuves = VEpreuve::where('id_classe',$idClasse)->get();
         return response()->json($epreuves);
     }
 

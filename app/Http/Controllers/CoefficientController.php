@@ -14,7 +14,7 @@ class CoefficientController extends Controller
 {
     //
     public function choixClasse(){
-        $classes = Classe::all();
+        $classes = Classe::orderBy('id_classe')->get();
         return view('administration.coefficient.consulter_coef',['classes' => $classes]);
     }
 

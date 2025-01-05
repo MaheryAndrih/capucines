@@ -59,10 +59,10 @@
                             </div>
                             <div class="col-4 petite-interligne">
                             <p>Annee scolaire : 2024-2025</p>
-                            <p>Libelle : <strong>EXAMEN Premier Trimestre</strong></p>
-                            <p>Classe : <strong>12eme</strong></p>
-                            <p>Nombre d'eleves : <strong>36</strong></p>
-                            <p>Moyenne : <strong>16,24/20</strong></p>
+                            <p>Libelle : <strong>{{ $rapportGlobal[0]->nom_epreuve }}</strong></p>
+                            <p>Classe : <strong>{{ $rapportGlobal[0]->nom_classe }}</strong></p>
+                            <p>Nombre d'eleves : <strong>{{ $rapportGlobal[0]->effectif }}</strong></p>
+                            <p>Moyenne : <strong>{{ $rapportGlobal[0]->moyenne_classe }}/20</strong></p>
                             </div>
                         </form>
                         </div>
@@ -92,29 +92,27 @@
                                         <th>Nom</th>
                                         <th>Prenom</th>
                                         <th>Moyenne</th>
+                                        <th>Rang</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $i = 0;
-                                        @endphp
-                                        @foreach ($eleves as $eleve )
+                                        @foreach ($resultats as $resultat )
                                             <form action="{{ route('export.apercu') }}" method="GET" enctype="multipart/form-data">
                                                 @csrf
                                                 <tr>
-                                                    <td>{{ $eleve->matricule }}</td>
-                                                    <td>{{ $eleve->numero }}</td>
-                                                    <td>{{ $eleve->nom }}</td>
-                                                    <td>{{ $eleve->prenom }}</td>
-                                                    <td>{{ $randomNumbers[$i] }}/20</td>
+                                                    <td>{{ $resultat->matricule }}</td>
+                                                    <td>{{ $resultat->numero }}</td>
+                                                    <td>{{ $resultat->nom }}</td>
+                                                    <td>{{ $resultat->prenom }}</td>
+                                                    <td>{{ $resultat->moyenne }}</td>
+                                                    <td>{{ $resultat->rang }}</td>
                                                     <input type="hidden" name="date" id="hiddenDate">
-                                                    <input type="hidden" value="{{ $eleve->matricule }}" name="matricule">
+                                                    <input type="hidden" value="{{ $resultat->matricule }}" name="matricule">
                                                     <td><button type="submit" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
                                                 </tr>
                                                 <input type="hidden" value ="{{ $id_epreuve }}" name="id_epreuve">
                                             </form>
-                                            @php $i++; @endphp
                                         @endforeach
                                     </tbody>
                                 </table>

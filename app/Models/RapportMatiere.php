@@ -19,5 +19,14 @@ class RapportMatiere extends Model
 
     // Désactiver les timestamps si la fonction ne les gère pas
     public $timestamps = false;
+
+    public function getMoyenneAttribute($value){
+        return round($value, 2);
+    }
+
+    public function getMcAttribute($value){
+        return round($value, 2);
+    }
+
 }
 
