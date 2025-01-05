@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bulletin;
 use App\Models\Classe;
 use App\Models\Epreuve;
+use App\Models\VEleveClassee;
 use App\Models\VEleve;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -47,7 +48,8 @@ class ExportController extends Controller
         $date = self::parseDate($date);
         $classe = Classe::where('id_classe',$request->input('id_classe'))->first();
         $epreuve = Epreuve::where('id_epreuve',$request->input('id_epreuve'))->first();
-        $eleves = VEleve::where('id_classe', $classe->id_classe)->orderBy('numero')->get();
+        //$eleves = VEleveClassee::where('id_classe', $classe->id_classe)->orderBy('numero')->get();
+        $eleves = DB::select('SELECT * FROM v_eleve_classee(?,?)',[$request->input('id_classe'),$request->input('id_epreuve')]);
         $zipFileName = $classe['nom_classe'].'_'.$epreuve['code_epreuve'].'.zip';
         $zipFilePath = storage_path($zipFileName);
 
@@ -55,7 +57,8 @@ class ExportController extends Controller
         $zip = new ZipArchive;
         if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
             foreach ($eleves as $eleve){
-                $filePath = $this->saveBulletin($eleve,$classe,$epreuve,$date);
+                $el = VEleve::where('matricule',$eleve->matricule)->first();
+                $filePath = $this->saveBulletin($el,$classe,$epreuve,$date);
                 $zip->addFile($filePath, basename($filePath));
             }
             $zip->close();
