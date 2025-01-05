@@ -837,6 +837,7 @@ ORDER BY
 
 SELECT * FROM v_note_mere WHERE id_classe = 'CLS000003' AND id_matiere = 'MAT000010' AND id_epreuve_mere = 'EPR000003';
 
+
 CREATE OR REPLACE FUNCTION f_rapport_matiere(
     id_classe_param VARCHAR,
     id_matiere_param VARCHAR,
@@ -916,7 +917,8 @@ SELECT
     COALESCE (SUM(mc),0) as total_note,
     20*SUM(coefficient) as point_max,
     COALESCE (SUM(mc)/SUM(coefficient), 0) as moyenne 
-FROM v_note_mere
+FROM v_note_mere_classee
+WHERE note_exam is not null
 GROUP BY numero,id_classe,id_epreuve_mere,matricule,nom,prenom ORDER BY matricule;
 
 CREATE OR REPLACE FUNCTION f_rapport_etudiant_periode(
@@ -995,3 +997,77 @@ $$;
 
 SELECT * FROM f_rapport_global('CLS000003','EPR000003');
 
+
+
+A changer pour non-classer:
+- 
+
+
+
+
+
+CREATE OR REPLACE VIEW v_note_mere_classee AS
+SELECT
+    vnm.id_classe,
+    vnm.matricule,
+    vnm.id_matiere,
+    vnm.rang_matiere,
+    vnm.coefficient,
+    vnm.nom,
+    vnm.prenom,
+    vnm.numero,
+    vnm.id_epreuve_mere,
+    vnm.id_epreuve_fille_1,
+    vnm.id_epreuve_fille_2,
+    vnm.id_epreuve_fille_3,
+    vnm.note_1,
+    vnm.note_2,
+    vnm.note_exam,
+    vnm.moyenne,
+    vnm.mc
+FROM v_note_mere vnm
+WHERE vnm.note_exam != 0
+AND vnm.matricule IN (
+    SELECT matricule
+    FROM v_note_mere
+    WHERE note_exam != 0
+    GROUP BY matricule
+    HAVING COUNT(DISTINCT id_matiere) = (
+        SELECT COUNT(DISTINCT id_matiere)
+        FROM v_note_mere
+        WHERE matricule = v_note_mere.matricule
+    )
+);
+
+CREATE OR REPLACE FUNCTION v_eleve_classee(
+    id_classe_param VARCHAR,
+    id_epreuve_mere_param VARCHAR
+)
+RETURNS TABLE(
+    matricule INTEGER,
+    nom VARCHAR,
+    prenom VARCHAR,
+    numero INTEGER,
+    id_classe CHAR(9)
+) AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT DISTINCT
+        e.matricule, 
+        e.nom, 
+        e.prenom,
+        e.numero,
+        e.id_classe
+    FROM v_note_mere e
+    WHERE e.matricule NOT IN (
+        SELECT vnm.matricule
+        FROM v_note_mere vnm
+        WHERE vnm.note_exam = 0 AND id_epreuve_mere = id_epreuve_mere_param
+        AND vnm.id_classe = id_classe_param
+        GROUP BY vnm.matricule
+    )
+    ORDER BY e.numero;
+END;
+$$
+LANGUAGE plpgsql;
