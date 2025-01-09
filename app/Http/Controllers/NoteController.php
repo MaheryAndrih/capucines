@@ -233,15 +233,19 @@ class NoteController extends Controller
     public static function getOriginalFileName($id_data,UploadedFile $file){
         $file_name = $file->getClientOriginalName();
         $file_name = explode('_',$file_name);
-        // dd($file_name[0]);
+        // dd($file_name);
         $epreuve = Epreuve::select('code_epreuve')->where('id_epreuve',$id_data['id_epreuve'])->first();
         $classe = Classe::select('code_classe')->where('id_classe',$id_data['id_classe'])->first();
-        $matiere = Matiere::select('code_matiere','nom_matiere')->where('id_matiere',$id_data['id_matiere'])->first();
+        $matiere = Matiere::select('code_matiere')->where('id_matiere',$id_data['id_matiere'])->first();
+        $file_code_matiere = str_replace('.csv','',$file_name[2]);
         if($file_name[0] != $epreuve['code_epreuve']){
-            throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ". $epreuve['code_epreuve']."_".$classe['code_classe']."_".$matiere['code_matiere']."_".$matiere['nom_matiere'].".csv");
+            throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ". $epreuve['code_epreuve']."_".$classe['code_classe']."_".$matiere['code_matiere'].".csv");
         }
         if($file_name[1] != $classe['code_classe']){
-            throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ". $epreuve['code_epreuve']."_".$classe['code_classe']."_".$matiere['code_matiere']."_".$matiere['nom_matiere'].".csv");
+            throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ". $epreuve['code_epreuve']."_".$classe['code_classe']."_".$matiere['code_matiere'].".csv");
+        }
+        if($file_code_matiere != $matiere['code_matiere']){
+            throw new \InvalidArgumentException("Fichier invalide : le nom du fichier doit etre ". $epreuve['code_epreuve']."_".$classe['code_classe']."_".$matiere['code_matiere'].".csv");
         }
         return true;
     }

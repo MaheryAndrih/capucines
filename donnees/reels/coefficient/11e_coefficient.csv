@@ -1,14 +1,14 @@
 code_classe,nom_matiere,code_matiere,coefficient,rang
-11e,Dictée / Copie,Dict/Cop,4,1
-11e,Lecture / Expression orale,Lec/Exp_Or,1,2
+11e,Dictée / Copie,Dict-Cop,4,1
+11e,Lecture / Expression orale,Lec-Exp-Or,1,2
 11e,Francais,FRS,3,3
-11e,Soratononina / Dikasoratra,Sorat/Dik,4,4
-11e,Vakiteny / Fanazaran-tena,Vakt/Fanaz,2,5
+11e,Soratononina / Dikasoratra,Sorat-Dik,4,4
+11e,Vakiteny / Fanazaran-tena,Vakt-Fanaz,2,5
 11e,MALAGASY,MLG,2,6
-11e,Mathématique,MATH,2,7
+11e,Mathématiques,MATH,2,7
 11e,Problèmes,PBLMS,2,8
 11e,Eveil,EVEIL,2,9
-11e,Chant/Récitations,Chant/Rec,2,10
+11e,Chant / Récitations,Chant-Rec,2,10
 11e,TFM,TFM,2,11
 11e,ACM,ACM,2,12
 11e,APSE,APSE,2,13

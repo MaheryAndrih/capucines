@@ -1,16 +1,16 @@
 code_classe,nom_matiere,code_matiere,coefficient,rang
 9e,Dictée,Dict,4,1
-9e,Lecture / Expression orale,Lec/Exp_Or,1,2
+9e,Lecture / Expression orale,Lec-Exp-Or,1,2
 9e,Francais,FRS,3,3
-9e,Soratononina / Dikasoratra,Sorat/Dik,4,4
-9e,Vakiteny / Fanazaran-tena,Vakt/Fanaz,2,5
+9e,Soratononina / Dikasoratra,Sorat-Dik,4,4
+9e,Vakiteny / Fanazaran-tena,Vakt-Fanaz,2,5
 9e,MALAGASY,MLG,2,6
-9e,Mathématique,MATH,2,7
+9e,Mathématiques,MATH,2,7
 9e,Problèmes,PBLMS,2,8
 9e,CU,CU,2,9
 9e,GEO,GEO,2,10
 9e,TFM,TFM,2,11
-9e,Chant/Récitations,Chant/Rec,2,12
+9e,Chant / Récitations,Chant-Rec,2,12
 9e,ACM,ACM,2,13
 9e,APSE,APSE,2,14
 9e,INFO,INFO,2,15
