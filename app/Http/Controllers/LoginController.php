@@ -36,7 +36,7 @@ class LoginController extends Controller
     }
 
     public function getMatieres($idClasse){
-        $matieres = VClasseMatiereCoefficient::where('id_classe',$idClasse)->select('id_matiere','nom_matiere')->get();
+        $matieres = VClasseMatiereCoefficient::where('id_classe',$idClasse)->select('id_matiere','nom_matiere')->orderBy('rang')->get();
         return response()->json($matieres);
     }
 
