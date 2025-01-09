@@ -81,7 +81,7 @@ class Bulletin extends Model
     }
 
     public static function getAppreciation($moyenne){
-        $apprecitation = DB::select('SELECT appreciation FROM appreciation WHERE debut <= CAST(? AS NUMERIC) AND fin > CAST(? AS NUMERIC)', [$moyenne, $moyenne]);
+        $apprecitation = DB::select('SELECT appreciation FROM appreciation WHERE debut <= CAST(? AS NUMERIC) AND fin >= CAST(? AS NUMERIC)', [$moyenne, $moyenne]);
         $valeurAppreciation = $apprecitation[0]->appreciation;
         return $valeurAppreciation;
     }
