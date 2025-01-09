@@ -96,6 +96,8 @@ create table matiere(
     unique(nom_matiere,code_matiere)
 );
 
+ALTER TABLE matiere ALTER COLUMN code_matiere TYPE VARCHAR(15);
+
 create sequence matiere_seq 
     start with 1
     increment by 1
@@ -554,7 +556,6 @@ BEGIN
     WHERE id_epreuve_mere = id_epreuve_input 
       AND id_matiere = id_matiere_input 
       AND id_classe = id_classe_input;
-
     RETURN moyenne_note;
 END
 $$;
