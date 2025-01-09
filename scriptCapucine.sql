@@ -685,17 +685,15 @@ AS $$
 DECLARE
     moyenne_note double precision;
 BEGIN
-    SELECT AVG(moyenne) 
+    SELECT AVG(note) 
     INTO moyenne_note
-    FROM v_note_mere_classee
-    WHERE id_epreuve_mere = id_epreuve_input 
+    FROM v_note_classe
+    WHERE id_epreuve = id_epreuve_input 
       AND id_matiere = id_matiere_input 
       AND id_classe = id_classe_input;
     RETURN moyenne_note;
 END
 $$;
-
-SELECT * FROM v_note_mere_classee ;
 
 --11/10/2024;
 
