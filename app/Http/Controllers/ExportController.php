@@ -48,8 +48,7 @@ class ExportController extends Controller
         $date = self::parseDate($date);
         $classe = Classe::where('id_classe',$request->input('id_classe'))->first();
         $epreuve = Epreuve::where('id_epreuve',$request->input('id_epreuve'))->first();
-        //$eleves = VEleveClassee::where('id_classe', $classe->id_classe)->orderBy('numero')->get();
-        $eleves = DB::select('SELECT * FROM v_eleve_classee(?,?)',[$request->input('id_classe'),$request->input('id_epreuve')]);
+        $eleves = VEleve::where('id_classe', $classe->id_classe)->orderBy('numero')->get();
         $zipFileName = $classe['nom_classe'].'_'.$epreuve['code_epreuve'].'.zip';
         $zipFilePath = storage_path($zipFileName);
 
