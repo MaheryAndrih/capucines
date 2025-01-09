@@ -998,7 +998,6 @@ RETURNS TABLE (
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    -- Retourne les données sous forme de tableau
     RETURN QUERY
     SELECT
         v.id_classe,
@@ -1016,7 +1015,7 @@ BEGIN
         v.moyenne,
         v.mc,
         RANK() OVER (ORDER BY v.moyenne DESC) AS rang
-    FROM v_note_mere_classee v
+    FROM v_note_mere v
     WHERE v.id_classe = id_classe_param
       AND v.id_matiere = id_matiere_param
       AND v.id_epreuve_mere = id_epreuve_mere_param;
