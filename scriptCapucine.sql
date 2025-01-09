@@ -1039,21 +1039,19 @@ JOIN
 
 
 
-CREATE OR REPLACE VIEW v_rapport_etudiant_periode AS 
-SELECT 
-    id_classe,
-    matricule,
-    nom,
-    prenom,
-    numero,
-    id_epreuve_mere,
-    SUM(coefficient) as total_coef,
-    COALESCE (SUM(mc),0) as total_note,
-    20*SUM(coefficient) as point_max,
-    COALESCE (SUM(mc)/SUM(coefficient), 0) as moyenne 
-FROM v_note_mere_classee
-WHERE note_exam is not null
-GROUP BY numero,id_classe,id_epreuve_mere,matricule,nom,prenom ORDER BY matricule;
+ CREATE or REPLACE VIEW v_rapport_etudiant_periode AS  SELECT v_note_mere.id_classe,                                                                     
+     v_note_mere.matricule,                                                                                                                   
+     v_note_mere.nom,                                                                                                                         
+     v_note_mere.prenom,                                                                                                                      
+     v_note_mere.numero,                                                                                                                      
+     v_note_mere.id_epreuve_mere,                                                                                                             
+     sum(v_note_mere.coefficient) AS total_coef,                                                                                              
+     COALESCE(sum(v_note_mere.mc), (0)::double precision) AS total_note,                                                                      
+     ((20)::double precision * sum(v_note_mere.coefficient)) AS point_max,                                                                    
+     COALESCE((sum(v_note_mere.mc) / sum(v_note_mere.coefficient)), (0)::double precision) AS moyenne                                         
+    FROM v_note_mere                                                                                                                          
+   GROUP BY v_note_mere.numero, v_note_mere.id_classe, v_note_mere.id_epreuve_mere, v_note_mere.matricule, v_note_mere.nom, v_note_mere.prenom
+   ORDER BY v_note_mere.matricule;
 
 CREATE OR REPLACE FUNCTION f_rapport_etudiant_periode(
     id_classe_param VARCHAR,
