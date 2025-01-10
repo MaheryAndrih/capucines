@@ -1,5 +1,13 @@
 code_classe,nom_matiere,code_matiere,coefficient,rang
-12e,Francais,FRS,"4",2
-12e,Anglais,ANG,"1",3
-12e,MALAGASY,MLG,"3",1
-12e,Mathématique,MATH,"4",4
+12e,Dictée / Copie,Dict-Cop,4,2
+12e,Lecture,Lec,1,3
+12e,Francais,FRS,3,1
+12e,Soratononina / Dikasoratra,Sorat-Dik,4,4
+12e,Vakiteny,Vak,2,5
+12e,MALAGASY,MLG,2,6
+12e,Mathématiques,MATH,2,7
+12e,Eveil,EVEIL,2,8
+12e,Chant,Chant,2,9
+12e,ACM,ACM,2,10
+12e,APSE,APSE,2,11
+12e,INFO,INFO,2,12
