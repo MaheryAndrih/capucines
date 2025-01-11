@@ -111,7 +111,7 @@ return [
         /**
          * Whether to enable font subsetting or not.
          */
-        'enable_font_subsetting' => false,
+        'enable_font_subsetting' => true,
 
         /**
          * The PDF rendering backend to use
@@ -181,6 +181,13 @@ return [
          * @var string
          */
         'default_font' => 'serif',
+
+        'custom_font_dir' => public_path('fonts/'),
+        'cutom_font_data' => [
+            'script-mt-bold' => [
+                'R' => 'ScriptMTBold.ttf',
+            ],
+        ],
 
         /**
          * Image DPI setting
@@ -298,5 +305,7 @@ return [
          */
         'enable_html5_parser' => true,
     ],
+
+    
 
 ];

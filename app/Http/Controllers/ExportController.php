@@ -40,6 +40,7 @@ class ExportController extends Controller
             "date" => $date
         ];
         $pdf = Pdf::loadView('export.apercu',$data);
+        // $pdf = Pdf::loadView('export.test');
         return $pdf->stream();
     }
 

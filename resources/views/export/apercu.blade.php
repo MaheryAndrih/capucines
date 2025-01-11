@@ -7,7 +7,7 @@
     <title>{{ $eleve->numero }}_{{ $eleve->prenom }}_{{ $eleve->nom_classe }}_{{ $epreuve->nom_epreuve }}</title>
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'script-mt-bold', sans-serif;
             margin: 0;
             padding: 0;
             font-size: 10px;
