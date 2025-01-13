@@ -59,15 +59,15 @@ class Bulletin extends Model
             $bulletins[] = new self([
                 'id_classe' => trim($values[0]),
                 'id_matiere' => trim($values[1]),
-                'nom_matiere' => trim($values[2]),
+                'nom_matiere' => str_replace('"',"",trim($values[2])),
                 'matricule' => trim($values[3]),
                 'nom' => trim($values[4]),
                 'prenom' => trim($values[5]),
-                'ds1' => trim($values[6]),
-                'ds2' => trim($values[7]),
-                'exam' => trim($values[8]),
+                'ds1' => self::getNote(trim($values[6])),
+                'ds2' => self::getNote(trim($values[7])),
+                'exam' => self::getNote(trim($values[8])),
                 'coefficient' => trim($values[9]),
-                'moyenne' => bcdiv(trim($values[10]),1,2),
+                'moyenne' => self::getNote(bcdiv(trim($values[10]),1,2)),
                 'mc' => bcdiv(trim($values[11]),1,2),
                 'appreciation' => self::getAppreciation(bcdiv(trim($values[10]),1,2)),
                 'rang' => self::getRang(trim($values[0]),trim($values[1]),$idEpreuve,trim($values[3])),
@@ -104,4 +104,10 @@ class Bulletin extends Model
         return $result[0];
     }
 
+    public static function getNote($note){
+        if($note == 0){
+            return '';
+        }
+        return $note;
+    }
 }

@@ -20,9 +20,14 @@
             display: block;
             height: 35px;
         }
+
+        .eleve-info-gras{
+            font-weight: bolder;
+        }
+
         .school-name {
             float: left;
-            line-height: 140%;
+            font-size: 100%;
         }
         .school-year {
             float: right;
@@ -62,6 +67,11 @@
             /* border: 1px black solid; */
             height: 100vh;
             margin-top: 3%;
+        }
+
+        .rang-moyenne{
+            font-size: 150%;
+            font-weight: bolder;
         }
 
         .bulletin table {
@@ -109,10 +119,11 @@
 </head>
 <body>
     <header class="header">
-        <div class="school-name">Lycée privé <span class="script-font" style="font-family: Script Mt Bold">"Les Capucines"</span><br>
-            <strong>Lot IIH 13A Ankerana<br></strong>
-            <strong>Arreté N&deg; 103/2016-MEN du 14 Mars 2016<br></strong>
-            <strong>Arreté N&deg; 16281/2019/MENETP du 09 Août 2019<br></strong>
+        <div class="school-name">
+            <strong style="font-size: 130%">Lycée Privé "Les Capucines"</strong><br>
+            Lot IIH 13A Ankerana<br>
+            Arrêté N&deg; 103/2016-MEN du 14 Mars 2016<br>
+            Arrêté N&deg; 16281/2019/MENETP du 09 Août 2019<br>
         </div>
         <div class="school-year">Année scolaire: 2024-2025</div>
     </header>
@@ -125,31 +136,31 @@
             <table>
                 <tr>
                     <td>Nom:</td>
-                    <td>{{ $eleve->nom }}</td>
+                    <td class="eleve-info-gras">{{ $eleve->nom }}</td>
                     <td>Genre:</td>
-                    <td>{{ $eleve->genre }}</td>
+                    <td class="eleve-info-gras">{{ $eleve->genre }}</td>
                     <td>CLASSE:</td>
-                    <td>{{ $eleve->nom_classe }}</td>
+                    <td class="eleve-info-gras">{{ $eleve->nom_classe }}</td>
                 </tr>
                 <tr>
                     <td>Prénom(s):</td>
-                    <td>{{ $eleve->prenom }}</td>
+                    <td class="eleve-info-gras">{{ $eleve->prenom }}</td>
                     <td>Né(e) le:</td>
-                    <td>{{ $eleve->dtn }}</td>
+                    <td class="eleve-info-gras">{{ $eleve->dtn }}</td>
                     <td>Numéro de classe:</td>
-                    <td>{{ $eleve->numero }}</td>
+                    <td class="eleve-info-gras">{{ $eleve->numero }}</td>
                 </tr>
                 <tr>
                     <td>Matricule:</td>
-                    <td>{{ $eleve->matricule }}</td>
+                    <td class="eleve-info-gras">{{ $eleve->matricule }}</td>
                     <td></td>
                     <td></td>
                     <td>Statut:</td>
                     @if($eleve->statut == TRUE)
-                        <td>Passant(e)</td>
+                        <td class="eleve-info-gras">Passant(e)</td>
                     @endif
                     @if($eleve->statut == FALSE)
-                        <td>Redoublant(e)</td>
+                        <td class="eleve-info-gras">Redoublant(e)</td>
                     @endif
                 </tr>
             </table>
@@ -158,22 +169,20 @@
             <table>
                 <thead>
                     <tr>
-                        <th rowspan="2" style="width: 150px">MATIERE</th>
-                        <th colspan="2">TEST PERIODIQUES</th>
+                        <th rowspan="2" style="width: 150px">MATIÈRE</th>
+                        <th colspan="2">TESTS PÉRIODIQUES</th>
                         <th rowspan="2"><span class="th-rotate">EXAM</span></th>
                         <th rowspan="2"><span class="th-rotate">Moyenne</span></th>
                         <th rowspan="2"><span class="th-rotate">Points</span></th>
                         <th rowspan="2"><span class="th-rotate">COEFF</span></th>
                         <th rowspan="2"><span class="th-rotate">M*C</span></th>
                         <th rowspan="2"><span class="th-rotate">RANG</span></th>
-                        <th   rowspan="2">APPRECIATIONS</th>
+                        <th   rowspan="2">APPRÉCIATIONS</th>
                     </tr>
                     <tr>
-                        <th class="th-NOTE">1ere NOTE</th>
-                        <th class="th-NOTE">2eme NOTE</th>
-                    </tr>ALTER TABLE classe_eleve ADD COLUMN passant BOOLEAN NOT NULL DEFAULT 't';
-ALTER TABLE classe_eleve DROP COLUMN passant ;
-ALTER TABLE classe_eleve ADD COLUMN statut BOOLEAN NOT NULL DEFAULT 't';
+                        <th class="th-NOTE">1ère NOTE</th>
+                        <th class="th-NOTE">2ème NOTE</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach ($bulletins as $bulletin)
@@ -194,11 +203,11 @@ ALTER TABLE classe_eleve ADD COLUMN statut BOOLEAN NOT NULL DEFAULT 't';
                         <td class="td-MATIERE" style="text-align: center" colspan="6"><strong>Moyenne de classe = {{ $bulletin->rapportGlobal->moyenne_classe }}/20</strong></td>
                         <td class="width-note">{{ $bulletin->rapportEtudiant->total_coef }}</td>
                         <td class="width-note">{{ $bulletin->rapportEtudiant->total_note }}</td>
-                        <td style="width: 20px; text-align:left; padding-left:5px;" colspan="2"><strong>RANG: {{ $bulletin->rapportEtudiant->rang }} sur {{ $bulletin->rapportGlobal->effectif }} eleves</strong></td>
+                        <td style="width: 20px; text-align:left; padding-left:5px;" colspan="2"><strong>RANG:<span class="rang-moyenne"> {{ $bulletin->rapportEtudiant->rang }}</span> sur {{ $bulletin->rapportGlobal->effectif }} élèves</strong></td>
                     </tr>
                     <tr>
-                        <td class="td-MATIERE" style="text-align: center" colspan="7"><strong>Total des notes obtenues: {{ $bulletin->rapportEtudiant->total_note }} sur {{ $bulletin->rapportEtudiant->point_max }}</strong></td>
-                        <td style="text-align:center;" colspan="3"><strong>Moyenne:{{$bulletin->rapportEtudiant->moyenne}} sur 20</strong></td>
+                        <td class="td-MATIERE" style="text-align: center" colspan="7"><strong>Total des notes obtenues: {{ $bulletin->rapportEtudiant->total_note }}</span> sur {{ $bulletin->rapportEtudiant->point_max }}</strong></td>
+                        <td style="text-align:center;" colspan="3"><strong>Moyenne:<span class="rang-moyenne"> {{$bulletin->rapportEtudiant->moyenne}}</span> sur 20</strong></td>
                     </tr>
                     <tr>
                         <td  colspan="6" style="text-align: center; border-top:none; border-bottom: none">ABSENCES/RETARDS-SANCTIONS</td>
@@ -229,7 +238,7 @@ ALTER TABLE classe_eleve ADD COLUMN statut BOOLEAN NOT NULL DEFAULT 't';
                     </tr>
                     <tr>
                         <td colspan="6" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-right:none;"></td>
-                        <td colspan="4" class="td-MATIERE" style="border-top:none;border-bottom:none;text-align:left; border-left:none; margin-top:-10%">RAZAFINDRAINIBE Andritsilavo Francky</td>
+                        <td colspan="4" class="td-MATIERE" style="border-top:none;border-bottom:none;text-align:left; border-left:none; margin-top:-10%">Directeur</td>
                     </tr>
                     <tr>
                         <td colspan="6" class="td-MATIERE" style="border-top:none; border-bottom:none;text-align:left; border-right:none;"></td>
@@ -249,7 +258,7 @@ ALTER TABLE classe_eleve ADD COLUMN statut BOOLEAN NOT NULL DEFAULT 't';
                     </tr>
                     <tr>
                         <td colspan="6" class="td-MATIERE" style="border-top:none; text-align:left; border-right:none;"></td>
-                        <td colspan="4" class="td-MATIERE" style="border-top:none; text-align:left; border-left:none">Directeur</td>
+                        <td colspan="4" class="td-MATIERE" style="border-top:none; text-align:left; border-left:none">RAZAFINDRAINIBE Andritsilavo Francky</td>
                     </tr>
                 </tbody>
             </table>

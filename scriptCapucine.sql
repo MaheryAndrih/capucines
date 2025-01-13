@@ -89,6 +89,25 @@ insert into classe values
 ('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'IIème_année_G2','G2_II'),
 ('CLS' || RIGHT('000000' || nextval('classe_seq'), 6),'IIIème_année_G2','G2_III');
 
+UPDATE classe SET nom_classe = '11Þme' WHERE id_classe = 'CLS000004';
+UPDATE classe SET nom_classe = '10Þme' WHERE id_classe = 'CLS000005';
+UPDATE classe SET nom_classe = '9Þme' WHERE id_classe = 'CLS000006';
+UPDATE classe SET nom_classe = '8Þme' WHERE id_classe = 'CLS000007';
+UPDATE classe SET nom_classe = '7Þme' WHERE id_classe = 'CLS000008';
+UPDATE classe SET nom_classe = '6Þme' WHERE id_classe = 'CLS000009';
+UPDATE classe SET nom_classe = '5Þme' WHERE id_classe = 'CLS000010';
+UPDATE classe SET nom_classe = '4Þme' WHERE id_classe = 'CLS000011';
+UPDATE classe SET nom_classe = '3Þme' WHERE id_classe = 'CLS000012';
+UPDATE classe SET nom_classe = '1Þre_S' WHERE id_classe = 'CLS000014';
+UPDATE classe SET nom_classe = '1Þre_L' WHERE id_classe = 'CLS000015';
+UPDATE classe SET nom_classe = '1AG2' WHERE id_classe = 'CLS000019';
+UPDATE classe SET nom_classe = '2AG2' WHERE id_classe = 'CLS000020';
+UPDATE classe SET nom_classe = '3AG2' WHERE id_classe = 'CLS000021';
+UPDATE classe SET nom_classe = '12Þme' WHERE id_classe = 'CLS000003';
+
+UPDATE matiere SET nom_matiere = 'Franþais' WHERE code_matiere = 'FRS';
+UPDATE appreciation SET appreciation = 'TrÞs Bien' WHERE fin = 20;
+
 create table matiere(
     id_matiere char(9) primary key,
     nom_matiere varchar(50) not null,
