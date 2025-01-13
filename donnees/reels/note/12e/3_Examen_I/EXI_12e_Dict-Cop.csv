@@ -1,37 +1,37 @@
 ﻿code_epreuve,code_classe,code_matiere,matricule,nom,prenom,note
-EXI,12e,Dict-Cop,1767,ANDRIAMIHAJA,Miangoty Irène,
-EXI,12e,Dict-Cop,1768,ANDRIANAINA,Mandresy Seheiah,
-EXI,12e,Dict-Cop,1769,ANDRIANANDRIANINA,Josia,
-EXI,12e,Dict-Cop,1770,ANDRIANJAFINIAINA,Ny Avana Sarobidy,
-EXI,12e,Dict-Cop,1771,ANDRIANJANAHARY,Lionella Naylane,
-EXI,12e,Dict-Cop,1772,AVOMANJAKA,Miangaly Soaveloandro,
-EXI,12e,Dict-Cop,1773,FARANIRINA,Anjarasoa Ashley Oriana,
-EXI,12e,Dict-Cop,1774,HERRY,Celiano Ameloubet,
-EXI,12e,Dict-Cop,1775,KAISER,Ilo Nelckaël,
-EXI,12e,Dict-Cop,1776,MAMINIRINA,Mikanto Fitiavana Ny avo,
-EXI,12e,Dict-Cop,1777,MIARITIANA,Hélène Andréa,
-EXI,12e,Dict-Cop,1778,RAFANOMEZANTSOA,Euphémie Fillie,
-EXI,12e,Dict-Cop,1779,RAHARISON,Anjarafitahiana Dianah,
-EXI,12e,Dict-Cop,1780,RAJAOFETRA,Fitia Nohémia,
-EXI,12e,Dict-Cop,1782,RAKOTOASIMBOLA,Mialy Nambinina,
-EXI,12e,Dict-Cop,1783,RAKOTOMALALA,Tendry Niaina,
-EXI,12e,Dict-Cop,1784,RAKOTONDRAMANANA,Nalisoa Vetsoina Kheira,
-EXI,12e,Dict-Cop,1785,RAKOTONDRASOA,Mioty Ny Aina Océanne,
-EXI,12e,Dict-Cop,1786,RAKOTONIAINA,Hombantsoa Arivony,
-EXI,12e,Dict-Cop,1787,RAMAMONJISOA,Arhel Mandranto I,
-EXI,12e,Dict-Cop,1788,RAMANANTSOA,Santatra Ny aina Mioty J,
-EXI,12e,Dict-Cop,1789,RAMAROMANANA,Hafaliana Ny Aiko Laura,
-EXI,12e,Dict-Cop,1820,RANDRIAMAHEFA,Faniloniaina Aaron Heninkasina,
-EXI,12e,Dict-Cop,1790,RANDRIAMAHENINA,Aina Lucas,
-EXI,12e,Dict-Cop,1791,RANDRIAMBOLOLONA,Sedera Fihobiana,
-EXI,12e,Dict-Cop,1793,RANDRIANARIVELO,Murielle Angie,
-EXI,12e,Dict-Cop,1794,RANDRIARINAIVO,Tiantsoa Fanilo,
-EXI,12e,Dict-Cop,1795,RAOELISON,Mikalosoa Arotia,
-EXI,12e,Dict-Cop,1796,RASOLOFOMANANA,Finoana Jonathan,
-EXI,12e,Dict-Cop,1797,RASOLOHARIMAMY,Nofy Miray,
-EXI,12e,Dict-Cop,1798,RAVALIMANANA A,Irintsoa Mialitiana Océane,
-EXI,12e,Dict-Cop,1799,RAVELONJATOVO,Mahatehotia Nethanaël Karen,
-EXI,12e,Dict-Cop,1800,RAZAFIMAMONJY,Harinomena Arotia,
-EXI,12e,Dict-Cop,1801,RAZAFIMPAMONJY,Mahatoky Uriel,
-EXI,12e,Dict-Cop,1802,RAZAFINDRAINIBE,Laurie Finoana,
-EXI,12e,Dict-Cop,1803,TSIRINIAINA,Kayla Fifaliana,
+EXI,12e,Dict-Cop,1767,ANDRIAMIHAJA,Miangoty Irène,19
+EXI,12e,Dict-Cop,1768,ANDRIANAINA,Mandresy Seheiah,"17,5"
+EXI,12e,Dict-Cop,1769,ANDRIANANDRIANINA,Josia,15
+EXI,12e,Dict-Cop,1770,ANDRIANJAFINIAINA,Ny Avana Sarobidy,16
+EXI,12e,Dict-Cop,1771,ANDRIANJANAHARY,Lionella Naylane,17
+EXI,12e,Dict-Cop,1772,AVOMANJAKA,Miangaly Soaveloandro,15
+EXI,12e,Dict-Cop,1773,FARANIRINA,Anjarasoa Ashley Oriana,15
+EXI,12e,Dict-Cop,1774,HERRY,Celiano Ameloubet,16
+EXI,12e,Dict-Cop,1775,KAISER,Ilo Nelckaël,16
+EXI,12e,Dict-Cop,1776,MAMINIRINA,Mikanto Fitiavana Ny avo,18
+EXI,12e,Dict-Cop,1777,MIARITIANA,Hélène Andréa,19
+EXI,12e,Dict-Cop,1778,RAFANOMEZANTSOA,Euphémie Fillie,16
+EXI,12e,Dict-Cop,1779,RAHARISON,Anjarafitahiana Dianah,19
+EXI,12e,Dict-Cop,1780,RAJAOFETRA,Fitia Nohémia,19
+EXI,12e,Dict-Cop,1782,RAKOTOASIMBOLA,Mialy Nambinina,18
+EXI,12e,Dict-Cop,1783,RAKOTOMALALA,Tendry Niaina,16
+EXI,12e,Dict-Cop,1784,RAKOTONDRAMANANA,Nalisoa Vetsoina Kheira,16
+EXI,12e,Dict-Cop,1785,RAKOTONDRASOA,Mioty Ny Aina Océanne,15
+EXI,12e,Dict-Cop,1786,RAKOTONIAINA,Hombantsoa Arivony,18
+EXI,12e,Dict-Cop,1787,RAMAMONJISOA,Arhel Mandranto I,15
+EXI,12e,Dict-Cop,1788,RAMANANTSOA,Santatra Ny aina Mioty J,14
+EXI,12e,Dict-Cop,1789,RAMAROMANANA,Hafaliana Ny Aiko Laura,20
+EXI,12e,Dict-Cop,1820,RANDRIAMAHEFA,Faniloniaina Aaron Heninkasina,20
+EXI,12e,Dict-Cop,1790,RANDRIAMAHENINA,Aina Lucas,13
+EXI,12e,Dict-Cop,1791,RANDRIAMBOLOLONA,Sedera Fihobiana,7
+EXI,12e,Dict-Cop,1793,RANDRIANARIVELO,Murielle Angie,16
+EXI,12e,Dict-Cop,1794,RANDRIARINAIVO,Tiantsoa Fanilo,15
+EXI,12e,Dict-Cop,1795,RAOELISON,Mikalosoa Arotia,18
+EXI,12e,Dict-Cop,1796,RASOLOFOMANANA,Finoana Jonathan,14
+EXI,12e,Dict-Cop,1797,RASOLOHARIMAMY,Nofy Miray,19
+EXI,12e,Dict-Cop,1798,RAVALIMANANA A,Irintsoa Mialitiana Océane,18
+EXI,12e,Dict-Cop,1799,RAVELONJATOVO,Mahatehotia Nethanaël Karen,18
+EXI,12e,Dict-Cop,1800,RAZAFIMAMONJY,Harinomena Arotia,14
+EXI,12e,Dict-Cop,1801,RAZAFIMPAMONJY,Mahatoky Uriel,18
+EXI,12e,Dict-Cop,1802,RAZAFINDRAINIBE,Laurie Finoana,"19,5"
+EXI,12e,Dict-Cop,1803,TSIRINIAINA,Kayla Fifaliana,18

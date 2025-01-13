@@ -1,7 +1,7 @@
 ﻿code_epreuve,code_classe,code_matiere,matricule,nom,prenom,note
-DS1,TleC,PC,938,ANDRIANJOHANY,Zo Nirina,
-DS1,TleC,PC,979,FANOMEZANTSOA,Josia,
-DS1,TleC,PC,1977,RAMAHENINA,Laura Autonelie,
-DS1,TleC,PC,1960,RATOMAHENINA,Tsiry Tantelisoa,
-DS1,TleC,PC,912,RAVELOJAONA,Mandresy Eric,
-DS1,TleC,PC,902,SOLOHERY,Mitiantsoa Victoria,
+DS1,TleC,PC,938,ANDRIANJOHANY,Zo Nirina,11
+DS1,TleC,PC,979,FANOMEZANTSOA,Josia,11
+DS1,TleC,PC,1977,RAMAHENINA,Laura Autonelie,"5,75"
+DS1,TleC,PC,1960,RATOMAHENINA,Tsiry Tantelisoa,2
+DS1,TleC,PC,912,RAVELOJAONA,Mandresy Eric,"11,75"
+DS1,TleC,PC,902,SOLOHERY,Mitiantsoa Victoria,"6,75"

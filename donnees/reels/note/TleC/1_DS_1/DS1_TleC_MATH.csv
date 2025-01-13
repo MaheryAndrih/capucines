@@ -1,7 +1,7 @@
 ﻿code_epreuve,code_classe,code_matiere,matricule,nom,prenom,note
-DS1,TleC,MATH,938,ANDRIANJOHANY,Zo Nirina,
-DS1,TleC,MATH,979,FANOMEZANTSOA,Josia,
-DS1,TleC,MATH,1977,RAMAHENINA,Laura Autonelie,
-DS1,TleC,MATH,1960,RATOMAHENINA,Tsiry Tantelisoa,
-DS1,TleC,MATH,912,RAVELOJAONA,Mandresy Eric,
-DS1,TleC,MATH,902,SOLOHERY,Mitiantsoa Victoria,
+DS1,TleC,MATH,938,ANDRIANJOHANY,Zo Nirina,7
+DS1,TleC,MATH,979,FANOMEZANTSOA,Josia,"8,75"
+DS1,TleC,MATH,1977,RAMAHENINA,Laura Autonelie,"11,25"
+DS1,TleC,MATH,1960,RATOMAHENINA,Tsiry Tantelisoa,1
+DS1,TleC,MATH,912,RAVELOJAONA,Mandresy Eric,10
+DS1,TleC,MATH,902,SOLOHERY,Mitiantsoa Victoria,"8,25"
