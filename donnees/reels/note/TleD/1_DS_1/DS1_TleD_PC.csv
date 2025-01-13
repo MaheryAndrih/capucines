@@ -1,14 +1,14 @@
 ﻿code_epreuve,code_classe,code_matiere,matricule,nom,prenom,note
-DS1,TleD,PC,904,ANDRIANANTENAINA,Sandratrinirainy R,
-DS1,TleD,PC,1810,ANDRIANTSILAVINA,Fanilosoa Camille,
-DS1,TleD,PC,1972,ANDRIHARISOA,Rivolala,
-DS1,TleD,PC,1886,FANILO,Nisaina,
-DS1,TleD,PC,934,RABEMAMONJY,Hajanirina Jo Bryan,
-DS1,TleD,PC,1813,RABENANDRASANA,Niriantsoa Tatiah Branda,
-DS1,TleD,PC,1974,RAFIDINIRINA,Manoa Kaliana,
-DS1,TleD,PC,1726,RAKOTONONERANTSOA,Rhina Valerah,
-DS1,TleD,PC,932,RAKOTOVAO,Haritiana Nicholas,
-DS1,TleD,PC,920,RAMILISON,Manda Adriano,
-DS1,TleD,PC,1976,RATEFIARISON,Radoniaina Fabien,
-DS1,TleD,PC,1960,RATOMAHENINA,Tsiry Tantelisoa,
-DS1,TleD,PC,1390,RAVOAHANGY A,Ivoart Vidoc,
+DS1,TleD,PC,904,ANDRIANANTENAINA,Sandratrinirainy R,"6,75"
+DS1,TleD,PC,1810,ANDRIANTSILAVINA,Fanilosoa Camille,6
+DS1,TleD,PC,1972,ANDRIHARISOA,Rivolala,"7,25"
+DS1,TleD,PC,1886,FANILO,Nisaina,"10,5"
+DS1,TleD,PC,934,RABEMAMONJY,Hajanirina Jo Bryan,"5,25"
+DS1,TleD,PC,1813,RABENANDRASANA,Niriantsoa Tatiah Branda,5
+DS1,TleD,PC,1974,RAFIDINIRINA,Manoa Kaliana,"2,5"
+DS1,TleD,PC,1726,RAKOTONONERANTSOA,Rhina Valerah,"10,5"
+DS1,TleD,PC,932,RAKOTOVAO,Haritiana Nicholas,5
+DS1,TleD,PC,920,RAMILISON,Manda Adriano,"7,75"
+DS1,TleD,PC,1976,RATEFIARISON,Radoniaina Fabien,"9,5"
+DS1,TleD,PC,1960,RATOMAHENINA,Tsiry Tantelisoa,2
+DS1,TleD,PC,1390,RAVOAHANGY A,Ivoart Vidoc,"6,75"

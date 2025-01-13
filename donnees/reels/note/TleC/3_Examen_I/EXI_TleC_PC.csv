@@ -1,7 +1,7 @@
 ﻿code_epreuve,code_classe,code_matiere,matricule,nom,prenom,note
-EXI,TleC,ANG,938,ANDRIANJOHANY,Zo Nirina,
-EXI,TleC,ANG,979,FANOMEZANTSOA,Josia,
-EXI,TleC,ANG,919,RAKOTOARINDRIANA,Njaratina Nirina,
-EXI,TleC,ANG,1977,RAMAHENINA,Laura Autonelie,
-EXI,TleC,ANG,912,RAVELOJAONA,Mandresy Eric,
-EXI,TleC,ANG,902,SOLOHERY,Mitiantsoa Victoria,
+EXI,TleC,PC,938,ANDRIANJOHANY,Zo Nirina,9
+EXI,TleC,PC,979,FANOMEZANTSOA,Josia,13
+EXI,TleC,PC,919,RAKOTOARINDRIANA,Njaratina Nirina,"11,5"
+EXI,TleC,PC,1977,RAMAHENINA,Laura Autonelie,"6,75"
+EXI,TleC,PC,912,RAVELOJAONA,Mandresy Eric,10
+EXI,TleC,PC,902,SOLOHERY,Mitiantsoa Victoria,"11,25"
