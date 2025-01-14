@@ -121,9 +121,10 @@
     <header class="header">
         <div class="school-name">
             <strong style="font-size: 130%">Lycée Privé "Les Capucines"</strong><br>
-            Lot IIH 13A Ankerana<br>
+            Lot IIH 13A Ankerana-Ankadindramamy<br>
             Arrêté N&deg; 103/2016-MEN du 14 Mars 2016<br>
             Arrêté N&deg; 16281/2019/MENETP du 09 Août 2019<br>
+            Tel : +261 34 70 409 26
         </div>
         <div class="school-year">Année scolaire: 2024-2025</div>
     </header>

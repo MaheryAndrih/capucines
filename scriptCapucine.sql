@@ -106,6 +106,7 @@ UPDATE classe SET nom_classe = '3AG2' WHERE id_classe = 'CLS000021';
 UPDATE classe SET nom_classe = '12Þme' WHERE id_classe = 'CLS000003';
 
 UPDATE matiere SET nom_matiere = 'Franþais' WHERE code_matiere = 'FRS';
+UPDATE matiere SET nom_matiere = 'Vakiteny / Fanazarana Hiteny' WHERE code_matiere = 'Vakt-Fanaz';
 UPDATE appreciation SET appreciation = 'TrÞs Bien' WHERE fin = 20;
 
 create table matiere(
@@ -737,6 +738,24 @@ update classe set nom_classe='IIeme_G2' where id_classe = 'CLS000020';
 update classe set nom_classe='IIIeme_G2' where id_classe = 'CLS000021';
 
 
+-- CREATE OR REPLACE FUNCTION calculer_moyenne(
+--     ds1 DOUBLE PRECISION,
+--     ds2 DOUBLE PRECISION,
+--     exam DOUBLE PRECISION
+-- ) RETURNS DOUBLE PRECISION AS $$
+-- BEGIN
+--     RETURN 
+--         CASE 
+--             -- Vérifier si au moins une note est positive
+--             WHEN (ds1 > 0 OR ds2 > 0 OR exam > 0) THEN
+--                 -- Calculer la moyenne pondérée
+--                 (COALESCE(ds1, 0) + COALESCE(ds2, 0) + 2 * COALESCE(exam, 0)) / 4
+--             ELSE 
+--                 -- Retourner 0 si toutes les notes sont nulles ou négatives
+--                 0 
+--         END;
+-- END;
+-- $$ LANGUAGE plpgsql;
 
 
 
