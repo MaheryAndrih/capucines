@@ -106,7 +106,7 @@ UPDATE classe SET nom_classe = '3AG2' WHERE id_classe = 'CLS000021';
 UPDATE classe SET nom_classe = '12Þme' WHERE id_classe = 'CLS000003';
 
 UPDATE matiere SET nom_matiere = 'Franþais' WHERE code_matiere = 'FRS';
-UPDATE matiere SET nom_matiere = 'Fanazarana Hiteny' WHERE code_matiere = 'Vakt-Fanaz';
+UPDATE matiere SET nom_matiere = 'Vakiteny / Fanazarana Hiteny' WHERE code_matiere = 'Vakt-Fanaz';
 UPDATE appreciation SET appreciation = 'TrÞs Bien' WHERE fin = 20;
 
 create table matiere(
