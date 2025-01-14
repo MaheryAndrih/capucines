@@ -50,8 +50,8 @@ class BulletinController extends Controller{
         $epreuve = Epreuve::find($id_data['id_epreuve']);
         $details_epreuve = VDetailEpreuve::where('id_epreuve_mere',$epreuve->id_epreuve)->get();
         $resultats = DB::select('SELECT * FROM f_rapport_matiere(?, ?, ?)', [$id_data['id_classe'], $id_data['id_matiere'],$id_data['id_epreuve']]);
-        $moyenne = DB::select('SELECT get_moyenne_matiere(?,?,?)',[$classe->id_classe,$matiere->id_matiere,$epreuve->id_epreuve]);
-        $moyenne_value = $moyenne[0]->get_moyenne_matiere;
+        $moyenne = DB::select('SELECT f_moyenne_matiere_mere(?,?,?)',[$classe->id_classe,$matiere->id_matiere,$epreuve->id_epreuve]);
+        $moyenne_value = $moyenne[0]->f_moyenne_matiere_mere;
         $moyenne_value = bcdiv($moyenne_value, 1,2);
         $rapport_matiere = collect($resultats)->map(function ($item) {
             return new RapportMatiere((array) $item);
