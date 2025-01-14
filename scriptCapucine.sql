@@ -106,7 +106,6 @@ UPDATE classe SET nom_classe = '3AG2' WHERE id_classe = 'CLS000021';
 UPDATE classe SET nom_classe = '12Þme' WHERE id_classe = 'CLS000003';
 
 UPDATE matiere SET nom_matiere = 'Franþais' WHERE code_matiere = 'FRS';
-UPDATE matiere SET nom_matiere = 'Vakiteny / Fanazarana Hiteny' WHERE code_matiere = 'Vakt-Fanaz';
 UPDATE appreciation SET appreciation = 'TrÞs Bien' WHERE fin = 20;
 
 create table matiere(
@@ -738,6 +737,30 @@ update classe set nom_classe='IIeme_G2' where id_classe = 'CLS000020';
 update classe set nom_classe='IIIeme_G2' where id_classe = 'CLS000021';
 
 
+
+
+
+-- CREATE OR REPLACE FUNCTION calculer_moyenne(
+--     ds1 DOUBLE PRECISION,
+--     ds2 DOUBLE PRECISION,
+--     exam DOUBLE PRECISION
+-- ) RETURNS DOUBLE PRECISION AS $$
+-- BEGIN
+--     RETURN 
+--         CASE 
+--             WHEN (ds1 > 0 OR ds2 > 0 OR exam > 0) THEN
+--                 (COALESCE(ds1, 0) + COALESCE(ds2, 0) + COALESCE(exam, 0)) / 
+--                 NULLIF(
+--                     (CASE WHEN ds1 > 0 THEN 1 ELSE 0 END) + 
+--                     (CASE WHEN ds2 > 0 THEN 1 ELSE 0 END) + 
+--                     (CASE WHEN exam > 0 THEN 1 ELSE 0 END), 
+--                 0)
+--             ELSE 
+--                 0 
+--         END;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
 -- CREATE OR REPLACE FUNCTION calculer_moyenne(
 --     ds1 DOUBLE PRECISION,
 --     ds2 DOUBLE PRECISION,
@@ -757,28 +780,43 @@ update classe set nom_classe='IIIeme_G2' where id_classe = 'CLS000021';
 -- END;
 -- $$ LANGUAGE plpgsql;
 
-
-
 CREATE OR REPLACE FUNCTION calculer_moyenne(
     ds1 DOUBLE PRECISION,
     ds2 DOUBLE PRECISION,
     exam DOUBLE PRECISION
 ) RETURNS DOUBLE PRECISION AS $$
+DECLARE
+    somme_notes DOUBLE PRECISION := 0;
+    somme_poids DOUBLE PRECISION := 0;
 BEGIN
-    RETURN 
-        CASE 
-            WHEN (ds1 > 0 OR ds2 > 0 OR exam > 0) THEN
-                (COALESCE(ds1, 0) + COALESCE(ds2, 0) + COALESCE(exam, 0)) / 
-                NULLIF(
-                    (CASE WHEN ds1 > 0 THEN 1 ELSE 0 END) + 
-                    (CASE WHEN ds2 > 0 THEN 1 ELSE 0 END) + 
-                    (CASE WHEN exam > 0 THEN 1 ELSE 0 END), 
-                0)
-            ELSE 
-                0 
-        END;
+    -- Ajouter DS1 si elle est > 0
+    IF ds1 > 0 THEN
+        somme_notes := somme_notes + ds1;
+        somme_poids := somme_poids + 1;
+    END IF;
+
+    -- Ajouter DS2 si elle est > 0
+    IF ds2 > 0 THEN
+        somme_notes := somme_notes + ds2;
+        somme_poids := somme_poids + 1;
+    END IF;
+
+    -- Ajouter Examen si elle est > 0
+    IF exam > 0 THEN
+        somme_notes := somme_notes + (2 * exam); -- Poids 2 pour l'examen
+        somme_poids := somme_poids + 2;
+    END IF;
+
+    -- Si toutes les notes sont nulles ou <= 0, retourner 0
+    IF somme_poids = 0 THEN
+        RETURN 0;
+    END IF;
+
+    -- Calculer la moyenne
+    RETURN somme_notes / somme_poids;
 END;
 $$ LANGUAGE plpgsql;
+
 
 CREATE OR REPLACE FUNCTION get_bulletin(
     p_id_epreuve VARCHAR,
@@ -938,12 +976,82 @@ INSERT INTO detail_epreuve VALUES
 ('EPR000009','EPR000008',2),
 ('EPR000009','EPR000009',3);
  
+-- CREATE OR REPLACE VIEW v_note_mere AS
+-- SELECT
+--     v.id_classe,
+--     v.matricule,
+--     v.id_matiere,
+--     c.rang as rang_matiere,
+--     c.coefficient,
+--     v.nom,
+--     v.prenom,
+--     v.numero,
+--     d.id_epreuve_mere,
+--     MAX(CASE WHEN d.rang = 1 THEN d.id_epreuve_fille END) AS id_epreuve_fille_1,
+--     MAX(CASE WHEN d.rang = 2 THEN d.id_epreuve_fille END) AS id_epreuve_fille_2,
+--     MAX(CASE WHEN d.rang = 3 THEN d.id_epreuve_fille END) AS id_epreuve_fille_3,
+--     MAX(CASE WHEN d.rang = 1 THEN v.note END) AS note_1,
+--     MAX(CASE WHEN d.rang = 2 THEN v.note END) AS note_2,
+--     MAX(CASE WHEN d.rang = 3 THEN v.note END) AS note_exam,
+--     CASE 
+--         WHEN 
+--             (MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
+--              MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
+--              MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END)) > 0
+--         THEN 
+--             (
+--                 COALESCE(NULLIF(MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN v.note END), 0), 0) +
+--                 COALESCE(NULLIF(MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN v.note END), 0), 0) +
+--                 COALESCE(NULLIF(MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN v.note END), 0), 0)
+--             ) / 
+--             NULLIF(
+--                 MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
+--                 MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
+--                 MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END),
+--                 0
+--             )
+--         ELSE NULL
+--     END AS moyenne,
+--     CASE 
+--         WHEN 
+--             (MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
+--              MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
+--              MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END)) > 0
+--         THEN 
+--             (
+--                 COALESCE(NULLIF(MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN v.note END), 0), 0) +
+--                 COALESCE(NULLIF(MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN v.note END), 0), 0) +
+--                 COALESCE(NULLIF(MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN v.note END), 0), 0)
+--             ) / 
+--             NULLIF(
+--                 MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
+--                 MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
+--                 MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END),
+--                 0
+--             ) * c.coefficient
+--         ELSE NULL
+--     END AS mc
+
+-- FROM 
+--     v_note_classe v
+-- JOIN 
+--     detail_epreuve d ON v.id_epreuve = d.id_epreuve_fille
+-- JOIN 
+--     classe_matiere_coefficient c ON v.id_classe = c.id_classe
+--     AND v.id_matiere = c.id_matiere
+
+-- GROUP BY 
+--     v.id_classe, v.matricule, v.id_matiere, v.nom, v.prenom, d.id_epreuve_mere, c.rang, c.coefficient,v.numero
+
+-- ORDER BY 
+--     v.id_classe, v.matricule, v.id_matiere, d.id_epreuve_mere;
+
 CREATE OR REPLACE VIEW v_note_mere AS
 SELECT
     v.id_classe,
     v.matricule,
     v.id_matiere,
-    c.rang as rang_matiere,
+    c.rang AS rang_matiere,
     c.coefficient,
     v.nom,
     v.prenom,
@@ -955,45 +1063,18 @@ SELECT
     MAX(CASE WHEN d.rang = 1 THEN v.note END) AS note_1,
     MAX(CASE WHEN d.rang = 2 THEN v.note END) AS note_2,
     MAX(CASE WHEN d.rang = 3 THEN v.note END) AS note_exam,
-    CASE 
-        WHEN 
-            (MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
-             MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
-             MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END)) > 0
-        THEN 
-            (
-                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN v.note END), 0), 0) +
-                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN v.note END), 0), 0) +
-                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN v.note END), 0), 0)
-            ) / 
-            NULLIF(
-                MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
-                MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
-                MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END),
-                0
-            )
-        ELSE NULL
-    END AS moyenne,
-    CASE 
-        WHEN 
-            (MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
-             MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
-             MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END)) > 0
-        THEN 
-            (
-                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN v.note END), 0), 0) +
-                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN v.note END), 0), 0) +
-                COALESCE(NULLIF(MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN v.note END), 0), 0)
-            ) / 
-            NULLIF(
-                MAX(CASE WHEN d.rang = 1 AND v.note > 0 THEN 1 ELSE 0 END) +
-                MAX(CASE WHEN d.rang = 2 AND v.note > 0 THEN 1 ELSE 0 END) +
-                MAX(CASE WHEN d.rang = 3 AND v.note > 0 THEN 1 ELSE 0 END),
-                0
-            ) * c.coefficient
-        ELSE NULL
-    END AS mc
-
+    -- Utilisation de la fonction calculer_moyenne pour l'attribut moyenne
+    calculer_moyenne(
+        MAX(CASE WHEN d.rang = 1 THEN v.note END),
+        MAX(CASE WHEN d.rang = 2 THEN v.note END),
+        MAX(CASE WHEN d.rang = 3 THEN v.note END)
+    ) AS moyenne,
+    -- Calcul de mc basé sur la fonction calculer_moyenne
+    calculer_moyenne(
+        MAX(CASE WHEN d.rang = 1 THEN v.note END),
+        MAX(CASE WHEN d.rang = 2 THEN v.note END),
+        MAX(CASE WHEN d.rang = 3 THEN v.note END)
+    ) * c.coefficient AS mc
 FROM 
     v_note_classe v
 JOIN 
@@ -1001,12 +1082,11 @@ JOIN
 JOIN 
     classe_matiere_coefficient c ON v.id_classe = c.id_classe
     AND v.id_matiere = c.id_matiere
-
 GROUP BY 
-    v.id_classe, v.matricule, v.id_matiere, v.nom, v.prenom, d.id_epreuve_mere, c.rang, c.coefficient,v.numero
-
+    v.id_classe, v.matricule, v.id_matiere, v.nom, v.prenom, d.id_epreuve_mere, c.rang, c.coefficient, v.numero
 ORDER BY 
     v.id_classe, v.matricule, v.id_matiere, d.id_epreuve_mere;
+
 
 SELECT * FROM v_note_mere WHERE id_classe = 'CLS000003' AND id_matiere = 'MAT000010' AND id_epreuve_mere = 'EPR000003';
 
@@ -1062,6 +1142,27 @@ $$;
 
 
 SELECT * FROM f_rapport_matiere('CLS000003','MAT000010','EPR000003') WHERE matricule = 1771;
+
+--fonction pour avoir le moyenne de classe d'une epreuve mere d'une matiere
+CREATE OR REPLACE FUNCTION f_moyenne_matiere_mere(
+    id_classe_param VARCHAR,
+    id_matiere_param VARCHAR,
+    id_epreuve_mere_param VARCHAR
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    moyenne_ponderer DOUBLE PRECISION;
+BEGIN
+    -- Calculer la moyenne pondérée
+    SELECT 
+        COALESCE(SUM(mc) / NULLIF(SUM(coefficient), 0), 0) INTO moyenne_ponderer
+    FROM 
+        f_rapport_matiere(id_classe_param, id_matiere_param, id_epreuve_mere_param);
+
+    -- Retourner le résultat
+    RETURN moyenne_ponderer;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE VIEW v_detail_epreuve AS
 SELECT 
