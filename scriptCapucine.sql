@@ -1052,7 +1052,14 @@ SELECT
     v.matricule,
     v.id_matiere,
     c.rang AS rang_matiere,
-    c.coefficient,
+    CASE
+        WHEN calculer_moyenne(
+            MAX(CASE WHEN d.rang = 1 THEN v.note END),
+            MAX(CASE WHEN d.rang = 2 THEN v.note END),
+            MAX(CASE WHEN d.rang = 3 THEN v.note END)
+        ) = 0 THEN 0
+        ELSE c.coefficient
+    END AS coefficient,
     v.nom,
     v.prenom,
     v.numero,
