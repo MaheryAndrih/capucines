@@ -63,14 +63,14 @@ class Bulletin extends Model
                 'matricule' => trim($values[3]),
                 'nom' => trim($values[4]),
                 'prenom' => trim($values[5]),
-                'ds1' => self::getNote(trim($values[6])),
-                'ds2' => self::getNote(trim($values[7])),
-                'exam' => self::getNote(trim($values[8])),
-                'coefficient' => trim($values[9]),
-                'moyenne' => self::getNote(bcdiv(trim($values[10]),1,2)),
-                'mc' => bcdiv(trim($values[11]),1,2),
+                'ds1' => self::replace0ToEmpty(trim($values[6])),
+                'ds2' => self::replace0ToEmpty(trim($values[7])),
+                'exam' => self::replace0ToEmpty(trim($values[8])),
+                'coefficient' => self::replace0ToEmpty(trim($values[9])),
+                'moyenne' => self::replace0ToEmpty(bcdiv(trim($values[10]),1,2)),
+                'mc' => self::replace0ToEmpty(bcdiv(trim($values[11]),1,2)),
                 'appreciation' => self::getAppreciation(bcdiv(trim($values[10]),1,2)),
-                'rang' => self::getRang(trim($values[0]),trim($values[1]),$idEpreuve,trim($values[3])),
+                'rang' => self::getRang(trim($values[0]),trim($values[1]),$idEpreuve,trim($values[3]),trim($values[10])),
                 'rapportEtudiant' => self::getRapportEtudiantPeriode(trim($values[0]),$idEpreuve,trim($values[3])),
                 'rapportGlobal' => self::getRapportGlobal(trim($values[0]),$idEpreuve)
             ]);
@@ -83,10 +83,16 @@ class Bulletin extends Model
     public static function getAppreciation($moyenne){
         $apprecitation = DB::select('SELECT appreciation FROM appreciation WHERE debut <= CAST(? AS NUMERIC) AND fin >= CAST(? AS NUMERIC)', [$moyenne, $moyenne]);
         $valeurAppreciation = $apprecitation[0]->appreciation;
+        if($moyenne == 0){
+            return '';
+        }
         return $valeurAppreciation;
     }
 
-    public static function getRang($id_classe,$id_matiere,$id_epreuve,$matricule){
+    public static function getRang($id_classe,$id_matiere,$id_epreuve,$matricule,$moyenne){
+        if($moyenne == 0){
+            return '';
+        }
         $rang = DB::select("SELECT rang FROM f_rapport_matiere(?,?,?) WHERE matricule = ?" ,[$id_classe,$id_matiere,$id_epreuve,$matricule]);
         return $rang[0]->rang;
     }
@@ -104,10 +110,10 @@ class Bulletin extends Model
         return $result[0];
     }
 
-    public static function getNote($note){
-        if($note == 0){
+    public static function replace0ToEmpty($value){
+        if($value == 0){
             return '';
         }
-        return $note;
+        return $value;
     }
 }
