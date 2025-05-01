@@ -193,7 +193,11 @@
                             <td class="width-note">{{ $bulletin->ds2 }}</td>
                             <td class="width-note">{{ $bulletin->exam }}</td>
                             <td class="width-note">{{ $bulletin->moyenne }}</td>
-                            <td class="width-note">20</td>
+                            @if($bulletin->moyenne != '')
+                                <td class="width-note">20</td>
+                            @else
+                                <td class="width-note"></td>
+                            @endif
                             <td class="width-note">{{ $bulletin->coefficient }}</td>
                             <td class="width-note">{{ $bulletin->mc }}</td>
                             <td class="width-note">{{ $bulletin->rang }}</td>
