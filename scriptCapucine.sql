@@ -892,11 +892,6 @@ BEGIN
             MAX(CASE WHEN vc.id_epreuve = 'EPR000004' THEN vc.note END) AS ds1,
             MAX(CASE WHEN vc.id_epreuve = 'EPR000005' THEN vc.note END) AS ds2,
             MAX(CASE WHEN vc.id_epreuve = 'EPR000006' THEN vc.note END) AS exam,
-            calculer_moyenne(
-                MAX(CASE WHEN vc.id_epreuve = 'EPR000004' THEN vc.note END),
-                MAX(CASE WHEN vc.id_epreuve = 'EPR000005' THEN vc.note END),
-                MAX(CASE WHEN vc.id_epreuve = 'EPR000006' THEN vc.note END)
-            ) AS moyenne,
             CASE 
                 WHEN calculer_moyenne(
                     MAX(CASE WHEN vc.id_epreuve = 'EPR000004' THEN vc.note END),
@@ -905,6 +900,11 @@ BEGIN
                 ) = 0 THEN 0
                 ELSE classe_matiere_coefficient.coefficient 
             END AS coefficient,
+            calculer_moyenne(
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000004' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000005' THEN vc.note END),
+                MAX(CASE WHEN vc.id_epreuve = 'EPR000006' THEN vc.note END)
+            ) AS moyenne,
             (calculer_moyenne(
                 MAX(CASE WHEN vc.id_epreuve = 'EPR000004' THEN vc.note END),
                 MAX(CASE WHEN vc.id_epreuve = 'EPR000005' THEN vc.note END),
