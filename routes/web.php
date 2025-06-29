@@ -41,6 +41,8 @@ Route::get('/to_rang_matiere', [BulletinController::class, 'to_rang_matiere']);
 Route::post('/select_rapport_matiere', [BulletinController::class, 'select_rapport_matiere']);
 Route::get('/to_rang_examen', [BulletinController::class, 'to_rang_examen']);
 Route::post('/select_rapport_examen', [BulletinController::class, 'select_rapport_examen']);
+Route::get('/to_rang_annuel', [BulletinController::class, 'to_rang_annuel']);
+Route::get('/select_rapport_annuel', [BulletinController::class, 'select_rapport_annuel']);
 
 Route::get('/to_ajout_eleve', [EleveController::class, 'to_ajout_eleve']);
 Route::get('/to_eleve_classe', [EleveController::class, 'to_eleve_classe']);

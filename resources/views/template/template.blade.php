@@ -103,6 +103,12 @@
                                 <p>Rang/Examen</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/to_rang_annuel" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rang/Annuel</p>
+                            </a>
+                        </li>
                         </ul>
                     </li>
                     <li class="nav-header">ADMINISTRATION</li>

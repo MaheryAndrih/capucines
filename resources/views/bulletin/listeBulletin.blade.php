@@ -112,6 +112,7 @@
                                                     <td><button type="submit" class="btn btn-block bg-gradient-info btn-xs">Apercu</button></td>
                                                 </tr>
                                                 <input type="hidden" value ="{{ $id_epreuve }}" name="id_epreuve">
+                                                <input type="hidden" value ="{{ $id_classe }}" name="id_classe">
                                             </form>
                                         @endforeach
                                     </tbody>

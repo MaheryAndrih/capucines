@@ -7,6 +7,7 @@ use App\Models\Epreuve;
 use App\Models\VNoteClasse;
 use App\Models\VEleve;
 use App\Models\Classe;
+use App\Models\ClasseEleve;
 use App\Models\DetailEpreuve;
 use App\Models\RapportMatiere;
 use App\Models\VDetailEpreuve;
@@ -75,6 +76,25 @@ class BulletinController extends Controller{
         }
         $rapportGlobal[0]->moyenne_classe = bcdiv($rapportGlobal[0]->moyenne_classe,1,2);
         return view('bulletin.rapport.liste_rang_examen',compact('resultats','rapportGlobal'));
+    }
+
+    public function to_rang_annuel(){
+        $classes = Classe::orderBy('id_classe')->get();
+        $epreuves = Epreuve::whereIn('code_epreuve', ['EXI', 'EXII', 'EXIII'])->get();
+        return view('bulletin.rapport.rang_annuel',compact('classes','epreuves'));
+    }
+
+    public function select_rapport_annuel(Request $request){
+        $id_classe = $request->input('id_classe');
+        $classe = Classe::find($id_classe);
+        $resultats = DB::select('SELECT * FROM f_rapport_etudiant_annuel(?)',[$id_classe]);
+        foreach($resultats as $resultat){
+            $resultat->note_1 = bcdiv($resultat->note_1,1,2);
+            $resultat->note_2 = bcdiv($resultat->note_2,1,2);
+            $resultat->note_3 = bcdiv($resultat->note_3,1,2);
+            $resultat->note_passage = bcdiv($resultat->note_passage,1,2);
+        }
+        return view('bulletin.rapport.liste_rang_annuel',compact('resultats','classe'));
     }
 
 }

@@ -29,15 +29,25 @@ class ExportController extends Controller
     public function apercu(Request $request){
         $eleve = VEleve::where('matricule',$request->input('matricule'))->first();
         $epreuve = Epreuve::where('id_epreuve',$request->input('id_epreuve'))->first();
-        $bulletins = Bulletin::getBulletin($epreuve->id_epreuve,$eleve->matricule);
+        $id_classe = $request->input('id_classe'); 
+        $bulletins = Bulletin::getBulletin($epreuve->id_epreuve,$eleve->matricule,$id_classe);
+
         $date = $request->input('date');
         $date = self::parseDate($date);
+        
+        //rang&moyenne annuel
+        $rangMoyenneAnnuel = null;
+
+        if($epreuve->id_epreuve == 'EPR000009'){
+            $rangMoyenneAnnuel = 1;
+        }
 
         $data = [ 
             "eleve" => $eleve,
             "epreuve" => $epreuve,
             "bulletins" => $bulletins,
-            "date" => $date
+            "date" => $date,
+            "rangMoyenneAnnuel" => $rangMoyenneAnnuel
         ];
         $pdf = Pdf::loadView('export.apercu',$data);
         // $pdf = Pdf::loadView('export.test');
@@ -68,23 +78,23 @@ class ExportController extends Controller
         return response()->download($zipFilePath)->deleteFileAfterSend(true);
     }
 
-    private function saveBulletin($eleve,$classe,$epreuve,$date){
-        $bulletins = Bulletin::getBulletin($epreuve->id_epreuve,$eleve->matricule);
-        $data = [
-            "eleve" => $eleve,
-            "epreuve" => $epreuve,
-            "bulletins" => $bulletins,
-            "date" => $date
-        ];
-        $pdf = Pdf::loadView('export.apercu', $data);
-        $filePath = storage_path("app/public/bulletins/{$eleve->numero}_{$eleve->prenom}_{$classe['nom_classe']}_{$epreuve['code_epreuve']}.pdf");
+    // private function saveBulletin($eleve,$classe,$epreuve,$date){
+    //     $bulletins = Bulletin::getBulletin($epreuve->id_epreuve,$eleve->matricule,$id_classe);
+    //     $data = [
+    //         "eleve" => $eleve,
+    //         "epreuve" => $epreuve,
+    //         "bulletins" => $bulletins,
+    //         "date" => $date
+    //     ];
+    //     $pdf = Pdf::loadView('export.apercu', $data);
+    //     $filePath = storage_path("app/public/bulletins/{$eleve->numero}_{$eleve->prenom}_{$classe['nom_classe']}_{$epreuve['code_epreuve']}.pdf");
 
-        // Créer le dossier si nécessaire
-        Storage::makeDirectory('public/'.$classe['nom_classe'].'_'.$epreuve['code_epreuve']);
+    //     // Créer le dossier si nécessaire
+    //     Storage::makeDirectory('public/'.$classe['nom_classe'].'_'.$epreuve['code_epreuve']);
 
-        // Enregistrer le fichier PDF
-        $pdf->save($filePath);
+    //     // Enregistrer le fichier PDF
+    //     $pdf->save($filePath);
 
-        return $filePath;
-    }
+    //     return $filePath;
+    // }
 }

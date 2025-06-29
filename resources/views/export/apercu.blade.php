@@ -230,13 +230,15 @@
                         <td colspan="6" style="text-align: center; border-top:none;"></td>
                         <td colspan="4" style="text-align: center; border-top:none;"></td>
                     </tr>
-                    {{-- <tr>
-                        <td class="td-MATIERE" style="text-align:left; border-right:none">Note 1er trimestre: 17.17</td>
-                        <td colspan="3" style="border-left:none; border-right:none">Note 2eme trimestre: 17.49</td>
-                        <td style="border-left:none; border-right:none"></td>
-                        <td colspan="3" style="border-left:none; border-right:none">Note de passage: 17.15</td>
-                        <td colspan="2" style="border-left:none;">Rang annuel: 10eme</td>
-                    </tr> --}}
+                    @if($rangMoyenneAnnuel)
+                        <tr>
+                            <td class="td-MATIERE" style="text-align:left; border-right:none">Note 1er trimestre: {{ $bulletin->rapportEtudiantAnnuel->note_1 }}</td>
+                            <td colspan="3" style="border-left:none; border-right:none">Note 2eme trimestre: {{ $bulletin->rapportEtudiantAnnuel->note_2 }}</td>
+                            <td style="border-left:none; border-right:none"></td>
+                            <td colspan="3" style="border-left:none; border-right:none">Note de passage: {{ $bulletin->rapportEtudiantAnnuel->note_passage }}</td>
+                            <td colspan="2" style="border-left:none;">Rang annuel: {{ $bulletin->rapportEtudiantAnnuel->rang }}</td>
+                        </tr>
+                    @endif
                     <tr>
                         <td colspan="6" class="td-MATIERE" style="border-bottom:none; text-align:left; border-right:none; ">Signature des Parents</td>
                         <td colspan="4" class="td-MATIERE" style="border-bottom:none; text-align:left; border-left:none">Antananarivo,le {{ $date }}</td>

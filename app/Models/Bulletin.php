@@ -26,13 +26,18 @@ class Bulletin extends Model
         'appreciation',
         'rang',
         'rapportEtudiant',
-        'rapportGlobal'
+        'rapportGlobal',
+        'rapportEtudiantAnnuel'
     ];
 
-    public static function getBulletin($idEpreuve, $matricule){
+    public static function getBulletin($idEpreuve, $matricule, $id_classe){
         // Exécuter la requête et obtenir les résultats
         $results = DB::select('SELECT get_bulletin(?, ?)', [$idEpreuve, $matricule]);
-
+        $rapportEtudiantAnnuel = null;
+        if($idEpreuve == "EPR000009"){
+            $rapportEtudiantAnnuel = self::getRapportEtudiantAnnuel($id_classe, $matricule);
+        }
+       
         // Vérifiez si des résultats ont été retournés
         if (empty($results)) {
             return []; // Retournez un tableau vide si aucun résultat
@@ -44,6 +49,7 @@ class Bulletin extends Model
         // Parcourir les résultats et créer des objets Bulletin
         foreach ($results as $result) {
             // Récupérer la chaîne de résultats
+            
             $data = $result->get_bulletin;
 
             // Supprimer les parenthèses et diviser la chaîne
@@ -55,6 +61,7 @@ class Bulletin extends Model
                 throw new \Exception("Le nombre de valeurs retournées est insuffisant.");
             }
 
+           
             // Mapper les valeurs à un tableau associatif et ajouter à la liste
             $bulletins[] = new self([
                 'id_classe' => trim($values[0]),
@@ -72,10 +79,10 @@ class Bulletin extends Model
                 'appreciation' => self::getAppreciation(bcdiv(trim($values[10]),1,2)),
                 'rang' => self::getRang(trim($values[0]),trim($values[1]),$idEpreuve,trim($values[3]),trim($values[10])),
                 'rapportEtudiant' => self::getRapportEtudiantPeriode(trim($values[0]),$idEpreuve,trim($values[3])),
-                'rapportGlobal' => self::getRapportGlobal(trim($values[0]),$idEpreuve)
+                'rapportGlobal' => self::getRapportGlobal(trim($values[0]),$idEpreuve),
+                'rapportEtudiantAnnuel' => $rapportEtudiantAnnuel
             ]);
         }
-
         // Retourner le tableau de bulletins
         return $bulletins;
     }
@@ -101,6 +108,14 @@ class Bulletin extends Model
         $result = DB::select("SELECT * FROM f_rapport_etudiant_periode(?,?) WHERE matricule = ?" ,[$id_classe,$id_epreuve_mere,$matricule]);
         $result[0]->moyenne = bcdiv($result[0]->moyenne,1, 2);
         $result[0]->total_note = bcdiv($result[0]->total_note,1, 2);
+        return $result[0];
+    }
+
+    public static function getRapportEtudiantAnnuel($id_classe,$matricule){
+        $result = DB::select("SELECT * FROM f_rapport_etudiant_annuel(?) WHERE matricule = ?" ,[$id_classe,$matricule]);
+        $result[0]->note_1 = bcdiv($result[0]->note_1,1, 2);
+        $result[0]->note_2 = bcdiv($result[0]->note_2,1, 2);
+        $result[0]->note_passage = bcdiv($result[0]->note_passage,1, 2);
         return $result[0];
     }
 
