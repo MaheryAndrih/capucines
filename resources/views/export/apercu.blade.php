@@ -233,7 +233,7 @@
                     @if($rangMoyenneAnnuel)
                         <tr>
                             <td class="td-MATIERE" style="text-align:left; border-right:none">Note 1er trimestre: {{ $bulletin->rapportEtudiantAnnuel->note_1 }}</td>
-                            <td colspan="3" style="border-left:none; border-right:none">Note 2eme trimestre: {{ $bulletin->rapportEtudiantAnnuel->note_2 }}</td>
+                            <td colspan="3" style="border-left:none; border-right:none">Note 2ème trimestre: {{ $bulletin->rapportEtudiantAnnuel->note_2 }}</td>
                             <td style="border-left:none; border-right:none"></td>
                             <td colspan="3" style="border-left:none; border-right:none">Note de passage: {{ $bulletin->rapportEtudiantAnnuel->note_passage }}</td>
                             <td colspan="2" style="border-left:none;">Rang annuel: {{ $bulletin->rapportEtudiantAnnuel->rang }}</td>
